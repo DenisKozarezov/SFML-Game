@@ -29,6 +29,8 @@ Unit::Unit()
 	idle->set_name("Idle");
 	animator->add(idle);
 	animator->play("Idle");
+
+	// hello world
 }
 
 Unit::~Unit()
