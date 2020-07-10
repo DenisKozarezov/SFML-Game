@@ -19,7 +19,7 @@ private:
 	virtual void update() override;
 public:
 	Unit();
-	sf::Sprite* get_sprite() override;
+	
 	bool* isPaused = new bool(false);
 	bool* isDead = new bool(false);
 	bool* isMovable = new bool(true);
@@ -38,10 +38,6 @@ public:
 	const Unit& operator=(const Unit& unit);	
 	virtual ~Unit();
 protected:
-	sf::Texture* texture = new sf::Texture;
-	sf::Image* image = new sf::Image;
-	sf::Sprite* sprite = new sf::Sprite;
-
 	Animator* animator = new Animator(this);
 
 	void set_name(const std::string& name);

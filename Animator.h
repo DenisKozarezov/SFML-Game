@@ -7,9 +7,7 @@ class Animator final
 {
 private:
 	std::map<const std::string, Animation*>* animations =
-		new std::map<const std::string, Animation*>;
-	Animation* mainAnimation = nullptr;
-	
+		new std::map<const std::string, Animation*>;	
 
 	bool* isPaused = new bool(false);
 	bool* isPlaying = new bool(false);
@@ -34,8 +32,9 @@ public:
 	void play(const std::string& name);
 	void stop();
 
-	Animation* get_animation(const int& index);
-	Animation* get_animation(const std::string& name);
+	Animation* get_animation(const int& index) const;
+	Animation* get_animation(const std::string& name) const;
 	const DrawableObject* get_parent();
+
 	~Animator();
 };

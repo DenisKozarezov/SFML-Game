@@ -26,14 +26,17 @@ Animation::~Animation()
 {
 	std::vector<sf::Texture*>::iterator it;
 	for (it = frames->begin(); it != frames->end(); it++) delete *it;
-	delete frames;
+	delete this->frames;
 
-	delete currentFrame;
-	delete name;
-	delete speed;
-	delete isPaused;
-	delete isPlaying;
-	delete isLoop;
+	delete this->currentFrame;
+	delete this->name;
+	delete this->speed;
+	delete this->isPlaying;
+	delete this->isStopped;
+	delete this->isLoop;
+
+	delete this->clock;
+	delete this->target;
 }
 
 const std::string& Animation::get_name()
@@ -58,19 +61,23 @@ sf::Texture* Animation::get_frame(const unsigned int& index) const
 
 void Animation::play()
 {
-	this->clock->restart();
-	if (this->clock->getElapsedTime().asMilliseconds() > * this->speed)
+	if (!*this->isStopped)
 	{
-		target->get_sprite()->setTexture(*get_frame(*this->currentFrame));
-		std::cout << "Playing animation\n";
+		*this->isPlaying = true;
+		if (this->clock->getElapsedTime().asMilliseconds() >= *this->speed)
+		{			
+			target->set_texture(*get_frame(*this->currentFrame));
+			std::cout << "Playing animation\n";
+			if (*this->currentFrame >= this->frames->size() - 1) *this->currentFrame = 0;
+			else *this->currentFrame += 1;
+			this->clock->restart();
+		}
 	}
-	if (*this->currentFrame >= this->frames->size() - 1) *this->currentFrame = 0;
-	else *this->currentFrame += 1;
-	this->clock->restart();
 }
 void Animation::stop()
 {
-	*isPlaying = false;
-	*isPaused = false;
-	*currentFrame = 0;
+	*this->isPlaying = false;
+	*this->isStopped = true;
+	*this->currentFrame = 0;
+	this->clock->restart();
 }

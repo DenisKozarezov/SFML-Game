@@ -52,42 +52,46 @@ void Animator::remove(const unsigned int& index)
 }
 void Animator::set_main_animation(Animation* animation)
 {
-	this->mainAnimation = animation;
+	//this->mainAnimation = animation;
 }
 void Animator::set_main_animation(const std::string& name)
 {
-	this->mainAnimation = this->animations->find(name)->second;
+	//this->mainAnimation = this->animations->find(name)->second;
 }
 void Animator::play(Animation* animation)
 {
+	if (this->currentAnimation != nullptr) this->currentAnimation->stop();
 	*this->isPlaying = true;
 	this->currentAnimation = animation;
 	this->currentAnimation->play();
 }
 void Animator::play(const int& index)
 {
+	if (this->currentAnimation != nullptr) this->currentAnimation->stop();
 	*this->isPlaying = true;
 	this->currentAnimation = get_animation(index);
 	this->currentAnimation->play();
 }
 void Animator::play(const std::string& name)
 {
+	if (this->currentAnimation != nullptr) this->currentAnimation->stop();
+	*this->isPlaying = true;
 	Animation* animation = this->animations->find(name)->second;
 	this->currentAnimation = animation;
 	this->currentAnimation->play();
 }
 void Animator::stop()
 {
+	*this->isPlaying = false;
 	this->currentAnimation->stop();
-	this->currentAnimation = nullptr;
 }
-Animation* Animator::get_animation(const int& index)
+Animation* Animator::get_animation(const int& index) const
 {
 	std::map<std::string, Animation*>::iterator it = this->animations->begin();
 	std::advance(it, index);
 	return it->second;
 }
-Animation* Animator::get_animation(const std::string& name)
+Animation* Animator::get_animation(const std::string& name) const
 {
 	return animations->find(name)->second;
 }

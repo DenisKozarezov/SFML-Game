@@ -12,11 +12,11 @@ private:
 	std::string* name = new std::string("Empty");
 	float* speed = new float(1000); // Скорость в миллисекундах
 	
-	bool* isPaused = new bool(false);
 	bool* isPlaying = new bool(false);
+	bool* isStopped = new bool(false);
 
 	DrawableObject* target;
-	sf::Clock* clock;
+	sf::Clock* clock = new sf::Clock;
 public:
 	bool* isLoop = new bool(true);
 

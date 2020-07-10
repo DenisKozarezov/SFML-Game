@@ -15,6 +15,7 @@ Game::Game()
 	sf::Texture* texture2 = new sf::Texture;
 	texture2->loadFromFile(ProjectResourcesPath::Sprites + "2.jpg");
 	sf::Texture mas[] = {*texture1, *texture2};
+	DrawableObject* obj;
 	Animation* animation = new Animation(mas, 2, this->player->getMainCharacter());
 	this->player->getMainCharacter()->get_animator()->add("Idle", animation);
 	this->player->getMainCharacter()->get_animator()->play("Idle");
@@ -50,11 +51,6 @@ void Game::update_input()
 		if (event.type == sf::Event::Closed)
 		{
 			this->window->close();
-		}
-
-		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::D)
-		{
-			player->getMainCharacter()->move(1, 0);
 		}
 	}
 }

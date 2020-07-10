@@ -15,16 +15,20 @@ class DrawableObject
 {
 private:
 	unsigned int* layer = new unsigned int(0);
-public:
-	bool* isDrawable = new bool(true);	
+	friend class GameDrawableContainer;
 
+	sf::Texture* texture = new sf::Texture;
+	sf::Image* image = new sf::Image;
+	sf::Sprite* sprite = new sf::Sprite;
+public:
+	bool* isDrawable = new bool(true);		
 	/// <summary>
 	/// Перенос графического объекта на указанный слой.
 	/// </summary>
 	/// <param name="layer - номер слоя."></param>
 	void set_layer(const unsigned int& layer);
 
-	const unsigned int& get_layer();
+	const unsigned int& get_layer() const;
 
 	/// <summary>
 	/// Полное уничтожение игрового объекта и освобождение всех занятых им ресурсов.
@@ -34,11 +38,16 @@ public:
 	/// <param name="*object - указаель на графический объект."></param>
 	static void destroy(DrawableObject* object);
 
-	virtual void update() = 0;
-	virtual sf::Sprite* get_sprite() = 0;
-
 	virtual ~DrawableObject();
 protected:
+	friend class Animation;
+	sf::Sprite* get_sprite() const;
+	sf::Texture* get_texture() const;
+	sf::Image* get_image() const;
+	void set_texture(const sf::Texture& texture);
+	void set_image(const sf::Image& image);
+	void set_sprite(const sf::Sprite& sprite);
+
 	/// <summary>
 	/// Инициализация игрового объекта для последующей отрисовки и добавление его в
 	/// контейнер GameDrawableContainer.
@@ -59,6 +68,8 @@ protected:
 	/// </summary>
 	/// <param name="*object - указаель на графический объект."></param>
 	static void initialize(DrawableObject* object, unsigned int& layer);
+
+	virtual void update() = 0;
 };
 
 /////////////////////////////////////////////////////////////////////

@@ -8,10 +8,19 @@ void DrawableObject::set_layer(const unsigned int& layer)
 	*this->layer = layer;
 	initialize(this, layer);
 }
-const unsigned int& DrawableObject::get_layer()
+void DrawableObject::set_texture(const sf::Texture& texture)
 {
-	return *this->layer;
+	*this->texture = texture;
 }
+void DrawableObject::set_image(const sf::Image& image)
+{
+	*this->image = image;
+}
+void DrawableObject::set_sprite(const sf::Sprite& sprite)
+{
+	*this->sprite = sprite;
+}
+
 void DrawableObject::initialize(DrawableObject* object)
 {
 	GameDrawableContainer::get_layer(*object->layer)->push_back(object);
@@ -38,6 +47,23 @@ DrawableObject::~DrawableObject()
 {
 	delete isDrawable;
 	delete layer;
+}
+
+const unsigned int& DrawableObject::get_layer() const
+{
+	return *this->layer;
+}
+sf::Sprite* DrawableObject::get_sprite() const
+{
+	return this->sprite;
+}
+sf::Image* DrawableObject::get_image() const
+{
+	return this->image;
+}
+sf::Texture* DrawableObject::get_texture() const
+{
+	return this->texture;
 }
 #pragma endregion
 

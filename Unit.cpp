@@ -4,10 +4,6 @@ void Unit::update()
 {
 
 }
-sf::Sprite* Unit::get_sprite()
-{
-	return sprite;
-}
 
 Unit::Unit()
 {
@@ -16,22 +12,22 @@ Unit::Unit()
 
 Unit::~Unit()
 {
-	delete name;
-	delete tag;
-	delete health;
-	delete damage;
-	delete speed;
-	delete position;
+	delete this->name;
+	delete this->tag;
+	delete this->health;
+	delete this->damage;
+	delete this->speed;
+	delete this->position;
 	
-	delete animator;
+	delete this->animator;
 
-	delete isPaused;
-	delete isMovable;
-	delete isDead;
+	delete this->isPaused;
+	delete this->isMovable;
+	delete this->isDead;
 
-	delete sprite;
-	delete image;
-	delete texture;	
+	delete this->get_sprite();
+	delete this->get_image();
+	delete this->get_texture();
 }
 
 const std::string& Unit::get_name()
@@ -81,7 +77,7 @@ void Unit::move(const sf::Vector2f& offset)
 	if (*this->isMovable && !*this->isDead)
 	{
 		*this->position += offset * *speed;
-		this->sprite->move(offset * *speed);
+		get_sprite()->move(offset * *speed);
 	}
 }
 void Unit::move(const float& offset_x, const float& offset_y)

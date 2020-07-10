@@ -2,12 +2,12 @@
 
 Warrior::Warrior(const float&x, const float&y)
 {
-	this->image->loadFromFile(ProjectResourcesPath::Sprites + sprite_name);
-	this->image->createMaskFromColor(sf::Color::White);
-	this->texture->loadFromImage(*image);
-	this->sprite->setTexture(*texture);
-	this->sprite->setScale(0.3f, 0.3f);
-	this->sprite->setPosition(x, y);
+	get_image()->loadFromFile(ProjectResourcesPath::Sprites + sprite_name);
+	get_image()->createMaskFromColor(sf::Color::White);
+	get_texture()->loadFromImage(*this->get_image());
+	get_sprite()->setTexture(*this->get_texture());
+	this->get_sprite()->setScale(0.3f, 0.3f);
+	this->get_sprite()->setPosition(x, y);
 
 	set_health(100);
 	set_speed(25);
