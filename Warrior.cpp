@@ -2,20 +2,25 @@
 
 Warrior::Warrior(const float&x, const float&y)
 {
-	image->loadFromFile(ProjectResourcesPath::Sprites + sprite_name);
-	image->createMaskFromColor(sf::Color::White);
-	texture->loadFromImage(*image);
-	sprite->setTexture(*texture);
-	sprite->setScale(0.3f, 0.3f);
-	set_position(x, y);
+	this->image->loadFromFile(ProjectResourcesPath::Sprites + sprite_name);
+	this->image->createMaskFromColor(sf::Color::White);
+	this->texture->loadFromImage(*image);
+	this->sprite->setTexture(*texture);
+	this->sprite->setScale(0.3f, 0.3f);
+	this->sprite->setPosition(x, y);
 
 	set_health(100);
-	set_speed(1);
+	set_speed(25);
 }
 
 Warrior::~Warrior()
 {
 
+}
+
+void Warrior::update()
+{
+	this->animator->currentAnimation->play();
 }
 
 const Warrior& Warrior::operator=(const Warrior& unit)

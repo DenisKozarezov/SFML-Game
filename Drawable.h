@@ -33,7 +33,9 @@ public:
 	/// </summary>
 	/// <param name="*object - указаель на графический объект."></param>
 	static void destroy(DrawableObject* object);
-	virtual sf::Sprite* get_sprite() const = 0;
+
+	virtual void update() = 0;
+	virtual sf::Sprite* get_sprite() = 0;
 
 	virtual ~DrawableObject();
 protected:
@@ -121,5 +123,5 @@ public:
 	/// Последовательная отрисовка всех графических объектов на каждом слое, начиная с нулевого.
 	/// </summary>
 	/// <param name="window - ссылка на объект окна."></param>
-	static void render(sf::RenderWindow& window);	
+	static void update(sf::RenderWindow& window);	
 };

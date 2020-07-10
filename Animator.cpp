@@ -23,62 +23,75 @@ Animator::Animator(const std::vector<Animation*>& animations, DrawableObject* pa
 
 Animator::~Animator()
 {
-	std::map<std::string, Animation*>::iterator it = animations->begin();
-	for (it = animations->begin(); it != animations->end(); it++) delete it->second;
-	delete animations;
+	std::map<std::string, Animation*>::iterator it = this->animations->begin();
+	for (it = animations->begin(); it != this->animations->end(); it++) delete it->second;
+	delete this->animations;
 
-	delete isPlaying;
-	delete isPaused;
+	delete this->isPlaying;
+	delete this->isPaused;
 }
 
 void Animator::add(Animation* animation)
 {
-	animations->insert(std::pair<const std::string, Animation*>(animation->get_name(), animation));
+	this->animations->insert(std::pair<const std::string, Animation*>(animation->get_name(), animation));
 }
 void Animator::add(const std::string& name, Animation* animation)
 {
 	animation->set_name(name);
-	animations->insert(std::pair<const std::string, Animation*>(name, animation));
+	this->animations->insert(std::pair<const std::string, Animation*>(name, animation));
 }
 void Animator::remove(const std::string& name)
 {
-	animations->erase(animations->find(name));
+	this->animations->erase(animations->find(name));
 }
 void Animator::remove(const unsigned int& index)
 {
 	std::map<std::string, Animation*>::iterator it = animations->begin();
 	std::advance(it, index);
-	animations->erase(it);
+	this->animations->erase(it);
 }
-
+void Animator::set_main_animation(Animation* animation)
+{
+	this->mainAnimation = animation;
+}
+void Animator::set_main_animation(const std::string& name)
+{
+	this->mainAnimation = this->animations->find(name)->second;
+}
 void Animator::play(Animation* animation)
 {
-	*isPlaying = true;
-	currentAnimation = animation;
-	currentAnimation->play();
+	*this->isPlaying = true;
+	this->currentAnimation = animation;
+	this->currentAnimation->play();
 }
 void Animator::play(const int& index)
 {
-	*isPlaying = true;
-	currentAnimation = get_animation(index);
-	currentAnimation->play();
+	*this->isPlaying = true;
+	this->currentAnimation = get_animation(index);
+	this->currentAnimation->play();
 }
 void Animator::play(const std::string& name)
 {
-	animations->find(name)->second->play();
+	Animation* animation = this->animations->find(name)->second;
+	this->currentAnimation = animation;
+	this->currentAnimation->play();
 }
 void Animator::stop()
 {
-	currentAnimation->stop();
-	currentAnimation = nullptr;
+	this->currentAnimation->stop();
+	this->currentAnimation = nullptr;
 }
 Animation* Animator::get_animation(const int& index)
 {
-	std::map<std::string, Animation*>::iterator it = animations->begin();
+	std::map<std::string, Animation*>::iterator it = this->animations->begin();
 	std::advance(it, index);
 	return it->second;
 }
-DrawableObject* Animator::get_parent() const
+Animation* Animator::get_animation(const std::string& name)
 {
-	return parent;
+	return animations->find(name)->second;
+}
+const DrawableObject* Animator::get_parent()
+{
+	return this->parent;
 }

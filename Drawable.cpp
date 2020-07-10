@@ -108,7 +108,7 @@ std::vector<DrawableObject*>* GameDrawableContainer::get_layer(const unsigned in
 	return layers->find(layer)->second;
 }
 
-void GameDrawableContainer::render(sf::RenderWindow& window)
+void GameDrawableContainer::update(sf::RenderWindow& window)
 {
 	for (unsigned int i = 0; i < layers->size(); i++)
 	{
@@ -118,7 +118,11 @@ void GameDrawableContainer::render(sf::RenderWindow& window)
 			for (auto object : *_layer)
 			{
 				DrawableObject* obj = dynamic_cast<DrawableObject*>(object);
-				if (obj->isDrawable) window.draw(*obj->get_sprite());
+				if (obj->isDrawable)
+				{
+					obj->update();
+					window.draw(*obj->get_sprite());
+				}
 			}
 		}
 	}

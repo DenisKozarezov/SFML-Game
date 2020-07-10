@@ -1,8 +1,8 @@
 #include "Player.h"
 
-Player::Player(std::string name)
+Player::Player(Unit* mainCharacter)
 {
-	this->name = name;
+	this->mainCharacter = mainCharacter;
 }
 
 Unit* Player::getMainCharacter()

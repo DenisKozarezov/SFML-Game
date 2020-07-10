@@ -7,7 +7,7 @@ private:
 	std::string name = "Player";
 	Unit* mainCharacter;
 public:
-	Player(std::string name);
+	Player(Unit* mainChararcter);
 
 	Unit* getMainCharacter();
 };

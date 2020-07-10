@@ -1,21 +1,30 @@
 #include "Animation.h"
+#include <iostream>
+#include "Game.h"
 
-Animation::Animation()
+Animation::Animation(DrawableObject* target)
 {
-
+	this->target = target;
 }
-Animation::Animation(sf::Sprite* sprites, const unsigned int& size)
+Animation::Animation(sf::Texture* sprites, const unsigned int& size, DrawableObject* target)
 {
+	this->target = target;
 	for (unsigned int i = 0; i < size; i++) frames->push_back(&sprites[i]);
 }
-Animation::Animation(const std::string& name)
+Animation::Animation(std::vector<sf::Texture*>* sprites, DrawableObject* target)
 {
+	this->target = target;
+	this->frames = sprites;
+}
+Animation::Animation(const std::string& name, DrawableObject* target)
+{
+	this->target = target;
 	*this->name = name;
 }
 
 Animation::~Animation()
 {
-	std::vector<sf::Sprite*>::iterator it;
+	std::vector<sf::Texture*>::iterator it;
 	for (it = frames->begin(); it != frames->end(); it++) delete *it;
 	delete frames;
 
@@ -40,44 +49,28 @@ void Animation::set_speed(const unsigned int& value)
 {
 	*this->speed = value;
 }
-sf::Sprite* Animation::get_frame(const unsigned int& index) const
+sf::Texture* Animation::get_frame(const unsigned int& index) const
 {
-	std::vector<sf::Sprite*>::iterator it = this->frames->begin();
+	std::vector<sf::Texture*>::iterator it = this->frames->begin();
 	std::advance(it, index);
 	return *it;
 }
 
 void Animation::play()
 {
-	if (frames->size() > 0)
+	this->clock->restart();
+	if (this->clock->getElapsedTime().asMilliseconds() > * this->speed)
 	{
-		*isPlaying = true;
-		if (*isLoop) while (*isPlaying)
-		{
-			for (int i = 0; i < frames->size(); i++)
-			{				
-				currentFrame = get_frame(i);
-				sf::sleep(sf::milliseconds(*speed));
-			}
-		}
-		else
-		{
-			for (int i = 0; i < frames->size(); i++)
-			{
-				currentFrame = get_frame(i);
-				std::this_thread::sleep_for(std::chrono::milliseconds(*speed));
-			}
-		}
+		target->get_sprite()->setTexture(*get_frame(*this->currentFrame));
+		std::cout << "Playing animation\n";
 	}
+	if (*this->currentFrame >= this->frames->size() - 1) *this->currentFrame = 0;
+	else *this->currentFrame += 1;
+	this->clock->restart();
 }
 void Animation::stop()
 {
 	*isPlaying = false;
 	*isPaused = false;
-	currentFrame = nullptr;
-}
-void Animation::reset()
-{
-	stop();
-	play();
+	*currentFrame = 0;
 }

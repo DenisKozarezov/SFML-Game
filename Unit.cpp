@@ -1,6 +1,10 @@
 #include "Unit.h"
 
-sf::Sprite* Unit::get_sprite() const
+void Unit::update()
+{
+
+}
+sf::Sprite* Unit::get_sprite()
 {
 	return sprite;
 }
@@ -8,29 +12,6 @@ sf::Sprite* Unit::get_sprite() const
 Unit::Unit()
 {
 	DrawableObject::initialize(this, 0);
-
-	sf::Image image1;
-	image1.loadFromFile(ProjectResourcesPath::Sprites + "owl.jpg");
-	sf::Texture texture1;
-	texture1.loadFromImage(image1);
-	sf::Sprite sprite1;
-	sprite1.setTexture(texture1);
-
-	sf::Image image2;
-	image2.loadFromFile(ProjectResourcesPath::Sprites + "owl.jpg");
-	sf::Texture texture2;
-	texture2.loadFromImage(image2);
-	sf::Sprite sprite2;
-	sprite2.setTexture(texture2);
-
-	sf::Sprite mas[] = {sprite1, sprite2};
-
-	Animation* idle = new Animation(mas, 2);
-	idle->set_name("Idle");
-	animator->add(idle);
-	animator->play("Idle");
-
-	// hello world
 }
 
 Unit::~Unit()
@@ -38,12 +19,11 @@ Unit::~Unit()
 	delete name;
 	delete tag;
 	delete health;
-	delete mana;
 	delete damage;
 	delete speed;
 	delete position;
 	
-	//delete animator;
+	delete animator;
 
 	delete isPaused;
 	delete isMovable;
@@ -62,10 +42,6 @@ const unsigned int& Unit::get_health()
 {
 	return *this->health;
 }
-const unsigned int& Unit::get_mana()
-{
-	return *this->mana;
-}
 const unsigned int& Unit::get_damage()
 {
 	return *this->damage;
@@ -78,6 +54,10 @@ const sf::Vector2f& Unit::get_position()
 {
 	return *this->position;
 }
+Animator* Unit::get_animator()
+{
+	return this->animator;
+}
 
 void Unit::set_name(const std::string& name)
 {
@@ -87,10 +67,6 @@ void Unit::set_health(const unsigned int& value)
 {
 	*this->health = value;
 }
-void Unit::set_mana(const unsigned int& value)
-{
-	*this->mana = value;
-}
 void Unit::set_damage(const unsigned int& value)
 {
 	*this->damage = value;
@@ -99,24 +75,18 @@ void Unit::set_speed(const float& value)
 {
 	*this->speed = value;
 }
-void Unit::set_position(const float& x, const float& y)
-{
-	*position = sf::Vector2f(x, y);
-	sprite->setPosition(*position);
-}
-void Unit::set_position(const sf::Vector2f& point)
-{
-	*position = point;
-	sprite->setPosition(*position);
-}
 
-void Unit::move(const sf::Vector2f& point)
+void Unit::move(const sf::Vector2f& offset)
 {
-	if (isMovable && !isDead) set_position(point);
+	if (*this->isMovable && !*this->isDead)
+	{
+		*this->position += offset * *speed;
+		this->sprite->move(offset * *speed);
+	}
 }
-void Unit::move(const float& x, const float& y)
+void Unit::move(const float& offset_x, const float& offset_y)
 {
-	move(sf::Vector2f(x, y));
+	move(sf::Vector2f(offset_x, offset_y));
 }
 void Unit::kill()
 {
