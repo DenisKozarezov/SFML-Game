@@ -21,6 +21,16 @@ void DrawableObject::set_sprite(const sf::Sprite& sprite)
 	*this->sprite = sprite;
 }
 
+void DrawableObject::set_position(const sf::Vector2f& point)
+{
+	*this->position = point;
+	this->sprite->setPosition(point);
+}
+void DrawableObject::set_position(const float& x, const float& y)
+{
+	set_position(sf::Vector2f(x, y));
+}
+
 void DrawableObject::initialize(DrawableObject* object)
 {
 	GameDrawableContainer::get_layer(*object->layer)->push_back(object);
@@ -43,12 +53,11 @@ void DrawableObject::destroy(DrawableObject* object)
 		object = nullptr;
 	}
 }
-DrawableObject::~DrawableObject()
-{
-	delete isDrawable;
-	delete layer;
-}
 
+const sf::Vector2f DrawableObject::get_position() const
+{
+	return *this->position;
+}
 const unsigned int& DrawableObject::get_layer() const
 {
 	return *this->layer;
@@ -64,6 +73,18 @@ sf::Image* DrawableObject::get_image() const
 sf::Texture* DrawableObject::get_texture() const
 {
 	return this->texture;
+}
+
+DrawableObject::~DrawableObject()
+{
+	delete this->isDrawable;
+	delete this->layer;
+
+	delete this->position;
+
+	delete this->sprite;
+	delete this->image;
+	delete this->texture;
 }
 #pragma endregion
 
@@ -106,7 +127,39 @@ void GameDrawableContainer::remove(const unsigned int& layer, DrawableObject* ob
 	std::vector<DrawableObject*>::iterator it = std::find(first, last, object);
 	if (it != last) _layer->erase(it);
 }
-bool GameDrawableContainer::is_layer_contains(const unsigned int& layer, const DrawableObject* object)
+void GameDrawableContainer::extern_move(const sf::Vector2f& screen_point)
+{
+	std::map<unsigned int, std::vector<DrawableObject*>*>::iterator it;
+	for (it = layers->begin(); it != layers->end(); it++)
+	{
+		if (it->second->size() > 0)
+		{
+			std::vector<DrawableObject*>::iterator layer;
+			for (layer = it->second->begin(); layer != it->second->end(); layer++)
+			{
+				dynamic_cast<DrawableObject*>(*layer)->set_position(screen_point);
+			}
+		}
+	}
+}
+void GameDrawableContainer::extern_move(const float& x, const float& y)
+{
+	extern_move(sf::Vector2f(x, y));
+}
+void GameDrawableContainer::extern_move(const unsigned int& layer, const sf::Vector2f& screen_point)
+{
+	std::vector<DrawableObject*>* _layer = get_layer(layer);
+	std::vector<DrawableObject*>::iterator it = _layer->begin();
+	for (it = _layer->begin(); it != _layer->end(); it++)
+	{
+		dynamic_cast<DrawableObject*>(*it)->set_position(screen_point);
+	}
+}
+void GameDrawableContainer::extern_move(const unsigned int& layer, const float& x, const float& y)
+{
+	extern_move(layer, sf::Vector2f(x, y));
+}
+const bool GameDrawableContainer::is_layer_contains(const unsigned int& layer, const DrawableObject* object)
 {
 	std::vector<DrawableObject*>::iterator first = get_layer(layer)->begin();
 	std::vector<DrawableObject*>::iterator last = get_layer(layer)->end();

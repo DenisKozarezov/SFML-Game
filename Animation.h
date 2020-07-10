@@ -10,31 +10,56 @@ private:
 	unsigned int* currentFrame = new unsigned int(0);
 
 	std::string* name = new std::string("Empty");
-	float* speed = new float(1000); // —корость в миллисекундах
+	float* interval_speed = new float(1000); // »нтервал между кадрами в миллисекундах
 	
-	bool* isPlaying = new bool(false);
+	bool* _isPlaying = new bool(false);
 	bool* isStopped = new bool(false);
 
 	DrawableObject* target;
 	sf::Clock* clock = new sf::Clock;
+
+	sf::Texture* get_frame(const unsigned int& index) const;
 public:
+	/// ‘лаг, значение которого задаЄт зацикленность текущей анимации.
 	bool* isLoop = new bool(true);
+
+	const bool& isPlaying() const;
 
 	explicit Animation(DrawableObject* target);
 	explicit Animation(sf::Texture* sprites, const unsigned int& size, DrawableObject* target);
 	explicit Animation(std::vector<sf::Texture*>* _sprites, DrawableObject* target);
 	explicit Animation(const std::string& name, DrawableObject* target);
 
-	const float& get_speed();
-	const std::string& get_name();
-	sf::Texture* get_frame(const unsigned int& index) const;
+	/// ¬озвращает название текущей анимации.	
+	/// \return —трока названи€.
+	const std::string& get_name() const;
 
+	/// ¬озвращает значение интервала между кадрами анимации.	
+	/// \return ¬ременной период в миллисекундах.
+	const float& get_interval() const;		
+
+	/// ѕроигрывание анимации с текущим значением интервала между
+	/// кадрами.
 	void play();
+
+	/// ќстановка текущей анимации, а также полный сброс кадров.
 	void stop();
+
 	void pause();
+
 	void reset();
+
+	/// <summary>
+	/// »зменение названи€ анимации.
+	/// <param name = "name - строка нового названи€."></param>
+	/// </summary>
 	void set_name(const std::string& name);
-	void set_speed(const unsigned int& value);	
+
+	/// <summary>
+	/// «адание интервала между кадрами анимации.
+	/// <param name = "value - временной период в миллисекундах."></param>
+	/// </summary>
+	void set_interval(const unsigned int& value);	
 
 	~Animation();
 };

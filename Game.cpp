@@ -6,25 +6,13 @@ Game::Game()
 {
 	this->initialize();
 	GameDrawableContainer::initialize();
-
-	Warrior* warrior = new Warrior(500, 100);
-	this->player = new Player(warrior);	
-
-	sf::Texture* texture1 = new sf::Texture;
-	texture1->loadFromFile(ProjectResourcesPath::Sprites + "1.jpg");
-	sf::Texture* texture2 = new sf::Texture;
-	texture2->loadFromFile(ProjectResourcesPath::Sprites + "2.jpg");
-	sf::Texture mas[] = {*texture1, *texture2};
-	DrawableObject* obj;
-	Animation* animation = new Animation(mas, 2, this->player->getMainCharacter());
-	this->player->getMainCharacter()->get_animator()->add("Idle", animation);
-	this->player->getMainCharacter()->get_animator()->play("Idle");
 }
 Game::~Game()
 {
 	delete this->window;
 	delete this->clock;
 }
+
 void Game::initialize()
 {
 	this->window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "My Game");

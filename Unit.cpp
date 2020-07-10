@@ -8,6 +8,15 @@ void Unit::update()
 Unit::Unit()
 {
 	DrawableObject::initialize(this, 0);
+
+	sf::Texture texture1, texture2;
+	texture1.loadFromFile(ProjectResourcesPath::Sprites + "1.jpg");
+	texture2.loadFromFile(ProjectResourcesPath::Sprites + "2.jpg");
+	sf::Texture idle_mas[] = { texture1, texture2 };
+
+	Animation* animation = new Animation(idle_mas, 2, this);
+	animator->play(animation);
+	animator->add("Idle", animation);
 }
 
 Unit::~Unit()
@@ -17,38 +26,29 @@ Unit::~Unit()
 	delete this->health;
 	delete this->damage;
 	delete this->speed;
-	delete this->position;
 	
 	delete this->animator;
 
 	delete this->isPaused;
 	delete this->isMovable;
 	delete this->isDead;
-
-	delete this->get_sprite();
-	delete this->get_image();
-	delete this->get_texture();
 }
 
-const std::string& Unit::get_name()
+const std::string& Unit::get_name() const
 {
 	return *this->name;
 }
-const unsigned int& Unit::get_health()
+const unsigned int& Unit::get_health() const
 {
 	return *this->health;
 }
-const unsigned int& Unit::get_damage()
+const unsigned int& Unit::get_damage() const
 {
 	return *this->damage;
 }
-const float& Unit::get_speed()
+const float& Unit::get_speed() const
 {
 	return *this->speed;
-}
-const sf::Vector2f& Unit::get_position()
-{
-	return *this->position;
 }
 Animator* Unit::get_animator()
 {
@@ -76,7 +76,7 @@ void Unit::move(const sf::Vector2f& offset)
 {
 	if (*this->isMovable && !*this->isDead)
 	{
-		*this->position += offset * *speed;
+		set_position(get_position() + offset * *this->speed);
 		get_sprite()->move(offset * *speed);
 	}
 }

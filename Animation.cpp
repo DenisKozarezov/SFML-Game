@@ -30,27 +30,34 @@ Animation::~Animation()
 
 	delete this->currentFrame;
 	delete this->name;
-	delete this->speed;
-	delete this->isPlaying;
+	delete this->interval_speed;
+	delete this->_isPlaying;
 	delete this->isStopped;
 	delete this->isLoop;
 
 	delete this->clock;
-	delete this->target;
 }
 
-const std::string& Animation::get_name()
+const bool& Animation::isPlaying() const
+{
+	return *this->_isPlaying;
+}
+const std::string& Animation::get_name() const
 {
 	return *this->name;
+}
+const float& Animation::get_interval() const
+{
+	return *this->interval_speed;
 }
 
 void Animation::set_name(const std::string& name)
 {
 	*this->name = name;
 }
-void Animation::set_speed(const unsigned int& value)
+void Animation::set_interval(const unsigned int& value)
 {
-	*this->speed = value;
+	*this->interval_speed = value;
 }
 sf::Texture* Animation::get_frame(const unsigned int& index) const
 {
@@ -61,22 +68,23 @@ sf::Texture* Animation::get_frame(const unsigned int& index) const
 
 void Animation::play()
 {
-	if (!*this->isStopped)
+	if (!*this->isStopped && *this->interval_speed != 0)
 	{
-		*this->isPlaying = true;
-		if (this->clock->getElapsedTime().asMilliseconds() >= *this->speed)
+		*this->_isPlaying = true;
+		if (this->clock->getElapsedTime().asMilliseconds() >= *this->interval_speed)
 		{			
 			target->set_texture(*get_frame(*this->currentFrame));
-			std::cout << "Playing animation\n";
 			if (*this->currentFrame >= this->frames->size() - 1) *this->currentFrame = 0;
 			else *this->currentFrame += 1;
 			this->clock->restart();
+
+			if (!*this->isLoop) stop();
 		}
 	}
 }
 void Animation::stop()
 {
-	*this->isPlaying = false;
+	*this->_isPlaying = false;
 	*this->isStopped = true;
 	*this->currentFrame = 0;
 	this->clock->restart();

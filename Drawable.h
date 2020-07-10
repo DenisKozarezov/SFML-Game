@@ -17,23 +17,31 @@ private:
 	unsigned int* layer = new unsigned int(0);
 	friend class GameDrawableContainer;
 
+	sf::Vector2f* position = new sf::Vector2f(0.f, 0.f);
+
 	sf::Texture* texture = new sf::Texture;
 	sf::Image* image = new sf::Image;
 	sf::Sprite* sprite = new sf::Sprite;
 public:
-	bool* isDrawable = new bool(true);		
+	/// Флаг, значение которого задаёт отрисовку графического объекта.
+	bool* isDrawable = new bool(true);
+
+	const sf::Vector2f get_position() const;
+
 	/// <summary>
 	/// Перенос графического объекта на указанный слой.
 	/// </summary>
 	/// <param name="layer - номер слоя."></param>
 	void set_layer(const unsigned int& layer);
 
+	/// Возвращает номер текущего слоя, на котором находится графический объект.
+	/// \return Номер слоя.
 	const unsigned int& get_layer() const;
 
 	/// <summary>
 	/// Полное уничтожение игрового объекта и освобождение всех занятых им ресурсов.
 	/// Вдобавок, уничтоженный объект будет удалён из контейнера GameDrawableContainer
-	/// и больше не будет отрисовываться на экране.
+	/// и более не будет отрисовываться на экране.
 	/// </summary>
 	/// <param name="*object - указаель на графический объект."></param>
 	static void destroy(DrawableObject* object);
@@ -41,12 +49,17 @@ public:
 	virtual ~DrawableObject();
 protected:
 	friend class Animation;
+
 	sf::Sprite* get_sprite() const;
 	sf::Texture* get_texture() const;
 	sf::Image* get_image() const;
+
 	void set_texture(const sf::Texture& texture);
 	void set_image(const sf::Image& image);
 	void set_sprite(const sf::Sprite& sprite);
+
+	void set_position(const sf::Vector2f& point);
+	void set_position(const float& x, const float& y);
 
 	/// <summary>
 	/// Инициализация игрового объекта для последующей отрисовки и добавление его в
@@ -74,55 +87,61 @@ protected:
 
 /////////////////////////////////////////////////////////////////////
 /// \brief Класс-контейнер, в котором по слоям содержатся графические
-/// объекты типа DrawableObject. Отрисовка осуществляется при помощи
-/// многопоточности и в строгом порядке, начиная с нулевого слоя.
-/// В случае, если во время исполнения метода отрисовки объект был
-/// помечен булевой переменной isDrawable = false, то данный объект
-/// не будет отрисован на экране.
+/// объекты типа DrawableObject. Отрисовка осуществляется в строгом
+/// порядке, начиная с нулевого слоя. В случае, если во время исполнения
+/// метода отрисовки объект был помечен булевой переменной isDrawable
+/// = false, то данный объект не будет отрисован на экране.
 /////////////////////////////////////////////////////////////////////
 class GameDrawableContainer final
 {
 private:
+	friend class DrawableObject;
+
 	static std::map<unsigned int, std::vector<DrawableObject*>*>* layers;
-public:
-	/// <summary>
-	/// Инициализация графического контейнера и всех графических слоёв.
-	/// </summary>
-	static void initialize();
-	/// <summary>
+
 	/// Удаление целой группы из контейнера по определённому признаку.
-	/// </summary>
 	template<typename T>
 	static void remove_group(const T& type);
-	/// <summary>
+
 	/// Удаление целой группы из конкретного слоя по определённому признаку.
-	/// </summary>
 	template<typename T>
 	static void remove_group(const unsigned int& layer, const T& type);
+
 	/// <summary>
 	/// Поиск графического объекта во всех слоях и последующее его удаление с исключением
 	/// из процесса отрисовки.
 	/// </summary>
 	static void remove(const DrawableObject* object);
+
 	/// <summary>
 	/// Удаление графического объекта из указанного слоя с последующим исключением его из 
 	/// процесса отрисовки.
 	/// </summary>
 	static void remove(const unsigned int& layer, DrawableObject* object);
+
 	/// <summary>
 	/// Удаление графического объекта по указанному итератору с последующим исключением объекта из 
 	/// процесса отрисовки.
 	/// </summary>
 	static void remove(std::map<unsigned int, std::vector<DrawableObject*>*>::iterator it, DrawableObject* object);
-	/// <summary>
+
+	static void extern_move(const sf::Vector2f& screen_point);
+	static void extern_move(const float& x, const float& y);
+	static void extern_move(const unsigned int& layer, const sf::Vector2f& screen_point);
+	static void extern_move(const unsigned int& layer, const float& x, const float& y);
+public:
+	/// Инициализация графического контейнера и всех графических слоёв.
+	static void initialize();	
+
 	/// Проверка указанного слоя на содержание конкретного объекта.
-	/// </summary>
-	static bool is_layer_contains(const unsigned int& layer, const DrawableObject* object);
+	const static bool is_layer_contains(const unsigned int& layer, const DrawableObject* object);
+
 	/// <summary>
 	/// Очистка всех графических слоёв. Процедура не затрагивает данные
 	/// графических объектов очищенного слоя.
 	/// </summary>
 	static void clear();
+
 	/// <summary>
 	/// Полное удаление (освобождение занятых ресурсов) всех графических объектов,
 	/// а также графических слоёв. Завершение работы контейнера.

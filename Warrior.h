@@ -4,8 +4,6 @@
 class Warrior : public Unit
 {
 private:
-	const std::string sprite_name = "warrior.jpg";
-
 	void update() override;
 public:	
 	Warrior(const float& x, const float& y);

@@ -34,6 +34,12 @@
     <Filter Include="Game">
       <UniqueIdentifier>{b0230e51-757f-4440-bbc9-b5afaa3c99b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components\Camera">
+      <UniqueIdentifier>{5207c363-8fa0-47dc-825e-f4d27a50b8a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{8d5fd10d-5986-48d3-b652-d3cc25150938}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -60,11 +66,14 @@
     <ClCompile Include="Player.cpp">
       <Filter>Components\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="ProjectPath.h">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Components\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -87,7 +96,10 @@
       <Filter>Components\Player</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Components\Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

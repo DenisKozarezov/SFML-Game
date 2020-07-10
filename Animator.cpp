@@ -27,7 +27,7 @@ Animator::~Animator()
 	for (it = animations->begin(); it != this->animations->end(); it++) delete it->second;
 	delete this->animations;
 
-	delete this->isPlaying;
+	delete this->_isPlaying;
 	delete this->isPaused;
 }
 
@@ -61,28 +61,28 @@ void Animator::set_main_animation(const std::string& name)
 void Animator::play(Animation* animation)
 {
 	if (this->currentAnimation != nullptr) this->currentAnimation->stop();
-	*this->isPlaying = true;
+	*this->_isPlaying = true;
 	this->currentAnimation = animation;
 	this->currentAnimation->play();
 }
 void Animator::play(const int& index)
 {
 	if (this->currentAnimation != nullptr) this->currentAnimation->stop();
-	*this->isPlaying = true;
+	*this->_isPlaying = true;
 	this->currentAnimation = get_animation(index);
 	this->currentAnimation->play();
 }
 void Animator::play(const std::string& name)
 {
 	if (this->currentAnimation != nullptr) this->currentAnimation->stop();
-	*this->isPlaying = true;
+	*this->_isPlaying = true;
 	Animation* animation = this->animations->find(name)->second;
 	this->currentAnimation = animation;
 	this->currentAnimation->play();
 }
 void Animator::stop()
 {
-	*this->isPlaying = false;
+	*this->_isPlaying = false;
 	this->currentAnimation->stop();
 }
 Animation* Animator::get_animation(const int& index) const
@@ -98,4 +98,8 @@ Animation* Animator::get_animation(const std::string& name) const
 const DrawableObject* Animator::get_parent()
 {
 	return this->parent;
+}
+const bool& Animator::isPlaying() const
+{
+	return *this->_isPlaying;
 }
