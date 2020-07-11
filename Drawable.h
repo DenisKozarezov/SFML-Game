@@ -14,8 +14,9 @@
 class DrawableObject
 {
 private:
-	unsigned int* layer = new unsigned int(0);
 	friend class GameDrawableContainer;
+
+	unsigned int* layer = new unsigned int(0);
 
 	sf::Vector2f* position = new sf::Vector2f(0.f, 0.f);
 
@@ -26,7 +27,7 @@ public:
 	/// Флаг, значение которого задаёт отрисовку графического объекта.
 	bool* isDrawable = new bool(true);
 
-	const sf::Vector2f get_position() const;
+	const sf::Vector2f& get_position() const;
 
 	/// <summary>
 	/// Перенос графического объекта на указанный слой.

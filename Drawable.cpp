@@ -11,6 +11,7 @@ void DrawableObject::set_layer(const unsigned int& layer)
 void DrawableObject::set_texture(const sf::Texture& texture)
 {
 	*this->texture = texture;
+	this->sprite->setTexture(texture);
 }
 void DrawableObject::set_image(const sf::Image& image)
 {
@@ -54,7 +55,7 @@ void DrawableObject::destroy(DrawableObject* object)
 	}
 }
 
-const sf::Vector2f DrawableObject::get_position() const
+const sf::Vector2f& DrawableObject::get_position() const
 {
 	return *this->position;
 }

@@ -17,7 +17,8 @@ private:
 
 	virtual void update() override;
 public:
-	Unit();
+	Unit(const sf::Vector2f& position);
+	Unit(const float& x, const float& y);
 	
 	bool* isPaused = new bool(false);
 	bool* isDead = new bool(false);

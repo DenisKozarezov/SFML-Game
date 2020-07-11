@@ -6,13 +6,16 @@ class Camera
 {
 private:
 	bool* faded = new bool(false);
-	bool* isMoving = new bool(false);
+	bool* moving = new bool(false);
 
 	float* speed = new float(0);
 
 	DrawableObject* target;
 public:
 	Camera();
+
+	const bool& isMoving() const;
+	const bool& isFaded() const;
 
 	const sf::Vector2f& screen_to_world_point(const sf::Vector2f& screen_point) const;
 	const sf::Vector2f& world_to_screen_point(const sf::Vector2f& world_point) const;
@@ -25,7 +28,7 @@ public:
 	void detach();
 
 	enum class Fade_state { IN, OUT };
-	void fade(const Fade_state& fade_state);
+	void fade(const Fade_state& fade_state, const float& time);
 
 	~Camera();
 };

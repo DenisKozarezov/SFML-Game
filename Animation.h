@@ -6,7 +6,7 @@
 class Animation final
 {
 private:
-	std::vector<sf::Texture*>* frames = new std::vector<sf::Texture*>;
+	std::vector<sf::Texture>* frames = new std::vector<sf::Texture>;
 	unsigned int* currentFrame = new unsigned int(0);
 
 	std::string* name = new std::string("Empty");
@@ -18,7 +18,7 @@ private:
 	DrawableObject* target;
 	sf::Clock* clock = new sf::Clock;
 
-	sf::Texture* get_frame(const unsigned int& index) const;
+	const sf::Texture* get_frame(const unsigned int& index) const;
 public:
 	/// Флаг, значение которого задаёт зацикленность текущей анимации.
 	bool* isLoop = new bool(true);
@@ -26,8 +26,8 @@ public:
 	const bool& isPlaying() const;
 
 	explicit Animation(DrawableObject* target);
-	explicit Animation(sf::Texture* sprites, const unsigned int& size, DrawableObject* target);
-	explicit Animation(std::vector<sf::Texture*>* _sprites, DrawableObject* target);
+	explicit Animation(sf::Texture* frames, const unsigned int& size, DrawableObject* target);
+	explicit Animation(std::vector<sf::Texture*>* frames, DrawableObject* target);
 	explicit Animation(const std::string& name, DrawableObject* target);
 
 	/// Возвращает название текущей анимации.	

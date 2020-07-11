@@ -18,7 +18,7 @@ public:
 
 	explicit Animator(DrawableObject* parent);
 	explicit Animator(Animation* animations, const unsigned int& size, DrawableObject* parent);
-	explicit Animator(const std::vector<Animation*>& animations, DrawableObject* parent);
+	explicit Animator(const std::vector<Animation*> animations, DrawableObject* parent);
 	
 	/// <summary>
 	/// Добавление анимации в список аниматора.
@@ -50,7 +50,7 @@ public:
 	/// Проигрывание указанной анимации.
 	/// </summary>
 	/// <param name="*animation - указатель на объект анимации."></param>
-	void play(Animation* animation);
+	void play(Animation animation);
 
 	/// <summary>
 	/// Проигрывание указанной анимации по индексу.

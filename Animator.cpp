@@ -12,7 +12,7 @@ Animator::Animator(Animation* animations, const unsigned int& size, DrawableObje
 		this->animations->insert(std::pair<const std::string, Animation*>(animations[i].get_name(), &animations[i]));
 	}
 }
-Animator::Animator(const std::vector<Animation*>& animations, DrawableObject* parent)
+Animator::Animator(const std::vector<Animation*> animations, DrawableObject* parent)
 {
 	this->parent = parent;
 	for (int i = 0; i < animations.size(); i++)
@@ -23,8 +23,8 @@ Animator::Animator(const std::vector<Animation*>& animations, DrawableObject* pa
 
 Animator::~Animator()
 {
-	std::map<std::string, Animation*>::iterator it = this->animations->begin();
-	for (it = animations->begin(); it != this->animations->end(); it++) delete it->second;
+	std::map<const std::string, Animation*>::iterator it;
+	for (it = this->animations->begin(); it != this->animations->end(); it++) delete it->second;
 	delete this->animations;
 
 	delete this->_isPlaying;
@@ -58,11 +58,12 @@ void Animator::set_main_animation(const std::string& name)
 {
 	//this->mainAnimation = this->animations->find(name)->second;
 }
-void Animator::play(Animation* animation)
+void Animator::play(Animation animation)
 {
 	if (this->currentAnimation != nullptr) this->currentAnimation->stop();
 	*this->_isPlaying = true;
-	this->currentAnimation = animation;
+	this->currentAnimation = &animation;
+	this->currentAnimation->reset();
 	this->currentAnimation->play();
 }
 void Animator::play(const int& index)
@@ -70,14 +71,15 @@ void Animator::play(const int& index)
 	if (this->currentAnimation != nullptr) this->currentAnimation->stop();
 	*this->_isPlaying = true;
 	this->currentAnimation = get_animation(index);
+	this->currentAnimation->reset();
 	this->currentAnimation->play();
 }
 void Animator::play(const std::string& name)
 {
 	if (this->currentAnimation != nullptr) this->currentAnimation->stop();
 	*this->_isPlaying = true;
-	Animation* animation = this->animations->find(name)->second;
-	this->currentAnimation = animation;
+	this->currentAnimation = this->animations->find(name)->second;
+	this->currentAnimation->reset();
 	this->currentAnimation->play();
 }
 void Animator::stop()

@@ -1,22 +1,18 @@
 #include "Unit.h"
+#include <iostream>
 
 void Unit::update()
 {
 
 }
 
-Unit::Unit()
+Unit::Unit(const sf::Vector2f& position)
+{
+	DrawableObject::initialize(this, 0);	
+}
+Unit::Unit(const float& x, const float& y)
 {
 	DrawableObject::initialize(this, 0);
-
-	sf::Texture texture1, texture2;
-	texture1.loadFromFile(ProjectResourcesPath::Sprites + "1.jpg");
-	texture2.loadFromFile(ProjectResourcesPath::Sprites + "2.jpg");
-	sf::Texture idle_mas[] = { texture1, texture2 };
-
-	Animation* animation = new Animation(idle_mas, 2, this);
-	animator->play(animation);
-	animator->add("Idle", animation);
 }
 
 Unit::~Unit()
