@@ -59,7 +59,7 @@ public:
 	/// Задание интервала между кадрами анимации.
 	/// <param name = "value - временной период в миллисекундах."></param>
 	/// </summary>
-	void set_interval(const unsigned int& value);	
+	void set_interval(const float& value);	
 
 	~Animation();
 };

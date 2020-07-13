@@ -3,12 +3,16 @@
 #include "Drawable.h"
 #include "Warrior.h"
 #include "Player.h"
+#include "Camera.h"
+
 class Game
 {
 private:
 	sf::RenderWindow* window;
 	static sf::Clock* clock;
 	static sf::Time* time;
+
+	static Camera* camera;
 
 	Player* player;
 

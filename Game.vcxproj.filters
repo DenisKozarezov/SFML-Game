@@ -40,6 +40,12 @@
     <Filter Include="GUI">
       <UniqueIdentifier>{8d5fd10d-5986-48d3-b652-d3cc25150938}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{f6a2cb70-9f53-4b4a-af18-6d890843ecc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\Vector2">
+      <UniqueIdentifier>{bcbe85ef-416e-4e88-96ea-f45835ede929}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -75,6 +81,12 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Components\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Math\Vector2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawable.h">
@@ -100,6 +112,12 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Components\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Math\Vector2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -128,38 +128,6 @@ void GameDrawableContainer::remove(const unsigned int& layer, DrawableObject* ob
 	std::vector<DrawableObject*>::iterator it = std::find(first, last, object);
 	if (it != last) _layer->erase(it);
 }
-void GameDrawableContainer::extern_move(const sf::Vector2f& screen_point)
-{
-	std::map<unsigned int, std::vector<DrawableObject*>*>::iterator it;
-	for (it = layers->begin(); it != layers->end(); it++)
-	{
-		if (it->second->size() > 0)
-		{
-			std::vector<DrawableObject*>::iterator layer;
-			for (layer = it->second->begin(); layer != it->second->end(); layer++)
-			{
-				dynamic_cast<DrawableObject*>(*layer)->set_position(screen_point);
-			}
-		}
-	}
-}
-void GameDrawableContainer::extern_move(const float& x, const float& y)
-{
-	extern_move(sf::Vector2f(x, y));
-}
-void GameDrawableContainer::extern_move(const unsigned int& layer, const sf::Vector2f& screen_point)
-{
-	std::vector<DrawableObject*>* _layer = get_layer(layer);
-	std::vector<DrawableObject*>::iterator it = _layer->begin();
-	for (it = _layer->begin(); it != _layer->end(); it++)
-	{
-		dynamic_cast<DrawableObject*>(*it)->set_position(screen_point);
-	}
-}
-void GameDrawableContainer::extern_move(const unsigned int& layer, const float& x, const float& y)
-{
-	extern_move(layer, sf::Vector2f(x, y));
-}
 const bool GameDrawableContainer::is_layer_contains(const unsigned int& layer, const DrawableObject* object)
 {
 	std::vector<DrawableObject*>::iterator first = get_layer(layer)->begin();
@@ -187,7 +155,10 @@ std::vector<DrawableObject*>* GameDrawableContainer::get_layer(const unsigned in
 {
 	return layers->find(layer)->second;
 }
-
+const unsigned int& GameDrawableContainer::get_layers_amount()
+{
+	return GameDrawableContainer::layers->size();
+}
 void GameDrawableContainer::update(sf::RenderWindow& window)
 {
 	for (unsigned int i = 0; i < layers->size(); i++)

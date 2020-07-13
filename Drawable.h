@@ -50,6 +50,7 @@ public:
 	virtual ~DrawableObject();
 protected:
 	friend class Animation;
+	friend class Camera;
 
 	sf::Sprite* get_sprite() const;
 	sf::Texture* get_texture() const;
@@ -125,11 +126,6 @@ private:
 	/// процесса отрисовки.
 	/// </summary>
 	static void remove(std::map<unsigned int, std::vector<DrawableObject*>*>::iterator it, DrawableObject* object);
-
-	static void extern_move(const sf::Vector2f& screen_point);
-	static void extern_move(const float& x, const float& y);
-	static void extern_move(const unsigned int& layer, const sf::Vector2f& screen_point);
-	static void extern_move(const unsigned int& layer, const float& x, const float& y);
 public:
 	/// Инициализация графического контейнера и всех графических слоёв.
 	static void initialize();	
@@ -149,6 +145,8 @@ public:
 	/// </summary>
 	static void terminate();
 	static std::vector<DrawableObject*>* get_layer(const unsigned int& layer);
+
+	const static unsigned int& get_layers_amount();
 	
 	/// <summary>
 	/// Последовательная отрисовка всех графических объектов на каждом слое, начиная с нулевого.

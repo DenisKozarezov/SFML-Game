@@ -53,7 +53,7 @@ void Animation::set_name(const std::string& name)
 {
 	*this->name = name;
 }
-void Animation::set_interval(const unsigned int& value)
+void Animation::set_interval(const float& value)
 {
 	*this->interval_speed = value;
 }
