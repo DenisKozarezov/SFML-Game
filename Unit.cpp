@@ -1,5 +1,4 @@
 #include "Unit.h"
-#include <iostream>
 
 void Unit::update()
 {
@@ -8,11 +7,15 @@ void Unit::update()
 
 Unit::Unit(const Vector2& position)
 {
-	DrawableObject::initialize(this, 0);	
+	DrawableObject::initialize(this, 0);
+	set_screen_position(position);
+	set_world_position(position);
 }
 Unit::Unit(const float& x, const float& y)
 {
 	DrawableObject::initialize(this, 0);
+	set_screen_position(Vector2(x, y));
+	set_world_position(Vector2(x, y));
 }
 
 Unit::~Unit()
@@ -72,7 +75,7 @@ void Unit::move(const Vector2& offset)
 {
 	if (*this->isMovable && !*this->isDead)
 	{
-		set_position(get_position() + offset * *this->speed);
+		set_world_position(get_world_position() + offset * *this->speed);
 	}
 }
 void Unit::move(const float& offset_x, const float& offset_y)

@@ -22,14 +22,22 @@ void DrawableObject::set_sprite(const sf::Sprite& sprite)
 	*this->sprite = sprite;
 }
 
-void DrawableObject::set_position(const Vector2& point)
+void DrawableObject::set_screen_position(const Vector2& point)
 {
-	*this->position = point;
+	*this->screen_position = point;
 	this->sprite->setPosition(point.x, point.y);
 }
-void DrawableObject::set_position(const float& x, const float& y)
+void DrawableObject::set_screen_position(const float& x, const float& y)
 {
-	set_position(Vector2(x, y));
+	set_screen_position(Vector2(x, y));
+}
+void DrawableObject::set_world_position(const Vector2& point)
+{
+	*this->world_position = point;
+}
+void DrawableObject::set_world_position(const float& x, const float& y)
+{
+	set_world_position(Vector2(x, y));
 }
 
 void DrawableObject::initialize(DrawableObject* object)
@@ -55,10 +63,15 @@ void DrawableObject::destroy(DrawableObject* object)
 	}
 }
 
-const Vector2& DrawableObject::get_position() const
+const Vector2& DrawableObject::get_screen_position() const
 {
-	return *this->position;
+	return *this->screen_position;
 }
+const Vector2& DrawableObject::get_world_position() const
+{
+	return *this->world_position;
+}
+
 const unsigned int& DrawableObject::get_layer() const
 {
 	return *this->layer;
@@ -81,7 +94,8 @@ DrawableObject::~DrawableObject()
 	delete this->isDrawable;
 	delete this->layer;
 
-	delete this->position;
+	delete this->screen_position;
+	delete this->world_position;
 
 	delete this->sprite;
 	delete this->image;

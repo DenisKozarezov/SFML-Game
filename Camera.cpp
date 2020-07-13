@@ -67,7 +67,7 @@ void Camera::move(const Vector2& offset)
 			for (it = layer->begin(); it != layer->end(); it++)
 			{
 				DrawableObject* object = dynamic_cast<DrawableObject*>(*it);
-				object->set_position(object->get_position() + offset);
+				object->set_screen_position(object->get_screen_position() + offset);
 			}
 		}
 	}

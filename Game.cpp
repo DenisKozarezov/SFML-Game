@@ -9,13 +9,7 @@ Game::Game()
 	GameDrawableContainer::initialize();
 
 	Warrior* warrior1 = new Warrior(Vector2(0, 200));
-	warrior1->get_animator()->get_animation("Idle")->set_interval(500);
-	Warrior* warrior2 = new Warrior(Vector2(400, 200));
-	warrior2->get_animator()->get_animation("Idle")->set_interval(700);
-	Warrior* warrior3 = new Warrior(Vector2(600, 200));
-	warrior3->get_animator()->get_animation("Idle")->set_interval(1000);
-	Warrior* warrior4 = new Warrior(Vector2(800, 200));
-	warrior4->get_animator()->get_animation("Idle")->set_interval(1500);
+	warrior1->get_animator()->get_animation("Idle")->set_interval(1000);
 }
 Game::~Game()
 {

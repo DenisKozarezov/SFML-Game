@@ -19,7 +19,8 @@ private:
 
 	unsigned int* layer = new unsigned int(0);
 
-	Vector2* position = new Vector2(0.f, 0.f);
+	Vector2* screen_position = new Vector2(0.f, 0.f);
+	Vector2* world_position = new Vector2(0.f, 0.f);
 
 	sf::Texture* texture = new sf::Texture;
 	sf::Image* image = new sf::Image;
@@ -28,7 +29,8 @@ public:
 	/// Флаг, значение которого задаёт отрисовку графического объекта.
 	bool* isDrawable = new bool(true);
 
-	const Vector2& get_position() const;
+	const Vector2& get_screen_position() const;
+	const Vector2& get_world_position() const;
 
 	/// <summary>
 	/// Перенос графического объекта на указанный слой.
@@ -61,8 +63,11 @@ protected:
 	void set_image(const sf::Image& image);
 	void set_sprite(const sf::Sprite& sprite);
 
-	void set_position(const Vector2& point);
-	void set_position(const float& x, const float& y);
+	void set_screen_position(const Vector2& point);
+	void set_screen_position(const float& x, const float& y);
+
+	void set_world_position(const Vector2& point);
+	void set_world_position(const float& x, const float& y);
 
 	/// <summary>
 	/// Инициализация игрового объекта для последующей отрисовки и добавление его в

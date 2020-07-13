@@ -11,7 +11,6 @@ Warrior::Warrior(const Vector2& position) : Unit(position)
 	texture1.loadFromFile(ProjectResourcesPath::Sprites + "1.jpg");
 	texture2.loadFromFile(ProjectResourcesPath::Sprites + "2.jpg");
 	set_texture(texture1);
-	set_position(position);
 
 	sf::Texture idle_mas[] = { texture1, texture2 };
 	Animation* animation = new Animation(idle_mas, 2, this);
