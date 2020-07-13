@@ -15,16 +15,17 @@ Camera::~Camera()
 	delete this->attached_target;
 	delete this->speed;
 	delete this->time;
+	delete this->lerp_position;
 }
 
 void Camera::update(const double& deltaTime)
 {
-	if (*this->point_target != sf::Vector2f(0, 0))
+	if (*this->point_target != Vector2(0, 0))
 	{
 		if (*this->factor < 1)
 		{
-			sf::Vector2f position = Math::lerp(*this->lerp_position, *this->point_target, *this->factor);
-			offset_move(position);
+			Vector2 position = Vector2::lerp(*this->lerp_position, *this->point_target, *this->factor);
+			move(position);
 			*this->factor = Math::get_factor(*this->factor + deltaTime / *this->time);
 		}
 		else
@@ -45,12 +46,17 @@ const bool& Camera::isFaded() const
 {
 	return *this->faded;
 }
-const sf::Vector2f& Camera::get_position() const
+
+const Vector2& Camera::get_position() const
 {
 	return *this->position;
 }
+const float& Camera::get_speed() const
+{
+	return *this->speed;
+}
 
-void Camera::offset_move(const sf::Vector2f& offset)
+void Camera::move(const Vector2& offset)
 {
 	for (unsigned int i = 0; i < GameDrawableContainer::get_layers_amount(); i++)
 	{
@@ -66,42 +72,33 @@ void Camera::offset_move(const sf::Vector2f& offset)
 		}
 	}
 }
-void Camera::offset_move(const float& offset_x, const float& offset_y)
+void Camera::move(const float& offset_x, const float& offset_y)
 {
-	offset_move(sf::Vector2f(offset_x, offset_y));
+	move(Vector2(offset_x, offset_y));
 }
 
-void Camera::move_to(const sf::Vector2f& point)
+void Camera::move_to(const Vector2& point)
 {
-	*this->position += point;
-	offset_move(point - *this->position);
+	Vector2 deltaPos = point - *this->position;
+	*this->position += deltaPos;
+	move(deltaPos);
 }
 void Camera::move_to(const float& x, const float& y)
 {
-	offset_move(sf::Vector2f(x, y));
+	move(Vector2(x, y));
 }
-void Camera::move_to(const sf::Vector2f& point, const float& time)
+void Camera::move_to(const Vector2& point, const float& time)
 {
 	*this->moving = true;
 	*this->time = time;
 	*this->point_target = -point;	
 	*this->lerp_position = *this->position;
 }
-void Camera::move_to(DrawableObject* object)
-{
-	move_to(object->get_position());
-}
-void Camera::move_to(DrawableObject* object, const float& time)
-{
-	*this->moving = true;
-	*this->time = time;
-	*this->point_target = object->get_position();
-}
 
 void Camera::stop()
 {
 	*this->moving = false;
-	*this->point_target = sf::Vector2f(0, 0);
+	*this->point_target = Vector2::negative_infinity;
 }
 
 void Camera::set_speed(const float& value)

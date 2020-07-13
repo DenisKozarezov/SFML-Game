@@ -2,11 +2,12 @@
 #include "SFML/Graphics.hpp"
 #include "Drawable.h"
 #include "Math.h"
+#include "Vector2.h"
 
 class Camera
 {
 private:
-	sf::Vector2f* position = new sf::Vector2f(0.f, 0.f);
+	Vector2* position = new Vector2(0.f, 0.f);
 
 	bool* faded = new bool(false);
 	bool* moving = new bool(false);
@@ -14,14 +15,14 @@ private:
 	float* speed = new float(1);
 	float* time = new float(0);
 
-	sf::Vector2f* lerp_position = new sf::Vector2f;
+	Vector2* lerp_position = new Vector2;
 	float* factor = new float(0);
 
 	DrawableObject* attached_target;
-	sf::Vector2f* point_target = new sf::Vector2f;
+	Vector2* point_target = new Vector2;
 
-	void offset_move(const sf::Vector2f& offset);
-	void offset_move(const float& offset_x, const float& offset_y);
+	void move(const Vector2& point);
+	void move(const float& point_x, const float& offset_y);
 public:
 	Camera();
 	
@@ -30,15 +31,15 @@ public:
 	const bool& isMoving() const;
 	const bool& isFaded() const;
 
-	const sf::Vector2f& screen_to_world_point(const sf::Vector2f& screen_point) const;
-	const sf::Vector2f& world_to_screen_point(const sf::Vector2f& world_point) const;
-	const sf::Vector2f& get_position() const;
+	const static Vector2& screen_to_world_point(const Vector2& screen_point);
+	const static Vector2& world_to_screen_point(const Vector2& world_point);
 
-	void move_to(const sf::Vector2f& point);
+	const Vector2& get_position() const;
+	const float& get_speed() const;
+
+	void move_to(const Vector2& point);
 	void move_to(const float& x, const float& y);
-	void move_to(const sf::Vector2f& point, const float& time);
-	void move_to(DrawableObject* object);
-	void move_to(DrawableObject* object, const float& time);
+	void move_to(const Vector2& point, const float& time);
 
 	void stop();
 

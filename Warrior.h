@@ -6,7 +6,7 @@ class Warrior : public Unit
 private:
 	void update() override;
 public:	
-	Warrior(const sf::Vector2f& position);
+	Warrior(const Vector2& position);
 	Warrior(const float& x, const float& y);
 
 	const Warrior& operator=(const Warrior& unit);	

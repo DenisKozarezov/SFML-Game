@@ -22,14 +22,14 @@ void DrawableObject::set_sprite(const sf::Sprite& sprite)
 	*this->sprite = sprite;
 }
 
-void DrawableObject::set_position(const sf::Vector2f& point)
+void DrawableObject::set_position(const Vector2& point)
 {
 	*this->position = point;
-	this->sprite->setPosition(point);
+	this->sprite->setPosition(point.x, point.y);
 }
 void DrawableObject::set_position(const float& x, const float& y)
 {
-	set_position(sf::Vector2f(x, y));
+	set_position(Vector2(x, y));
 }
 
 void DrawableObject::initialize(DrawableObject* object)
@@ -55,7 +55,7 @@ void DrawableObject::destroy(DrawableObject* object)
 	}
 }
 
-const sf::Vector2f& DrawableObject::get_position() const
+const Vector2& DrawableObject::get_position() const
 {
 	return *this->position;
 }

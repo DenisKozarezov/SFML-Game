@@ -8,13 +8,13 @@ Game::Game()
 	this->initialize();
 	GameDrawableContainer::initialize();
 
-	Warrior* warrior1 = new Warrior(sf::Vector2f(0, 200));
+	Warrior* warrior1 = new Warrior(Vector2(0, 200));
 	warrior1->get_animator()->get_animation("Idle")->set_interval(500);
-	Warrior* warrior2 = new Warrior(sf::Vector2f(400, 200));
+	Warrior* warrior2 = new Warrior(Vector2(400, 200));
 	warrior2->get_animator()->get_animation("Idle")->set_interval(700);
-	Warrior* warrior3 = new Warrior(sf::Vector2f(600, 200));
+	Warrior* warrior3 = new Warrior(Vector2(600, 200));
 	warrior3->get_animator()->get_animation("Idle")->set_interval(1000);
-	Warrior* warrior4 = new Warrior(sf::Vector2f(800, 200));
+	Warrior* warrior4 = new Warrior(Vector2(800, 200));
 	warrior4->get_animator()->get_animation("Idle")->set_interval(1500);
 }
 Game::~Game()
@@ -55,15 +55,29 @@ void Game::update_input()
 		}
 	}
 
-	float left = Math::percent_of(0.1f, this->window->getSize().x);
-	float right = Math::percent_of(0.9f, this->window->getSize().x);
-	float up = Math::percent_of(0.1f, this->window->getSize().y);
-	float down = Math::percent_of(0.9f, this->window->getSize().y);
+	float left = Math::percent_of(0.03f, this->window->getSize().x);
+	float right = Math::percent_of(0.97f, this->window->getSize().x);
+	float up = Math::percent_of(0.03f, this->window->getSize().y);
+	float down = Math::percent_of(0.97f, this->window->getSize().y);
 	if (sf::Mouse::getPosition().x <= left)
 	{
-		std::cout << "LEFT\n";
-		sf::Vector2f position(this->camera->get_position().x, 0);
-		this->camera->move_to(position * 0.1f);
+		Vector2 position = this->camera->get_position() + Vector2::right;
+		this->camera->move_to(position);
+	}
+	if (sf::Mouse::getPosition().x >= right)
+	{
+		Vector2 position = this->camera->get_position() + Vector2::left;
+		this->camera->move_to(position);
+	}
+	if (sf::Mouse::getPosition().y <= down)
+	{
+		Vector2 position = this->camera->get_position() + Vector2::up;
+		this->camera->move_to(position);
+	}
+	if (sf::Mouse::getPosition().y >= up)
+	{
+		Vector2 position = this->camera->get_position() + Vector2::down;
+		this->camera->move_to(position);
 	}
 }
 

@@ -4,6 +4,7 @@
 #include "Warrior.h"
 #include "Player.h"
 #include "Camera.h"
+#include "Vector2.h"
 
 class Game
 {

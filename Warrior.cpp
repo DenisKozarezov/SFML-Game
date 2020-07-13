@@ -5,7 +5,7 @@ void Warrior::update()
 	if (this->animator->currentAnimation != nullptr) this->animator->currentAnimation->play();
 }
 
-Warrior::Warrior(const sf::Vector2f& position) : Unit(position)
+Warrior::Warrior(const Vector2& position) : Unit(position)
 {
 	sf::Texture texture1, texture2;
 	texture1.loadFromFile(ProjectResourcesPath::Sprites + "1.jpg");

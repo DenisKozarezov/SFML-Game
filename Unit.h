@@ -17,7 +17,7 @@ private:
 
 	virtual void update() override;
 public:
-	Unit(const sf::Vector2f& position);
+	Unit(const Vector2& position);
 	Unit(const float& x, const float& y);
 	
 	bool* isPaused = new bool(false);
@@ -35,7 +35,7 @@ public:
 	const float& get_speed() const;
 	Animator* get_animator();
 
-	void move(const sf::Vector2f& point);
+	void move(const Vector2& point);
 	void move(const float& x, const float& y);
 	void kill();
 

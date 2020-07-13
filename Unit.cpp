@@ -6,7 +6,7 @@ void Unit::update()
 
 }
 
-Unit::Unit(const sf::Vector2f& position)
+Unit::Unit(const Vector2& position)
 {
 	DrawableObject::initialize(this, 0);	
 }
@@ -68,17 +68,16 @@ void Unit::set_speed(const float& value)
 	*this->speed = value;
 }
 
-void Unit::move(const sf::Vector2f& offset)
+void Unit::move(const Vector2& offset)
 {
 	if (*this->isMovable && !*this->isDead)
 	{
 		set_position(get_position() + offset * *this->speed);
-		get_sprite()->move(offset * *speed);
 	}
 }
 void Unit::move(const float& offset_x, const float& offset_y)
 {
-	move(sf::Vector2f(offset_x, offset_y));
+	move(Vector2(offset_x, offset_y));
 }
 void Unit::kill()
 {

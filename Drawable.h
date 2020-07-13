@@ -2,6 +2,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "ProjectPath.h"
+#include "Vector2.h"
 
 /////////////////////////////////////////////////////////////////////
 /// \brief Универсальный класс, от которого наследуются все элементы
@@ -18,7 +19,7 @@ private:
 
 	unsigned int* layer = new unsigned int(0);
 
-	sf::Vector2f* position = new sf::Vector2f(0.f, 0.f);
+	Vector2* position = new Vector2(0.f, 0.f);
 
 	sf::Texture* texture = new sf::Texture;
 	sf::Image* image = new sf::Image;
@@ -27,7 +28,7 @@ public:
 	/// Флаг, значение которого задаёт отрисовку графического объекта.
 	bool* isDrawable = new bool(true);
 
-	const sf::Vector2f& get_position() const;
+	const Vector2& get_position() const;
 
 	/// <summary>
 	/// Перенос графического объекта на указанный слой.
@@ -60,7 +61,7 @@ protected:
 	void set_image(const sf::Image& image);
 	void set_sprite(const sf::Sprite& sprite);
 
-	void set_position(const sf::Vector2f& point);
+	void set_position(const Vector2& point);
 	void set_position(const float& x, const float& y);
 
 	/// <summary>
