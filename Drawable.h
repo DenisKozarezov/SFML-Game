@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "ProjectPath.h"
+#include "ProjectPath.cpp"
 #include "Vector2.h"
 
 /////////////////////////////////////////////////////////////////////

@@ -5,17 +5,28 @@ void Unit::update()
 
 }
 
+void Unit::initialize()
+{
+	this->sprite_sheets->insert(std::pair<std::string, sf::Texture*>("Idle", new sf::Texture));
+	this->sprite_sheets->insert(std::pair<std::string, sf::Texture*>("Run", new sf::Texture));
+	this->sprite_sheets->insert(std::pair<std::string, sf::Texture*>("Jump", new sf::Texture));
+}
+
 Unit::Unit(const Vector2& position)
 {
 	DrawableObject::initialize(this, 0);
 	set_screen_position(position);
 	set_world_position(position);
+
+	initialize();
 }
 Unit::Unit(const float& x, const float& y)
 {
 	DrawableObject::initialize(this, 0);
 	set_screen_position(Vector2(x, y));
 	set_world_position(Vector2(x, y));
+
+	initialize();
 }
 
 Unit::~Unit()

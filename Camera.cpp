@@ -1,5 +1,4 @@
 #include "Camera.h"
-#include <iostream>
 
 Camera::Camera()
 {
@@ -30,7 +29,6 @@ void Camera::update(const double& deltaTime)
 		}
 		else
 		{
-			std::cout << "DESTINATION IS HERE!\n";
 			*this->factor = 0;
 			*this->position = *this->point_target;
 			stop();

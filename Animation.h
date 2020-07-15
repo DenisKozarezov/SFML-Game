@@ -6,8 +6,11 @@
 class Animation final
 {
 private:
-	std::vector<sf::Texture>* frames = new std::vector<sf::Texture>;
+	//std::vector<sf::Texture>* frames = new std::vector<sf::Texture>;
+	sf::IntRect* currentRect = new sf::IntRect;
 	unsigned int* currentFrame = new unsigned int(0);
+	unsigned int* deltaX = new unsigned int(0);
+	unsigned int* _size = new unsigned int(0);
 
 	std::string* name = new std::string("Empty");
 	float* interval_speed = new float(1000); // Интервал между кадрами в миллисекундах
@@ -17,8 +20,6 @@ private:
 
 	DrawableObject* target;
 	sf::Clock* clock = new sf::Clock;
-
-	const sf::Texture* get_frame(const unsigned int& index) const;
 public:
 	/// Флаг, значение которого задаёт зацикленность текущей анимации.
 	bool* isLoop = new bool(true);
@@ -26,13 +27,16 @@ public:
 	const bool& isPlaying() const;
 
 	explicit Animation(DrawableObject* target);
-	explicit Animation(sf::Texture* frames, const unsigned int& size, DrawableObject* target);
-	explicit Animation(std::vector<sf::Texture*>* frames, DrawableObject* target);
+	explicit Animation(const sf::Texture& sprite_sheet, const unsigned int& frames, DrawableObject* target);
 	explicit Animation(const std::string& name, DrawableObject* target);
 
 	/// Возвращает название текущей анимации.	
 	/// \return Строка названия.
 	const std::string& get_name() const;
+
+	/// Возвращает количество кадров в анимации.	
+	/// \return Положительное целое число.
+	const unsigned int& size() const;
 
 	/// Возвращает значение интервала между кадрами анимации.	
 	/// \return Временной период в миллисекундах.

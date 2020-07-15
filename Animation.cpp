@@ -5,15 +5,12 @@ Animation::Animation(DrawableObject* target)
 {
 	this->target = target;
 }
-Animation::Animation(sf::Texture* frames, const unsigned int& size, DrawableObject* target)
+Animation::Animation(const sf::Texture& sprite_sheet, const unsigned int& size, DrawableObject* target)
 {
 	this->target = target;
-	for (unsigned int i = 0; i < size; i++) this->frames->push_back(frames[i]);
-}
-Animation::Animation(std::vector<sf::Texture*>* frames, DrawableObject* target)
-{
-	this->target = target;
-	//this->frames = frames;
+	*this->deltaX = sprite_sheet.getSize().x / size;
+	*this->_size = size;
+	*this->currentRect = sf::IntRect(0, 0, *this->deltaX, sprite_sheet.getSize().y);
 }
 Animation::Animation(const std::string& name, DrawableObject* target)
 {
@@ -23,9 +20,9 @@ Animation::Animation(const std::string& name, DrawableObject* target)
 
 Animation::~Animation()
 {
-	frames->clear();
-	delete this->frames;
-
+	delete this->currentRect;
+	delete this->_size;
+	delete this->deltaX;
 	delete this->currentFrame;
 	delete this->name;
 	delete this->interval_speed;
@@ -44,6 +41,10 @@ const std::string& Animation::get_name() const
 {
 	return *this->name;
 }
+const unsigned int& Animation::size() const
+{
+	return *this->_size;
+}
 const float& Animation::get_interval() const
 {
 	return *this->interval_speed;
@@ -57,12 +58,6 @@ void Animation::set_interval(const float& value)
 {
 	*this->interval_speed = value;
 }
-const sf::Texture* Animation::get_frame(const unsigned int& index) const
-{
-	std::vector<sf::Texture>::iterator it = this->frames->begin();
-	std::advance(it, index);
-	return &*it;
-}
 
 void Animation::play()
 {
@@ -71,14 +66,15 @@ void Animation::play()
 		*this->_isPlaying = true;
 		if (this->clock->getElapsedTime().asMilliseconds() >= *this->interval_speed)
 		{		
-			target->set_texture(*get_frame(*this->currentFrame));
-			if (*this->currentFrame >= this->frames->size() - 1)
+			target->get_sprite()->setTextureRect(*this->currentRect);
+			if (*this->currentFrame >= *this->_size - 1)
 			{
 				*this->currentFrame = 0;
 				if (!*this->isLoop) stop();
 			}
 			else *this->currentFrame += 1;
 
+			this->currentRect->left = *this->deltaX * *this->currentFrame;
 			this->clock->restart();			
 		}
 	}

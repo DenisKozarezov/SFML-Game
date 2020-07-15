@@ -46,12 +46,12 @@
     <Filter Include="Math\Vector2">
       <UniqueIdentifier>{bcbe85ef-416e-4e88-96ea-f45835ede929}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{2ee86bd5-0026-4ee3-ae75-6e9fdff6c6be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="ProjectPath.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Drawable.cpp">
@@ -72,9 +72,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Components\Player</Filter>
     </ClCompile>
-    <ClCompile Include="ProjectPath.h">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -86,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="Vector2.cpp">
       <Filter>Math\Vector2</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectPath.cpp">
+      <Filter>Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

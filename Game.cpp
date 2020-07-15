@@ -8,8 +8,7 @@ Game::Game()
 	this->initialize();
 	GameDrawableContainer::initialize();
 
-	Warrior* warrior1 = new Warrior(Vector2(0, 200));
-	warrior1->get_animator()->get_animation("Idle")->set_interval(1000);
+	Warrior* warrior1 = new Warrior(Vector2(500, 200));
 }
 Game::~Game()
 {

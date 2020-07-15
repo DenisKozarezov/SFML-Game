@@ -15,6 +15,8 @@ private:
 	unsigned int* damage = new unsigned int(0);
 	float* speed = new float(0);
 
+	void initialize();
+
 	virtual void update() override;
 public:
 	Unit(const Vector2& position);
@@ -44,6 +46,8 @@ public:
 	virtual ~Unit();
 protected:
 	Animator* animator = new Animator(this);
+
+	std::map<std::string, sf::Texture*>* sprite_sheets = new std::map<std::string, sf::Texture*>;
 };
 const bool operator==(const Unit& unit1, const Unit& unit2);
 const bool operator!=(const Unit& unit1, const Unit& unit2);
