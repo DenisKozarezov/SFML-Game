@@ -49,6 +49,12 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{2ee86bd5-0026-4ee3-ae75-6e9fdff6c6be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components\Collider">
+      <UniqueIdentifier>{3f10f723-cfbd-4e29-aed9-9f138115b9ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Sprite">
+      <UniqueIdentifier>{a8e5fb7d-92aa-42cd-b671-69a9048b0dad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -87,6 +93,9 @@
     <ClCompile Include="ProjectPath.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Components\Sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawable.h">
@@ -118,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="Vector2.h">
       <Filter>Math\Vector2</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Components\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

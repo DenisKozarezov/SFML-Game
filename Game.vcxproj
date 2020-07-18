@@ -164,6 +164,7 @@
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProjectPath.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Unit.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Warrior.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Unit.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Warrior.h" />

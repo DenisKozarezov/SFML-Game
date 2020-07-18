@@ -15,6 +15,7 @@ void Unit::initialize()
 Unit::Unit(const Vector2& position)
 {
 	DrawableObject::initialize(this, 0);
+	*this->get_sprite()->isMultiple = true;
 	set_screen_position(position);
 	set_world_position(position);
 
@@ -23,6 +24,7 @@ Unit::Unit(const Vector2& position)
 Unit::Unit(const float& x, const float& y)
 {
 	DrawableObject::initialize(this, 0);
+	*this->get_sprite()->isMultiple = true;
 	set_screen_position(Vector2(x, y));
 	set_world_position(Vector2(x, y));
 
@@ -42,6 +44,13 @@ Unit::~Unit()
 	delete this->isPaused;
 	delete this->isMovable;
 	delete this->isDead;
+
+	std::map<std::string, sf::Texture*>::iterator it;
+	for (it = this->sprite_sheets->begin(); it != this->sprite_sheets->end(); it++)
+	{
+		delete it->second;
+	}
+	delete this->sprite_sheets;
 }
 
 const std::string& Unit::get_name() const
@@ -60,7 +69,7 @@ const float& Unit::get_speed() const
 {
 	return *this->speed;
 }
-Animator* Unit::get_animator()
+Animator* Unit::get_animator() const
 {
 	return this->animator;
 }

@@ -7,6 +7,8 @@
 class Camera
 {
 private:
+	friend class Game;
+
 	Vector2* position = new Vector2(0.f, 0.f);
 
 	bool* faded = new bool(false);
@@ -27,6 +29,7 @@ public:
 	Camera();
 	
 	void update(const double& deltaTime);
+	void input_update(const sf::RenderWindow& window);
 
 	const bool& isMoving() const;
 	const bool& isFaded() const;

@@ -58,11 +58,11 @@ void Animator::set_main_animation(const std::string& name)
 {
 	//this->mainAnimation = this->animations->find(name)->second;
 }
-void Animator::play(Animation animation)
+void Animator::play(Animation* animation)
 {
 	if (this->currentAnimation != nullptr) this->currentAnimation->stop();
 	*this->_isPlaying = true;
-	this->currentAnimation = &animation;
+	this->currentAnimation = animation;
 	this->currentAnimation->reset();
 	this->currentAnimation->play();
 }

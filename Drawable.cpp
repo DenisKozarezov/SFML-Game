@@ -1,5 +1,6 @@
 #include "Drawable.h"
 #include <algorithm>
+#include <iostream>
 
 #pragma region DrawableObject
 void DrawableObject::set_layer(const unsigned int& layer)
@@ -10,14 +11,9 @@ void DrawableObject::set_layer(const unsigned int& layer)
 }
 void DrawableObject::set_texture(const sf::Texture& texture)
 {
-	*this->texture = texture;
 	this->sprite->setTexture(texture);
 }
-void DrawableObject::set_image(const sf::Image& image)
-{
-	*this->image = image;
-}
-void DrawableObject::set_sprite(const sf::Sprite& sprite)
+void DrawableObject::set_sprite(const Sprite& sprite)
 {
 	*this->sprite = sprite;
 }
@@ -71,22 +67,66 @@ const Vector2& DrawableObject::get_world_position() const
 {
 	return *this->world_position;
 }
+const bool& DrawableObject::IsSwappedX() const
+{
+	return this->sprite->IsSwappedX();
+}
+const bool& DrawableObject::IsSwappedY() const
+{
+	return this->sprite->IsSwappedY();
+}
 
 const unsigned int& DrawableObject::get_layer() const
 {
 	return *this->layer;
 }
-sf::Sprite* DrawableObject::get_sprite() const
+
+void DrawableObject::swapX(const bool& status)
+{
+	float width;
+	if (*this->sprite->isMultiple) width = abs(this->sprite->getTexture()->getSize().x / this->sprite->get_frames_count() * this->sprite->getScale().x);
+	else width = abs(this->sprite->getTexture()->getSize().x * this->sprite->getScale().x);
+
+	if (status)
+	{
+		set_screen_position(this->get_screen_position() + Vector2(width, 0));
+		if (this->sprite->getScale().x > 0)
+			this->sprite->setScale(-this->sprite->getScale().x, this->sprite->getScale().y);
+		this->sprite->swapX(true);
+	}
+	else
+	{
+		set_screen_position(this->get_screen_position() + Vector2(-width, 0));
+		if (this->sprite->getScale().x < 0)
+			this->sprite->setScale(-this->sprite->getScale().x, this->sprite->getScale().y);
+		this->sprite->swapX(false);
+	}
+}
+void DrawableObject::swapY(const bool& status)
+{
+	float height;
+	if (*this->sprite->isMultiple) height = abs(this->sprite->getTexture()->getSize().x / this->sprite->get_frames_count() * this->sprite->getScale().x);
+	else height = abs(this->sprite->getTexture()->getSize().x * this->sprite->getScale().x);
+
+	if (status)
+	{
+		set_screen_position(this->get_screen_position() + Vector2(0, height));
+		if (this->sprite->getScale().y > 0)
+			this->sprite->setScale(this->sprite->getScale().x, -this->sprite->getScale().y);
+		this->sprite->swapY(true);
+	}
+	else
+	{
+		set_screen_position(this->get_screen_position() + Vector2(0, -height));
+		if (this->sprite->getScale().y < 0)
+			this->sprite->setScale(this->sprite->getScale().x, -this->sprite->getScale().y);
+		this->sprite->swapY(false);
+	}
+}
+
+Sprite* DrawableObject::get_sprite() const
 {
 	return this->sprite;
-}
-sf::Image* DrawableObject::get_image() const
-{
-	return this->image;
-}
-sf::Texture* DrawableObject::get_texture() const
-{
-	return this->texture;
 }
 
 DrawableObject::~DrawableObject()
@@ -98,8 +138,6 @@ DrawableObject::~DrawableObject()
 	delete this->world_position;
 
 	delete this->sprite;
-	delete this->image;
-	delete this->texture;
 }
 #pragma endregion
 

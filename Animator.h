@@ -50,7 +50,7 @@ public:
 	/// Проигрывание указанной анимации.
 	/// </summary>
 	/// <param name="*animation - указатель на объект анимации."></param>
-	void play(Animation animation);
+	void play(Animation* animation);
 
 	/// <summary>
 	/// Проигрывание указанной анимации по индексу.

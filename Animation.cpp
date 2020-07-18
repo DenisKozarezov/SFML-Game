@@ -7,6 +7,7 @@ Animation::Animation(DrawableObject* target)
 }
 Animation::Animation(const sf::Texture& sprite_sheet, const unsigned int& size, DrawableObject* target)
 {
+	this->source = std::make_shared<sf::Texture>(sprite_sheet);
 	this->target = target;
 	*this->deltaX = sprite_sheet.getSize().x / size;
 	*this->_size = size;
@@ -25,7 +26,7 @@ Animation::~Animation()
 	delete this->deltaX;
 	delete this->currentFrame;
 	delete this->name;
-	delete this->interval_speed;
+	delete this->interval;
 	delete this->_isPlaying;
 	delete this->isStopped;
 	delete this->isLoop;
@@ -47,7 +48,7 @@ const unsigned int& Animation::size() const
 }
 const float& Animation::get_interval() const
 {
-	return *this->interval_speed;
+	return *this->interval;
 }
 
 void Animation::set_name(const std::string& name)
@@ -56,16 +57,17 @@ void Animation::set_name(const std::string& name)
 }
 void Animation::set_interval(const float& value)
 {
-	*this->interval_speed = value;
+	*this->interval = value;
 }
 
 void Animation::play()
 {
-	if (!*this->isStopped && *this->interval_speed != 0)
+	if (!*this->isStopped && *this->interval != 0)
 	{
 		*this->_isPlaying = true;
-		if (this->clock->getElapsedTime().asMilliseconds() >= *this->interval_speed)
-		{		
+		if (this->clock->getElapsedTime().asMilliseconds() >= *this->interval)
+		{
+			target->set_texture(*this->source);
 			target->get_sprite()->setTextureRect(*this->currentRect);
 			if (*this->currentFrame >= *this->_size - 1)
 			{

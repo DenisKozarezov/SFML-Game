@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "ProjectPath.cpp"
 #include "Vector2.h"
+#include "Sprite.h"
 
 /////////////////////////////////////////////////////////////////////
 /// \brief Универсальный класс, от которого наследуются все элементы
@@ -22,9 +23,7 @@ private:
 	Vector2* screen_position = new Vector2(0.f, 0.f);
 	Vector2* world_position = new Vector2(0.f, 0.f);
 
-	sf::Texture* texture = new sf::Texture;
-	sf::Image* image = new sf::Image;
-	sf::Sprite* sprite = new sf::Sprite;
+	Sprite* sprite = new Sprite;
 public:
 	/// Флаг, значение которого задаёт отрисовку графического объекта.
 	bool* isDrawable = new bool(true);
@@ -43,6 +42,21 @@ public:
 	const unsigned int& get_layer() const;
 
 	/// <summary>
+	/// Полностью отзеркаливает графический объект относительно горизонтали.
+	/// </summary>
+	/// <param name="status - флаг."></param>
+	void swapX(const bool& status);
+
+	/// <summary>
+	/// Полностью отзеркаливает графический объект относительно вертикали.
+	/// </summary>
+	/// <param name="status - флаг."></param>
+	void swapY(const bool& status);
+
+	const bool& IsSwappedX() const;
+	const bool& IsSwappedY() const;
+
+	/// <summary>
 	/// Полное уничтожение игрового объекта и освобождение всех занятых им ресурсов.
 	/// Вдобавок, уничтоженный объект будет удалён из контейнера GameDrawableContainer
 	/// и более не будет отрисовываться на экране.
@@ -55,13 +69,10 @@ protected:
 	friend class Animation;
 	friend class Camera;
 
-	sf::Sprite* get_sprite() const;
-	sf::Texture* get_texture() const;
-	sf::Image* get_image() const;
+	Sprite* get_sprite() const;
 
 	void set_texture(const sf::Texture& texture);
-	void set_image(const sf::Image& image);
-	void set_sprite(const sf::Sprite& sprite);
+	void set_sprite(const Sprite& sprite);
 
 	void set_screen_position(const Vector2& point);
 	void set_screen_position(const float& x, const float& y);

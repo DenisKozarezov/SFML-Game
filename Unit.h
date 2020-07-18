@@ -35,7 +35,7 @@ public:
 	const unsigned int& get_health() const;
 	const unsigned int& get_damage() const;
 	const float& get_speed() const;
-	Animator* get_animator();
+	Animator* get_animator() const;
 
 	void move(const Vector2& point);
 	void move(const float& x, const float& y);

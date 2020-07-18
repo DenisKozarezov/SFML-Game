@@ -35,6 +35,33 @@ void Camera::update(const double& deltaTime)
 		}
 	}
 }
+void Camera::input_update(const sf::RenderWindow& window)
+{
+	float left = Math::percent_of(0.03f, window.getSize().x);
+	float right = Math::percent_of(0.97f, window.getSize().x);
+	float up = Math::percent_of(0.03f, window.getSize().y);
+	float down = Math::percent_of(0.97f, window.getSize().y);
+	if (sf::Mouse::getPosition().x <= left)
+	{
+		Vector2 position = get_position() + Vector2::right;
+		move_to(position);
+	}
+	if (sf::Mouse::getPosition().x >= right)
+	{
+		Vector2 position = get_position() + Vector2::left;
+		move_to(position);
+	}
+	if (sf::Mouse::getPosition().y <= down)
+	{
+		Vector2 position = get_position() + Vector2::up;
+		move_to(position);
+	}
+	if (sf::Mouse::getPosition().y >= up)
+	{
+		Vector2 position = get_position() + Vector2::down;
+		move_to(position);
+	}
+}
 
 const bool& Camera::isMoving() const
 {

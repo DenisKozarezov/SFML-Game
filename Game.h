@@ -3,24 +3,25 @@
 #include "Drawable.h"
 #include "Warrior.h"
 #include "Player.h"
-#include "Camera.h"
 #include "Vector2.h"
+#include "Camera.h"
 
 class Game
 {
 private:
+
 	sf::RenderWindow* window;
-	static sf::Clock* clock;
-	static sf::Time* time;
+	sf::Clock* clock = new sf::Clock;
+	sf::Time* time = new sf::Time;
 
-	static Camera* camera;
+	Camera* camera = new Camera;
 
-	Player* player;
+	Player* player = new Player;
 
 	void initialize();
-	void update_graphics();
-	void update_input();
-	void update_events();
+	void graphics_update();
+	void input_update();
+	void events_update();
 public:
 	bool* isActive = new bool(false);
 
@@ -28,7 +29,6 @@ public:
 	void run();
 	void shutdown();
 
-	const static sf::Clock* get_clock();
 	~Game();
 };
 
