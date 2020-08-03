@@ -49,11 +49,17 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{2ee86bd5-0026-4ee3-ae75-6e9fdff6c6be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Components\Collider">
-      <UniqueIdentifier>{3f10f723-cfbd-4e29-aed9-9f138115b9ca}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Components\Sprite">
       <UniqueIdentifier>{a8e5fb7d-92aa-42cd-b671-69a9048b0dad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\EventSystem">
+      <UniqueIdentifier>{819de4f6-3833-438f-b790-277bccac156d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{3a7ea4fd-9438-422e-b350-1343565fca24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Animator">
+      <UniqueIdentifier>{4a36ab6a-fc72-4c63-8324-f10fc891eb2d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,9 +70,6 @@
       <Filter>Drawable</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
-      <Filter>Components\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Animator.cpp">
       <Filter>Components\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Unit.cpp">
@@ -96,15 +99,24 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Components\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Components\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitEventHandler.cpp">
+      <Filter>Components\EventSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Components\Animator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawable.h">
       <Filter>Drawable</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
-      <Filter>Components\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Animator.h">
       <Filter>Components\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Unit.h">
@@ -131,5 +143,25 @@
     <ClInclude Include="Sprite.h">
       <Filter>Components\Sprite</Filter>
     </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Components\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitEventHandler.h">
+      <Filter>Components\EventSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Components\Animator</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Game.rc">
+      <Filter>Файлы ресурсов</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -158,14 +158,17 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerInput.cpp" />
     <ClCompile Include="ProjectPath.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Unit.cpp" />
+    <ClCompile Include="UnitEventHandler.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Warrior.cpp" />
   </ItemGroup>
@@ -173,14 +176,21 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerInput.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Unit.h" />
+    <ClInclude Include="UnitEventHandler.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Warrior.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Game.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

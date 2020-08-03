@@ -5,10 +5,6 @@
 
 class Vector2 final
 {
-private:
-	float length;
-
-	const static float& scalar(const Vector2& vector1, const Vector2& vector2);
 public:
 	float x;
 	float y;
@@ -25,16 +21,20 @@ public:
 	explicit Vector2();
 	explicit Vector2(const float& x, const float& y);
 
-	const Vector2 normalize();
-	const float& magnitude();
+	Vector2 normalize();
+	float& magnitude() const;
 	void set(const float& x, const float& y);
 	const std::string& to_string() const;
 
+	const static float& scalar(const Vector2& vector1, const Vector2& vector2);
 	const static float& angle(const Vector2& vector1, const Vector2& vector2);
 	const static float& distance(const Vector2& vector1, const Vector2& vector2);	
 	const static Vector2 lerp(const Vector2& vector1, const Vector2& vector2, const float& factor);
 
 	const Vector2& operator=(const Vector2& vector);
+	const Vector2& operator=(std::initializer_list<Vector2> vectors);
+	const Vector2& operator=(Vector2 vectors[]);
+	const Vector2& operator=(std::vector<Vector2>& vectors);
 
 	const Vector2& operator+(const Vector2& vector);
 	const Vector2& operator-(const Vector2& vector);
@@ -48,10 +48,10 @@ public:
 };
 const Vector2& operator-(const Vector2& vector);
 
-const Vector2 operator+(const Vector2 vector1, const Vector2 vector2);
-const Vector2 operator-(const Vector2 vector1, const Vector2 vector2);
-const Vector2 operator*(const Vector2 vector, const float& factor);
-const Vector2 operator/(const Vector2 vector, const float& factor);
+const Vector2 operator+(const Vector2& vector1, const Vector2& vector2);
+const Vector2 operator-(const Vector2& vector1, const Vector2& vector2);
+const Vector2 operator*(const Vector2& vector, const float& factor);
+const Vector2 operator/(const Vector2& vector, const float& factor);
 
 const bool& operator==(const Vector2& vector1, const Vector2& vector2);
 const bool& operator!=(const Vector2& vector1, const Vector2& vector2);

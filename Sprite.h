@@ -1,8 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "Vector2.h"
 
-class Sprite : public sf::Sprite
+class Sprite final : public sf::Sprite
 {
 private:
 	bool* swappedX = new bool(false);
@@ -10,6 +9,8 @@ private:
 
 	unsigned int* frames = new unsigned int(0);
 public:
+	bool* isMultiple = new bool(false);
+
 	explicit Sprite();
 
 	void swapX(const bool& status);
@@ -20,8 +21,6 @@ public:
 	const bool& IsSwappedX() const;
 	const bool& IsSwappedY() const;
 	const unsigned int& get_frames_count() const;
-
-	bool* isMultiple = new bool(false);
 
 	~Sprite();
 };

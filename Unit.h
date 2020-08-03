@@ -4,6 +4,7 @@
 #include <string>
 #include "Drawable.h"
 #include "Animator.h"
+#include "Collision.h"
 
 class Unit : public DrawableObject
 {
@@ -36,6 +37,7 @@ public:
 	const unsigned int& get_damage() const;
 	const float& get_speed() const;
 	Animator* get_animator() const;
+	Collision* get_collider() const;
 
 	void move(const Vector2& point);
 	void move(const float& x, const float& y);
@@ -48,6 +50,7 @@ protected:
 	Animator* animator = new Animator(this);
 
 	std::map<std::string, sf::Texture*>* sprite_sheets = new std::map<std::string, sf::Texture*>;
+	Collision* collider;
 };
 const bool operator==(const Unit& unit1, const Unit& unit2);
 const bool operator!=(const Unit& unit1, const Unit& unit2);

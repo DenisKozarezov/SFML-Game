@@ -9,13 +9,14 @@ void Unit::initialize()
 {
 	this->sprite_sheets->insert(std::pair<std::string, sf::Texture*>("Idle", new sf::Texture));
 	this->sprite_sheets->insert(std::pair<std::string, sf::Texture*>("Run", new sf::Texture));
-	this->sprite_sheets->insert(std::pair<std::string, sf::Texture*>("Jump", new sf::Texture));
+	this->sprite_sheets->insert(std::pair<std::string, sf::Texture*>("Jump", new sf::Texture));	
+	
+	*this->get_sprite()->isMultiple = true;
 }
 
 Unit::Unit(const Vector2& position)
 {
 	DrawableObject::initialize(this, 0);
-	*this->get_sprite()->isMultiple = true;
 	set_screen_position(position);
 	set_world_position(position);
 
@@ -24,7 +25,6 @@ Unit::Unit(const Vector2& position)
 Unit::Unit(const float& x, const float& y)
 {
 	DrawableObject::initialize(this, 0);
-	*this->get_sprite()->isMultiple = true;
 	set_screen_position(Vector2(x, y));
 	set_world_position(Vector2(x, y));
 
@@ -73,6 +73,10 @@ Animator* Unit::get_animator() const
 {
 	return this->animator;
 }
+Collision* Unit::get_collider() const
+{
+	return this->collider;
+}
 
 void Unit::set_name(const std::string& name)
 {
@@ -96,6 +100,7 @@ void Unit::move(const Vector2& offset)
 	if (*this->isMovable && !*this->isDead)
 	{
 		set_world_position(get_world_position() + offset * *this->speed);
+		set_screen_position(get_screen_position() + offset * *this->speed);
 	}
 }
 void Unit::move(const float& offset_x, const float& offset_y)

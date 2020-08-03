@@ -51,11 +51,11 @@ void DrawableObject::initialize(DrawableObject* object, unsigned int& layer)
 }
 void DrawableObject::destroy(DrawableObject* object)
 {
-	if (object != nullptr)
+	if (object != NULL)
 	{
 		GameDrawableContainer::remove(*object->layer, object);
 		delete dynamic_cast<DrawableObject*>(object);
-		object = nullptr;
+		object = NULL;
 	}
 }
 

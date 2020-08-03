@@ -1,5 +1,4 @@
 #include "Game.h"
-#include <iostream>
 
 Game::Game()
 {
@@ -7,12 +6,15 @@ Game::Game()
 	GameDrawableContainer::initialize();
 
 	Warrior* warrior1 = new Warrior(Vector2(500, 200));
+
 	this->player->set_main_character(warrior1);
 }
 Game::~Game()
 {
 	delete this->clock;
+
 	delete this->player;
+
 	delete this->time;
 	delete this->camera;
 	delete this->isActive;
@@ -55,4 +57,3 @@ void Game::graphics_update()
 
 	this->window->display();
 }
-

@@ -3,13 +3,13 @@
 #include "Drawable.h"
 #include "Warrior.h"
 #include "Player.h"
+#include "PlayerInput.h"
 #include "Vector2.h"
 #include "Camera.h"
 
 class Game
 {
 private:
-
 	sf::RenderWindow* window;
 	sf::Clock* clock = new sf::Clock;
 	sf::Time* time = new sf::Time;
