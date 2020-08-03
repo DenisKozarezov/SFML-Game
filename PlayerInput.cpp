@@ -1,5 +1,4 @@
 #include "PlayerInput.h"
-#include <iostream>
 
 std::map<const std::string, sf::Keyboard::Key>* PlayerInput::_default_input = new std::map<const std::string, sf::Keyboard::Key>;
 std::map<const std::string, sf::Keyboard::Key>* PlayerInput::_current_input = new std::map<const std::string, sf::Keyboard::Key>;
@@ -46,6 +45,14 @@ const sf::Keyboard::Key& PlayerInput::Jump()
 
 void PlayerInput::change_key(const std::string& key, const sf::Keyboard::Key& value)
 {
-	std::map< const std::string, sf::Keyboard::Key>::iterator it = _current_input->find(key);
+	std::map<const std::string, sf::Keyboard::Key>::iterator it = _current_input->find(key);
 	if (it != _current_input->end()) _current_input->find(key)->second = value;
+}
+void PlayerInput::reset()
+{
+	std::map<const std::string, sf::Keyboard::Key>::iterator it;
+	for (it = _default_input->begin(); it != _default_input->end(); it++)
+	{
+		_current_input->find(it->first)->second = it->second;
+	}
 }

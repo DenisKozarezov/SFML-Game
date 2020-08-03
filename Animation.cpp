@@ -1,5 +1,4 @@
 #include "Animation.h"
-#include "Game.h"
 
 Animation::Animation(DrawableObject* target)
 {
@@ -17,21 +16,6 @@ Animation::Animation(const std::string& name, DrawableObject* target)
 {
 	this->target = target;
 	*this->name = name;
-}
-
-Animation::~Animation()
-{
-	delete this->currentRect;
-	delete this->_size;
-	delete this->deltaX;
-	delete this->currentFrame;
-	delete this->name;
-	delete this->interval;
-	delete this->_isPlaying;
-	delete this->isStopped;
-	delete this->isLoop;
-
-	delete this->clock;
 }
 
 const bool& Animation::isPlaying() const
@@ -91,4 +75,19 @@ void Animation::stop()
 void Animation::reset()
 {
 	*this->isStopped = false;
+}
+
+Animation::~Animation()
+{
+	delete this->currentRect;
+	delete this->_size;
+	delete this->deltaX;
+	delete this->currentFrame;
+	delete this->name;
+	delete this->interval;
+	delete this->_isPlaying;
+	delete this->isStopped;
+	delete this->isLoop;
+
+	delete this->clock;
 }

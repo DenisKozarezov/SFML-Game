@@ -3,7 +3,7 @@
 Game::Game()
 {
 	this->initialize();
-	GameDrawableContainer::initialize();
+	GameDrawableContainer::initialize(5);
 
 	Warrior* warrior1 = new Warrior(Vector2(500, 200));
 

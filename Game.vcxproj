@@ -159,8 +159,11 @@
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="Drawable.cpp" />
+    <ClCompile Include="DrawableContainer.cpp" />
+    <ClCompile Include="DrawableLayer.cpp" />
+    <ClCompile Include="DrawableObject.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -177,8 +180,11 @@
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="Drawable.h" />
+    <ClInclude Include="DrawableContainer.h" />
+    <ClInclude Include="DrawableLayer.h" />
+    <ClInclude Include="DrawableObject.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GUI.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerInput.h" />

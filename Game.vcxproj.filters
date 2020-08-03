@@ -66,9 +66,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Drawable.cpp">
-      <Filter>Drawable</Filter>
-    </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Components\Animation</Filter>
     </ClCompile>
@@ -111,11 +108,20 @@
     <ClCompile Include="Animator.cpp">
       <Filter>Components\Animator</Filter>
     </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableLayer.cpp">
+      <Filter>Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableObject.cpp">
+      <Filter>Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableContainer.cpp">
+      <Filter>Drawable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Drawable.h">
-      <Filter>Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Components\Animation</Filter>
     </ClInclude>
@@ -157,6 +163,18 @@
     </ClInclude>
     <ClInclude Include="Animator.h">
       <Filter>Components\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableLayer.h">
+      <Filter>Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableObject.h">
+      <Filter>Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableContainer.h">
+      <Filter>Drawable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

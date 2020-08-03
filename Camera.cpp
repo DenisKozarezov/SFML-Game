@@ -83,10 +83,10 @@ const float& Camera::get_speed() const
 
 void Camera::move(const Vector2& offset)
 {
-	for (unsigned int i = 0; i < GameDrawableContainer::get_layers_amount(); i++)
+	for (unsigned int i = 0; i < GameDrawableContainer::size(); i++)
 	{
 		std::vector<DrawableObject*>::iterator it;
-		std::vector<DrawableObject*>* layer = GameDrawableContainer::get_layer(i);
+		std::vector<DrawableObject*>* layer = GameDrawableContainer::get_layer(i)->get_layer();
 		if (layer->size() > 0)
 		{
 			for (it = layer->begin(); it != layer->end(); it++)
