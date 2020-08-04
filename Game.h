@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "PlayerInput.h"
 #include "Vector2.h"
+#include "GUI.h"
 #include "Camera.h"
 
 class Game
@@ -15,6 +16,7 @@ private:
 	sf::Time* time = new sf::Time;
 
 	Camera* camera = new Camera;
+	GUI* gui;
 
 	Player* player = new Player;
 

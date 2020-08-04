@@ -2,8 +2,9 @@
 
 Game::Game()
 {
-	this->initialize();
-	GameDrawableContainer::initialize(5);
+	this->window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "My Game");
+	DrawableContainer::initialize(5);
+	this->gui = GUI::get_instance();
 
 	Warrior* warrior1 = new Warrior(Vector2(500, 200));
 
@@ -21,10 +22,6 @@ Game::~Game()
 	delete this->window;
 }
 
-void Game::initialize()
-{
-	this->window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "My Game");
-}
 void Game::run()
 {		
 	while (this->window->isOpen())
@@ -53,7 +50,7 @@ void Game::graphics_update()
 {
 	this->window->clear();
 
-	GameDrawableContainer::update(*Game::window);	
+	DrawableContainer::update(*Game::window);	
 
 	this->window->display();
 }

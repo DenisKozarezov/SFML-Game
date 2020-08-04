@@ -5,13 +5,18 @@
 class GUI final
 {
 private:
-	static bool _hidden;
-	static DrawableLayer* gui_layer;
-public:
+	bool* hidden;
+	DrawableLayer* gui_layer;
+
+	static GUI* instance;
+
 	GUI();
+	GUI& operator=(const GUI&) = delete;
+public:
+	static GUI* get_instance();
 
 	const bool& IsHidden() const;
 
-	static void show(const bool& status);
+	void show(const bool& status);
 };
 

@@ -12,7 +12,7 @@ DrawableObject::DrawableObject()
 
 void DrawableObject::set_layer(const unsigned short& layer)
 {
-	GameDrawableContainer::get_layer(layer)->remove(this);
+	DrawableContainer::get_layer(layer)->remove(this);
 	*this->layer = layer;
 	initialize(this, layer);
 }
@@ -45,17 +45,17 @@ void DrawableObject::set_world_position(const float& x, const float& y)
 
 void DrawableObject::initialize(DrawableObject* object)
 {
-	GameDrawableContainer::get_layer(*object->layer)->add(object);
+	DrawableContainer::get_layer(*object->layer)->add(object);
 }
 void DrawableObject::initialize(DrawableObject* object, const unsigned short& layer)
 {
-	GameDrawableContainer::get_layer(layer)->add(object);
+	DrawableContainer::get_layer(layer)->add(object);
 }
 void DrawableObject::destroy(DrawableObject* object)
 {
 	if (object != NULL)
 	{
-		//GameDrawableContainer::remove(*object->layer, object);
+		//DrawableContainer::remove(*object->layer, object);
 		delete dynamic_cast<DrawableObject*>(object);
 		object = NULL;
 	}

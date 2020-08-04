@@ -11,12 +11,16 @@
 /// properties, including boolean IsHidden(), which means if this value is false, 
 /// this object or layer is no longer drawable or updatable on screen.
 /////////////////////////////////////////////////////////////////////////////
-class GameDrawableContainer final
+class DrawableContainer final
 {
 private:
 	friend class DrawableObject;
+	friend class GUI;
 
-	static std::map<unsigned int, DrawableLayer*>* layers;
+	static std::map<const std::string, DrawableLayer*>* layers;
+	static unsigned short reserved_const;
+
+	static DrawableLayer* get_GUI();
 public:
 	/// <summary>
 	/// Initialization of graphic layers with specified amount.
@@ -36,9 +40,14 @@ public:
 	static DrawableLayer* get_layer(const unsigned short& layer);
 
 	/// <summary>
-	/// Return a size of graphic container.
+	/// Return a size of graphic container including the interface layers.
 	/// </summary>
 	const static unsigned short& size();
+
+	/// <summary>
+	/// Return amount of interface reserved layers.
+	/// </summary>
+	const static unsigned short& reserved_size();
 	
 	/// <summary>
 	/// Consistent drawing of graphic container from zero
