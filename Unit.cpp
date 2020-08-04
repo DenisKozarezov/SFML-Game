@@ -6,12 +6,25 @@ void Unit::update()
 }
 
 void Unit::initialize()
-{
+{	
+	*this->get_sprite()->isMultiple = true;
+
+	this->name = new std::string("Empty name");
+	this->tag = new std::string("Empty tag");
+	this->health = new unsigned int(0);
+	this->damage = new unsigned int(0);
+	this->speed = new float(0);
+
+	this->isPaused = new bool(false);
+	this->isDead = new bool(false);
+	this->isMovable = new bool(true);
+
+	this->animator = new Animator(this);
+
+	this->sprite_sheets = new std::map<std::string, sf::Texture*>;
 	this->sprite_sheets->insert(std::pair<std::string, sf::Texture*>("Idle", new sf::Texture));
 	this->sprite_sheets->insert(std::pair<std::string, sf::Texture*>("Run", new sf::Texture));
 	this->sprite_sheets->insert(std::pair<std::string, sf::Texture*>("Jump", new sf::Texture));	
-	
-	*this->get_sprite()->isMultiple = true;
 }
 
 Unit::Unit(const Vector2& position)
@@ -90,9 +103,9 @@ void Unit::set_damage(const unsigned int& value)
 {
 	*this->damage = value;
 }
-void Unit::set_speed(const float& value)
+void Unit::set_speed(const float& factor)
 {
-	*this->speed = value;
+	*this->speed = factor;
 }
 
 void Unit::move(const Vector2& offset)

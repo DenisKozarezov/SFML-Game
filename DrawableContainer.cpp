@@ -17,7 +17,7 @@ void DrawableContainer::initialize(const unsigned short& container_size)
 	{
 		layers->insert(std::make_pair(std::to_string(i), new DrawableLayer)); // i-layer.
 	}
-	layers->insert(std::make_pair("GUI-dymanic", new DrawableLayer));  // reserved layer for dynamical interface (that can move)
+	layers->insert(std::make_pair("GUI-dynamic", new DrawableLayer));  // reserved layer for dynamic interface (that can move)
 	layers->insert(std::make_pair("GUI-particle", new DrawableLayer)); // reserved layer for particle systems
 	layers->insert(std::make_pair("GUI-static", new DrawableLayer));   // reserved layer for static interface (that cannot move)
 

@@ -8,11 +8,11 @@
 #include "Vector2.h"
 
 /////////////////////////////////////////////////////////////////////
-/// \brief Class, from which all graphic objects on screen are inherited.
-/// It stores information about world/screen coordinates, layer's number 
-/// and, naturally, sprite. When the object is destroyed, it deallocate 
-/// its resources from graphic container and be removed from drawing
-/// process.
+/// \brief Class, from which all graphic objects on the screen are
+/// inherited. It stores information about world/screen coordinates,
+/// layer's number, and, naturally, sprite. When the object is destroyed,
+/// it deallocates its resources from the graphic container and be removed
+/// from the drawing process.
 /////////////////////////////////////////////////////////////////////
 class DrawableObject
 {

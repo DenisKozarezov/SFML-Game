@@ -10,12 +10,12 @@
 class Unit : public DrawableObject
 {
 private:
-	std::string* name = new std::string("Empty name");
-	std::string* tag = new std::string("Empty tag");
+	std::string* name;
+	std::string* tag;
 
-	unsigned int* health = new unsigned int(0);
-	unsigned int* damage = new unsigned int(0);
-	float* speed = new float(0);
+	unsigned int* health;
+	unsigned int* damage;
+	float* speed;
 
 	void initialize();
 
@@ -24,14 +24,14 @@ public:
 	Unit(const Vector2& position);
 	Unit(const float& x, const float& y);
 	
-	bool* isPaused = new bool(false);
-	bool* isDead = new bool(false);
-	bool* isMovable = new bool(true);
+	bool* isPaused;
+	bool* isDead;
+	bool* isMovable;
 
 	void set_name(const std::string& name);
 	void set_health(const unsigned int& value);
 	void set_damage(const unsigned int& value);
-	void set_speed(const float& value);
+	void set_speed(const float& factor);
 
 	const std::string& get_name() const;
 	const unsigned int& get_health() const;
@@ -48,9 +48,9 @@ public:
 
 	virtual ~Unit();
 protected:
-	Animator* animator = new Animator(this);
+	Animator* animator;
 
-	std::map<std::string, sf::Texture*>* sprite_sheets = new std::map<std::string, sf::Texture*>;
+	std::map<std::string, sf::Texture*>* sprite_sheets;
 	Collision* collider;
 };
 const bool operator==(const Unit& unit1, const Unit& unit2);

@@ -5,8 +5,8 @@
 #include <algorithm>
 
 /////////////////////////////////////////////////////////////////////////////
-/// \brief Static class, which contains graphic layers with an associatated
-/// number. After the last layer was initialized, it will always be an another
+/// \brief Static class, which contains graphic layers with an associated
+/// number. After the last layer was initialized, it will always be another
 /// one that is reserved for GUI. All objects and layers have their methods and
 /// properties, including boolean IsHidden(), which means if this value is false, 
 /// this object or layer is no longer drawable or updatable on screen.
@@ -40,19 +40,19 @@ public:
 	static DrawableLayer* get_layer(const unsigned short& layer);
 
 	/// <summary>
-	/// Return a size of graphic container including the interface layers.
+	/// Return the size of graphic container including the interface layers.
 	/// </summary>
 	const static unsigned short& size();
 
 	/// <summary>
-	/// Return amount of interface reserved layers.
+	/// Return the amount of interface reserved layers.
 	/// </summary>
 	const static unsigned short& reserved_size();
 	
 	/// <summary>
 	/// Consistent drawing of graphic container from zero
 	/// to the last graphic layer. If layer has boolean value 
-	/// IsHidden() = true, it won't be drawn regardless of have
+	/// IsHidden() = true, it won't be drawn regardless of having
 	/// the objects within the layer the same state or not.
 	/// </summary>
 	/// <param name="window - reference to current window"></param>

@@ -120,6 +120,9 @@
     <ClCompile Include="DrawableContainer.cpp">
       <Filter>Drawable</Filter>
     </ClCompile>
+    <ClCompile Include="GUIText.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -175,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="DrawableContainer.h">
       <Filter>Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIText.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
