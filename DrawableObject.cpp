@@ -7,7 +7,7 @@ DrawableObject::DrawableObject()
 	this->screen_position = new Vector2(0.f, 0.f);
 	this->world_position = new Vector2(0.f, 0.f);
 	this->sprite = new Sprite;
-	this->isDrawable = new bool(true);
+	this->hidden = new bool(0);
 }
 
 void DrawableObject::set_layer(const unsigned short& layer)
@@ -59,6 +59,16 @@ void DrawableObject::destroy(DrawableObject* object)
 		delete dynamic_cast<DrawableObject*>(object);
 		object = NULL;
 	}
+}
+
+const bool& DrawableObject::IsHidden() const
+{
+	return *this->hidden;
+}
+
+void DrawableObject::hide(const bool& status)
+{
+	*this->hidden = status;
 }
 
 const Vector2& DrawableObject::get_screen_position() const
@@ -133,7 +143,7 @@ Sprite* DrawableObject::get_sprite() const
 
 DrawableObject::~DrawableObject()
 {
-	delete this->isDrawable;
+	delete this->hidden;
 	delete this->layer;
 
 	delete this->screen_position;

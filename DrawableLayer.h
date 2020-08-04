@@ -1,7 +1,7 @@
-///////////////////////////////////////////////////////////////////
-//				 ЗАЩИТА ОТ ПОВТОРНОГО ПОДКЛЮЧЕНИЯ				 //
-// DrawableContainer.h -> DrawableLayer.h -> DrawableContainer.h //
-///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+//				 GUARD FROM MULTIPLE INCLUDING		              //
+// DrawableContainer.h -> DrawableLayer.h -> DrawableContainer.h  //
+////////////////////////////////////////////////////////////////////
 #ifndef _DRAWABLELAYER_H_
 #define _DRAWABLELAYER_H_
 #include "DrawableObject.h"
@@ -10,28 +10,28 @@
 class DrawableLayer final
 {
 private:
-	bool* drawable;
+	bool* hidden;
 	std::vector<DrawableObject*>* layer;
 public:
 	DrawableLayer();
 
-	const bool& IsDrawable() const;
+	const bool& IsHidden() const;
+
+	void hide(const bool& status);
 
 	void add(DrawableObject* object);
 
-	/// Удаление группы графических объектов по указанному признаку.
-	/// \param type - классифицируемый признак.
+	/// Remove the group of objects by classified attribute.
+	/// \param type - classified attribute.
 	template<typename T>
 	void remove_group(const T& type);
 
-	/// Удаление графического объекта с последующим исключением его из 
-	/// процесса отрисовки.
-	/// \param object - графический объект
+	/// Remove the object from drawing process WITHOUT deallocation.
+	/// \param *object - pointer to object
 	void remove(DrawableObject* object);
 
-	/// Проверка, содержит ли слой указанный объект.
-	/// \param object - графический объект
-	/// \return bool - флаг
+	/// Return the result of finding object in layer.
+	/// \param *object - pointer to object
 	const bool& is_contain(DrawableObject* object) const;
 
 	void update(sf::RenderWindow& window);

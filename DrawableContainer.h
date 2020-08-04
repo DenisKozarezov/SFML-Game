@@ -4,13 +4,13 @@
 #include "DrawableLayer.h"
 #include <algorithm>
 
-/////////////////////////////////////////////////////////////////////
-/// \brief Класс-контейнер, в котором по слоям содержатся графические
-/// объекты типа DrawableObject. Отрисовка осуществляется в строгом
-/// порядке, начиная с нулевого слоя. В случае, если во время исполнения
-/// метода отрисовки объект был помечен булевой переменной isDrawable
-/// = false, то данный объект не будет отрисован на экране.
-/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/// \brief Static class, which contains graphic layers with an associatated
+/// number. After the last layer was initialized, it will always be an another
+/// one that is reserved for GUI. All objects and layers have their methods and
+/// properties, including boolean IsHidden(), which means if this value is false, 
+/// this object or layer is no longer drawable or updatable on screen.
+/////////////////////////////////////////////////////////////////////////////
 class GameDrawableContainer final
 {
 private:
@@ -18,22 +18,35 @@ private:
 
 	static std::map<unsigned int, DrawableLayer*>* layers;
 public:
-	/// Инициализация графического контейнера и всех графических слоёв.
+	/// <summary>
+	/// Initialization of graphic layers with specified amount.
+	/// </summary>
+	/// <param name="container_size - amount of graphic layers"></param>
 	static void initialize(const unsigned short& container_size);	
 
 	/// <summary>
-	/// Полное удаление (освобождение занятых ресурсов) всех графических объектов,
-	/// а также графических слоёв. Завершение работы контейнера.
+	/// Deallocation of all resources in container.
 	/// </summary>
 	static void terminate();
+
+	/// <summary>
+	/// Return a pointer of the layer with specified number.
+	/// </summary>
+	/// <param name="layer - assosiated number"></param>
 	static DrawableLayer* get_layer(const unsigned short& layer);
 
+	/// <summary>
+	/// Return a size of graphic container.
+	/// </summary>
 	const static unsigned short& size();
 	
 	/// <summary>
-	/// Последовательная отрисовка всех графических объектов на каждом слое, начиная с нулевого.
+	/// Consistent drawing of graphic container from zero
+	/// to the last graphic layer. If layer has boolean value 
+	/// IsHidden() = true, it won't be drawn regardless of have
+	/// the objects within the layer the same state or not.
 	/// </summary>
-	/// <param name="window - ссылка на объект окна."></param>
+	/// <param name="window - reference to current window"></param>
 	static void update(sf::RenderWindow& window);	
 };
 #endif 

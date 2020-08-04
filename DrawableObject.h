@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////
-//				 ЗАЩИТА ОТ ПОВТОРНОГО ПОДКЛЮЧЕНИЯ				  //
+//				 GUARD FROM MULTIPLE INCLUDING		              //
 // DrawableContainer.h -> DrawableObject.h -> DrawableContainer.h //
 ////////////////////////////////////////////////////////////////////
 #ifndef _DRAWABLEOBJECT_H_
@@ -8,12 +8,11 @@
 #include "Vector2.h"
 
 /////////////////////////////////////////////////////////////////////
-/// \brief Универсальный класс, от которого наследуются все элементы
-/// игры, подлежащие отрисовке на экране. Спрайт каждого наследника
-/// класса хранится в классе-контейнере GameDrawableContainer. При
-/// уничтожении объекта или его удалении из графического слоя он
-/// освобождается из глобального контейнера и более не входит в процесс
-/// отрисовки.
+/// \brief Class, from which all graphic objects on screen are inherited.
+/// It stores information about world/screen coordinates, layer's number 
+/// and, naturally, sprite. When the object is destroyed, it deallocate 
+/// its resources from graphic container and be removed from drawing
+/// process.
 /////////////////////////////////////////////////////////////////////
 class DrawableObject
 {
@@ -26,46 +25,48 @@ private:
 	Vector2* world_position;
 
 	Sprite* sprite;
+
+	bool* hidden;
 public:
 	DrawableObject();
 
-	/// Флаг, значение которого задаёт отрисовку графического объекта.
-	bool* isDrawable;
+	/// <summary>
+	/// Return the drawing state of this object.
+	/// </summary>
+	const bool& IsHidden() const;
+
+	void hide(const bool& status);
 
 	const Vector2& get_screen_position() const;
 	const Vector2& get_world_position() const;
 
 	/// <summary>
-	/// Перенос графического объекта на указанный слой.
+	/// Switch to an other layer with specified number.
 	/// </summary>
-	/// <param name="layer - номер слоя."></param>
+	/// <param name="layer - a number of specified layer"></param>
 	void set_layer(const unsigned short& layer);
 
-	/// Возвращает номер текущего слоя, на котором находится графический объект.
-	/// \return Номер слоя.
+	/// Return of this object's current layer. 
 	const unsigned short& get_layer() const;
 
 	/// <summary>
-	/// Полностью отзеркаливает графический объект относительно горизонтали.
+	/// Swap the sprite relative to the horizontal axis.
 	/// </summary>
-	/// <param name="status - флаг."></param>
 	void swapX(const bool& status);
 
 	/// <summary>
-	/// Полностью отзеркаливает графический объект относительно вертикали.
+	/// Swap the sprite relative to the vertical axis.
 	/// </summary>
-	/// <param name="status - флаг."></param>
 	void swapY(const bool& status);
 
 	const bool& IsSwappedX() const;
 	const bool& IsSwappedY() const;
 
 	/// <summary>
-	/// Полное уничтожение игрового объекта и освобождение всех занятых им ресурсов.
-	/// Вдобавок, уничтоженный объект будет удалён из контейнера GameDrawableContainer
-	/// и более не будет отрисовываться на экране.
+	/// Deallocation of object's resources and excluding it from drawing
+	/// process on screen.
 	/// </summary>
-	/// <param name="*object - указаель на графический объект."></param>
+	/// <param name="*object - pointer to object"></param>
 	static void destroy(DrawableObject* object);
 
 	virtual ~DrawableObject();
@@ -85,17 +86,15 @@ protected:
 	void set_world_position(const float& x, const float& y);
 
 	/// <summary>
-	/// Инициализация игрового объекта для последующей отрисовки и добавление его в
-	/// контейнер GameDrawableContainer.
+	/// Initialization of graphic object and adding it in drawing container on zero layer.
 	/// </summary>
-	/// <param name="*object - указаель на графический объект."></param>
+	/// <param name="*object - pointer to object"></param>
 	static void initialize(DrawableObject* object);
 
 	/// <summary>
-	/// Инициализация игрового объекта для последующей отрисовки и добавление его на
-	/// указанный слой.
+	/// Initialization of graphic object and adding it in drawing container on specified layer.
 	/// </summary>
-	/// <param name="*object - указаель на графический объект."></param>
+	/// <param name="layer - number of specified layer"></param>
 	static void initialize(DrawableObject* object, const unsigned short& layer);
 
 	virtual void update() = 0;

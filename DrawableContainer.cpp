@@ -1,6 +1,5 @@
 #include "DrawableContainer.h"
 
-#pragma region GameDrawableContainer
 std::map<unsigned int, DrawableLayer*>* GameDrawableContainer::layers =
 	new std::map<unsigned int, DrawableLayer*>;
 void GameDrawableContainer::initialize(const unsigned short& container_size)
@@ -31,7 +30,6 @@ void GameDrawableContainer::update(sf::RenderWindow& window)
 	std::map<unsigned int, DrawableLayer*>::iterator it;
 	for (it = layers->begin(); it != layers->end(); it++)
 	{
-		if (it->second->IsDrawable()) it->second->update(window);
+		if (!it->second->IsHidden()) it->second->update(window);
 	}
 }
-#pragma endregion
