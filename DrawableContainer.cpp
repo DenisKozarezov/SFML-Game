@@ -2,13 +2,6 @@
 
 std::map<const std::string, DrawableLayer*>* DrawableContainer::layers =
 	new std::map<const std::string, DrawableLayer*>;
-DrawableLayer* DrawableContainer::get_GUI()
-{
-	std::map<const std::string, DrawableLayer*>::iterator it = layers->begin();
-	std::advance(it, size() - 1);
-	return it->second;
-}
-
 void DrawableContainer::remove(DrawableObject* object)
 {
 	std::map<const std::string, DrawableLayer*>::iterator it;
@@ -27,7 +20,6 @@ void DrawableContainer::remove(DrawableObject* object)
 		}
 	}
 }
-
 void DrawableContainer::initialize(const unsigned short& container_size)
 {
 	for (int i = 0; i < container_size; i++)

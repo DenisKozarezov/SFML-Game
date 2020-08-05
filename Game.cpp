@@ -4,11 +4,20 @@ Game::Game()
 {
 	this->window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "My Game");
 	DrawableContainer::initialize(5);
+
 	this->gui = GUI::get_instance();
+	this->camera = new Camera;
+	this->time = new sf::Time;
+	this->clock = new sf::Clock;
+	this->player = new Player;
+	this->isActive = new bool(true);
+
+	Player::set_main_player(this->player);
 
 	Warrior* warrior1 = new Warrior(Vector2(500, 200));
-
 	this->player->set_main_character(warrior1);
+
+	this->gui->initialize();
 }
 Game::~Game()
 {
@@ -51,6 +60,7 @@ void Game::graphics_update()
 	this->window->clear();
 
 	DrawableContainer::update(*this->window);	
+	this->gui->update(*this->window);
 
 	this->window->display();
 }

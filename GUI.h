@@ -1,15 +1,27 @@
-#pragma once
+#ifndef _GUI_H_
+#define _GUI_H_
 #include <vector>
 #include "DrawableLayer.h"
 #include "GUIText.h"
+#include "GUIImage.h"
 
 class GUI final
 {
 private:
+	friend class GUIText;
+	friend class GUIImage;
+
 	bool* hidden;
-	DrawableLayer* gui_layer;
+	
+	std::vector<sf::Drawable*>* text;
 
 	static GUI* instance;
+
+	GUIText* hp;
+	GUIText* mp;
+	GUIText* damage;
+
+	static void add(sf::Drawable* object);
 
 	GUI();
 	GUI& operator=(const GUI&) = delete;
@@ -18,6 +30,9 @@ public:
 
 	const bool& IsHidden() const;
 
-	void show(const bool& status);
-};
+	static void show(const bool& status);
+	void initialize();
 
+	void update(sf::RenderWindow& window);
+};
+#endif

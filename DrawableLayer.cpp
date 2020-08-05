@@ -59,8 +59,8 @@ void DrawableLayer::update(sf::RenderWindow& window)
 		DrawableObject* object = dynamic_cast<DrawableObject*>(*it);
 		if (!object->IsHidden())
 		{
-			object->update(window);
-			window.draw(*object->get_drawable_object());
+			object->update();
+			window.draw(*object->get_sprite());
 		}
 	}
 }

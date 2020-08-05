@@ -1,13 +1,8 @@
 #include "Unit.h"
 
-void Unit::update(sf::RenderWindow& window)
+void Unit::update()
 {
 
-}
-
-sf::Drawable* Unit::get_drawable_object()
-{
-	return this->get_sprite();
 }
 
 void Unit::initialize()
@@ -31,10 +26,6 @@ void Unit::initialize()
 	this->sprite_sheets->insert(std::pair<const std::string, sf::Texture*>("Idle", new sf::Texture));
 	this->sprite_sheets->insert(std::pair<const std::string, sf::Texture*>("Run", new sf::Texture));
 	this->sprite_sheets->insert(std::pair<const std::string, sf::Texture*>("Jump", new sf::Texture));	
-
-	//Vector2 offset(0, -200);
-	//this->gui_text = new std::map<const std::string, GUIText*>;
-	//this->gui_text->insert(std::pair<const std::string, GUIText*>("Health", new GUIText(this->get_screen_position() + offset, "HEALTH")));
 }
 
 Unit::Unit(const Vector2& position)

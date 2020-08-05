@@ -15,12 +15,9 @@ class DrawableContainer final
 {
 private:
 	friend class DrawableObject;
-	friend class GUI;
 	friend class Camera;
 
 	static std::map<const std::string, DrawableLayer*>* layers;
-
-	static DrawableLayer* get_GUI();
 
 	static void remove(DrawableObject* object);
 public:

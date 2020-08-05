@@ -164,6 +164,7 @@
     <ClCompile Include="DrawableObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="GUIImage.cpp" />
     <ClCompile Include="GUIText.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math.cpp" />
@@ -187,12 +188,14 @@
     <ClInclude Include="DrawableObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GUI.h" />
+    <ClInclude Include="GUIImage.h" />
     <ClInclude Include="GUIText.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerInput.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="struct.h" />
     <ClInclude Include="Unit.h" />
     <ClInclude Include="UnitEventHandler.h" />
     <ClInclude Include="Vector2.h" />

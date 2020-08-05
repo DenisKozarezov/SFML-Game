@@ -12,20 +12,20 @@ class Game
 {
 private:
 	sf::RenderWindow* window;
-	sf::Clock* clock = new sf::Clock;
-	sf::Time* time = new sf::Time;
+	sf::Clock* clock;
+	sf::Time* time;
 
-	Camera* camera = new Camera;
+	Camera* camera;
 	GUI* gui;
 
-	Player* player = new Player;
+	Player* player;
 
 	void initialize();
 	void graphics_update();
 	void input_update();
 	void events_update();
 public:
-	bool* isActive = new bool(false);
+	bool* isActive;
 
 	Game();	
 	void run();

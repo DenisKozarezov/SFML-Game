@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include <iostream>
 
 Camera::Camera()
 {
@@ -91,6 +92,7 @@ void Camera::move(const Vector2& offset)
 			for (auto object : *it->second->get_layer())
 			{
 				object->set_screen_position(object->get_screen_position() + offset);
+				object->move_sprite(object->get_screen_position() + offset);
 			}
 		}
 	}

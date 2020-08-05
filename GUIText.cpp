@@ -4,30 +4,30 @@
 void GUIText::initialize()
 {
 	this->gui_text = new sf::Text;
-	this->color = new sf::Color(sf::Color::White);
 	this->gui_text->setFillColor(sf::Color::White);
-	sf::Font font;
-	font.loadFromFile(Fonts::Consola);
-	this->gui_text->setFont(font);
-	DrawableObject::initialize(this, "GUI-dynamic");
+	this->gui_text->setCharacterSize(24);
+	this->gui_text->setStyle(sf::Text::Bold);
+	
+	font = new sf::Font;
+	font->loadFromFile(Fonts::Consola);
+	this->gui_text->setFont(*font);
 }
 
 GUIText::GUIText(const Vector2& position, const std::string& text)
 {
 	initialize();
-	this->text = new std::string(text);
 	set_screen_position(position);
 	this->gui_text->setString(text);
 	this->gui_text->setPosition(position.x, position.y);
-
+	GUI::add(this->gui_text);
 }
 GUIText::GUIText(const float& x, const float& y, const std::string& text)
 {
 	initialize();
-	this->text = new std::string(text);
 	set_screen_position(x, y);
 	this->gui_text->setString(text);
 	this->gui_text->setPosition(x, y);
+	GUI::add(this->gui_text);
 }
 
 void GUIText::set_color(const sf::Color& color)
@@ -45,6 +45,18 @@ void GUIText::set_scale(const float& factor_x, const float& factor_y)
 void GUIText::set_font(const sf::Font& font)
 {
 	this->gui_text->setFont(font);
+}
+void GUIText::set_style(const sf::Text::Style& style)
+{
+	this->gui_text->setStyle(style);
+}
+void GUIText::set_text(const std::string& text)
+{
+	this->gui_text->setString(text);
+}
+void GUIText::set_size(const unsigned short& size)
+{
+	this->gui_text->setCharacterSize(size);
 }
 
 void GUIText::attach_to(DrawableObject* object)
@@ -64,19 +76,25 @@ const sf::Font& GUIText::get_font() const
 {
 	return *this->gui_text->getFont();
 }
-
-void GUIText::update(sf::RenderWindow& window)
+const sf::Uint32& GUIText::get_style() const
 {
-	
+	return this->gui_text->getStyle();
+}
+const std::string& GUIText::get_text() const
+{
+	return this->gui_text->getString();
+}
+const unsigned short& GUIText::get_size() const
+{
+	return this->gui_text->getCharacterSize();
 }
 
-sf::Drawable* GUIText::get_drawable_object()
+void GUIText::update()
 {
-	return this->gui_text;
+	
 }
 
 GUIText::~GUIText()
 {
 	delete this->gui_text;
-	delete this->color;
 }

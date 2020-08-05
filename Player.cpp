@@ -1,5 +1,6 @@
 #include "Player.h"
 
+Player* Player::main = 0;
 Player::Player()
 {
 
@@ -51,7 +52,17 @@ void Player::set_main_character(Unit* unit)
 {
 	this->mainCharacter = unit;
 }
-Unit* Player::getMainCharacter()
+Unit* Player::get_main_character()
 {
 	return mainCharacter;
+}
+
+void Player::set_main_player(Player* player)
+{
+	main = player;
+}
+
+Player* Player::get_main_player()
+{
+	return main;
 }

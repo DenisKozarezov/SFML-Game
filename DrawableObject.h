@@ -105,7 +105,6 @@ protected:
 	/// <param name="layer - specified layer"></param>
 	static void initialize(DrawableObject* object, const std::string& layer);
 
-	virtual void update(sf::RenderWindow& window) = 0;
-	virtual sf::Drawable* get_drawable_object() = 0;
+	virtual void update() = 0;
 };
 #endif

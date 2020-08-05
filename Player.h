@@ -9,6 +9,8 @@ private:
 	std::string* name = new std::string("Player");
 	Unit* mainCharacter;
 
+	static Player* main;
+
 	PlayerInput* input = PlayerInput::get_instance();
 public:
 	Player();
@@ -17,7 +19,10 @@ public:
 	void input_update(const sf::Event& event);
 
 	void set_main_character(Unit* unit);
-	Unit* getMainCharacter();
+	Unit* get_main_character();
+
+	static void set_main_player(Player* player);
+	static Player* get_main_player();
 
 	~Player();
 };
