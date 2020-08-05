@@ -1,6 +1,7 @@
 #pragma once
-#include "DrawableLayer.h"
 #include <vector>
+#include "DrawableLayer.h"
+#include "GUIText.h"
 
 class GUI final
 {

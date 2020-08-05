@@ -78,6 +78,8 @@ protected:
 
 	void set_texture(const sf::Texture& texture);
 	void set_sprite(const Sprite& sprite);
+	void move_sprite(const Vector2& point);
+	void offset_sprite(const Vector2& offset);
 
 	void set_screen_position(const Vector2& point);
 	void set_screen_position(const float& x, const float& y);
@@ -97,6 +99,13 @@ protected:
 	/// <param name="layer - number of specified layer"></param>
 	static void initialize(DrawableObject* object, const unsigned short& layer);
 
-	virtual void update() = 0;
+	/// <summary>
+	/// Initialization of graphic object and adding it in drawing container on specified layer.
+	/// </summary>
+	/// <param name="layer - specified layer"></param>
+	static void initialize(DrawableObject* object, const std::string& layer);
+
+	virtual void update(sf::RenderWindow& window) = 0;
+	virtual sf::Drawable* get_drawable_object() = 0;
 };
 #endif

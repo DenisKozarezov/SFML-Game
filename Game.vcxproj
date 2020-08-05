@@ -170,6 +170,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerInput.cpp" />
     <ClCompile Include="ProjectPath.cpp" />
+    <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Unit.cpp" />
     <ClCompile Include="UnitEventHandler.cpp" />

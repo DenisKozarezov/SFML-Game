@@ -3,6 +3,7 @@
 DrawableLayer::DrawableLayer()
 {
 	this->hidden = new bool(0);
+	this->updatable = new bool(1);
 	this->layer = new std::vector<DrawableObject*>;
 }
 
@@ -11,9 +12,19 @@ const bool& DrawableLayer::IsHidden() const
 	return *this->hidden;
 }
 
+const bool& DrawableLayer::IsUpdatable() const
+{
+	return *this->updatable;
+}
+
 void DrawableLayer::hide(const bool& status)
 {
 	*this->hidden = status;
+}
+
+void DrawableLayer::make_unupdatable()
+{
+	*this->updatable = false;
 }
 
 void DrawableLayer::add(DrawableObject* object)
@@ -48,8 +59,8 @@ void DrawableLayer::update(sf::RenderWindow& window)
 		DrawableObject* object = dynamic_cast<DrawableObject*>(*it);
 		if (!object->IsHidden())
 		{
-			object->update();
-			window.draw(*object->get_sprite());
+			object->update(window);
+			window.draw(*object->get_drawable_object());
 		}
 	}
 }

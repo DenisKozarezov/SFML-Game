@@ -83,15 +83,13 @@ const float& Camera::get_speed() const
 
 void Camera::move(const Vector2& offset)
 {
-	for (unsigned int i = 0; i < DrawableContainer::size() - DrawableContainer::reserved_size(); i++)
+	std::map<const std::string, DrawableLayer*>::iterator it;
+	for (it = DrawableContainer::layers->begin(); it != DrawableContainer::layers->end(); it++)
 	{
-		std::vector<DrawableObject*>::iterator it;
-		std::vector<DrawableObject*>* layer = DrawableContainer::get_layer(i)->get_layer();
-		if (layer->size() > 0)
+		if (it->second->get_layer()->size() > 0)
 		{
-			for (it = layer->begin(); it != layer->end(); it++)
+			for (auto object : *it->second->get_layer())
 			{
-				DrawableObject* object = dynamic_cast<DrawableObject*>(*it);
 				object->set_screen_position(object->get_screen_position() + offset);
 			}
 		}

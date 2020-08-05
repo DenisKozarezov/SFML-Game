@@ -1,12 +1,18 @@
 #include "Unit.h"
 
-void Unit::update()
+void Unit::update(sf::RenderWindow& window)
 {
 
 }
 
+sf::Drawable* Unit::get_drawable_object()
+{
+	return this->get_sprite();
+}
+
 void Unit::initialize()
 {	
+	DrawableObject::initialize(this, 0);
 	*this->get_sprite()->isMultiple = true;
 
 	this->name = new std::string("Empty name");
@@ -21,25 +27,29 @@ void Unit::initialize()
 
 	this->animator = new Animator(this);
 
-	this->sprite_sheets = new std::map<std::string, sf::Texture*>;
-	this->sprite_sheets->insert(std::pair<std::string, sf::Texture*>("Idle", new sf::Texture));
-	this->sprite_sheets->insert(std::pair<std::string, sf::Texture*>("Run", new sf::Texture));
-	this->sprite_sheets->insert(std::pair<std::string, sf::Texture*>("Jump", new sf::Texture));	
+	this->sprite_sheets = new std::map<const std::string, sf::Texture*>;
+	this->sprite_sheets->insert(std::pair<const std::string, sf::Texture*>("Idle", new sf::Texture));
+	this->sprite_sheets->insert(std::pair<const std::string, sf::Texture*>("Run", new sf::Texture));
+	this->sprite_sheets->insert(std::pair<const std::string, sf::Texture*>("Jump", new sf::Texture));	
+
+	//Vector2 offset(0, -200);
+	//this->gui_text = new std::map<const std::string, GUIText*>;
+	//this->gui_text->insert(std::pair<const std::string, GUIText*>("Health", new GUIText(this->get_screen_position() + offset, "HEALTH")));
 }
 
 Unit::Unit(const Vector2& position)
 {
-	DrawableObject::initialize(this, 0);
 	set_screen_position(position);
 	set_world_position(position);
+	move_sprite(position);
 
 	initialize();
 }
 Unit::Unit(const float& x, const float& y)
 {
-	DrawableObject::initialize(this, 0);
 	set_screen_position(Vector2(x, y));
 	set_world_position(Vector2(x, y));
+	move_sprite(Vector2(x, y));
 
 	initialize();
 }
@@ -114,6 +124,7 @@ void Unit::move(const Vector2& offset)
 	{
 		set_world_position(get_world_position() + offset * *this->speed);
 		set_screen_position(get_screen_position() + offset * *this->speed);
+		offset_sprite(offset);
 	}
 }
 void Unit::move(const float& offset_x, const float& offset_y)

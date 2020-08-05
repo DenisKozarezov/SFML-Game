@@ -50,7 +50,7 @@ void Game::graphics_update()
 {
 	this->window->clear();
 
-	DrawableContainer::update(*Game::window);	
+	DrawableContainer::update(*this->window);	
 
 	this->window->display();
 }

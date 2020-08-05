@@ -4,7 +4,7 @@
 class Warrior : public Unit
 {
 private:
-	void update() override;
+	void update(sf::RenderWindow& window) override;
 public:	
 	Warrior(const Vector2& position);
 	Warrior(const float& x, const float& y);

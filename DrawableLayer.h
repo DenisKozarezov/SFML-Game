@@ -11,13 +11,17 @@ class DrawableLayer final
 {
 private:
 	bool* hidden;
+	bool* updatable;
+
 	std::vector<DrawableObject*>* layer;
 public:
 	DrawableLayer();
 
 	const bool& IsHidden() const;
+	const bool& IsUpdatable() const;
 
 	void hide(const bool& status);
+	void make_unupdatable();
 
 	void add(DrawableObject* object);
 

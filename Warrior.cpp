@@ -1,6 +1,6 @@
 #include "Warrior.h"
 
-void Warrior::update()
+void Warrior::update(sf::RenderWindow& window)
 {
 	this->collider->update();
 	if (this->animator->currentAnimation != nullptr) this->animator->currentAnimation->play();

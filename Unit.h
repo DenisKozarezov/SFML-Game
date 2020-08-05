@@ -6,6 +6,7 @@
 #include "Animator.h"
 #include "Collision.h"
 #include "ProjectPath.cpp"
+#include "GUI.h"
 
 class Unit : public DrawableObject
 {
@@ -19,7 +20,8 @@ private:
 
 	void initialize();
 
-	virtual void update() override;
+	virtual void update(sf::RenderWindow& window) override;
+	sf::Drawable* get_drawable_object() override;
 public:
 	Unit(const Vector2& position);
 	Unit(const float& x, const float& y);
@@ -50,8 +52,10 @@ public:
 protected:
 	Animator* animator;
 
-	std::map<std::string, sf::Texture*>* sprite_sheets;
+	std::map<const std::string, sf::Texture*>* sprite_sheets;
 	Collision* collider;
+
+	std::map<const std::string, GUIText*>* gui_text;
 };
 const bool operator==(const Unit& unit1, const Unit& unit2);
 const bool operator!=(const Unit& unit1, const Unit& unit2);

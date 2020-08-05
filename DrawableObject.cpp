@@ -24,11 +24,18 @@ void DrawableObject::set_sprite(const Sprite& sprite)
 {
 	*this->sprite = sprite;
 }
+void DrawableObject::move_sprite(const Vector2& point)
+{
+	this->sprite->setPosition(point.x, point.y);
+}
+void DrawableObject::offset_sprite(const Vector2& offset)
+{
+	this->sprite->setPosition(this->screen_position->x + offset.x, this->screen_position->y + offset.y);
+}
 
 void DrawableObject::set_screen_position(const Vector2& point)
 {
 	*this->screen_position = point;
-	this->sprite->setPosition(point.x, point.y);
 }
 void DrawableObject::set_screen_position(const float& x, const float& y)
 {
@@ -51,11 +58,15 @@ void DrawableObject::initialize(DrawableObject* object, const unsigned short& la
 {
 	DrawableContainer::get_layer(layer)->add(object);
 }
+void DrawableObject::initialize(DrawableObject* object, const std::string& layer)
+{
+	DrawableContainer::layers->find(layer)->second->add(object);
+}
 void DrawableObject::destroy(DrawableObject* object)
 {
 	if (object != NULL)
 	{
-		//DrawableContainer::remove(*object->layer, object);
+		DrawableContainer::remove(object);
 		delete dynamic_cast<DrawableObject*>(object);
 		object = NULL;
 	}

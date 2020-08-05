@@ -16,11 +16,13 @@ class DrawableContainer final
 private:
 	friend class DrawableObject;
 	friend class GUI;
+	friend class Camera;
 
 	static std::map<const std::string, DrawableLayer*>* layers;
-	static unsigned short reserved_const;
 
 	static DrawableLayer* get_GUI();
+
+	static void remove(DrawableObject* object);
 public:
 	/// <summary>
 	/// Initialization of graphic layers with specified amount.
@@ -40,14 +42,15 @@ public:
 	static DrawableLayer* get_layer(const unsigned short& layer);
 
 	/// <summary>
-	/// Return the size of graphic container including the interface layers.
+	/// Return a pointer of the specified layer.
 	/// </summary>
-	const static unsigned short& size();
+	/// <param name="layer - specified name"></param>
+	static DrawableLayer* get_layer(const std::string& layer);
 
 	/// <summary>
-	/// Return the amount of interface reserved layers.
+	/// Return the size of graphic container.
 	/// </summary>
-	const static unsigned short& reserved_size();
+	const static unsigned short& size();
 	
 	/// <summary>
 	/// Consistent drawing of graphic container from zero
