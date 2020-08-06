@@ -1,5 +1,4 @@
 #include "GUIButton.h"
-#include <iostream>
 
 void GUIButton::initialize()
 {

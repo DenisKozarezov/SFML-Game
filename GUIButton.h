@@ -2,8 +2,9 @@
 #define _GUIBUTTON_H_
 #include "GUI.h"
 #include "struct.h"
+#include "IClickable.h"
 
-class GUIButton final : GUIElement
+class GUIButton final : GUIElement, IClickable
 {
 private:
 	bool* hover;

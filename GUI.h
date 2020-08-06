@@ -12,6 +12,7 @@ private:
 	friend class GUIText;
 	friend class GUIImage;
 	friend class GUIButton;
+	friend class GUITextField;
 
 	bool* hidden;
 	

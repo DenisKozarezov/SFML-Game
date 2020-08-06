@@ -67,6 +67,9 @@
     <Filter Include="Components\Delegate">
       <UniqueIdentifier>{9cccff37-ef40-4323-86a8-14cb62917162}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Interfaces">
+      <UniqueIdentifier>{878a3745-14b2-46a2-9806-7f2af4e0592d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -144,6 +147,12 @@
     <ClCompile Include="GUITextField.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Delegate.cpp">
+      <Filter>Components\Delegate</Filter>
+    </ClCompile>
+    <ClCompile Include="IClickable.cpp">
+      <Filter>Interfaces</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Unit.h">
@@ -217,6 +226,12 @@
     </ClInclude>
     <ClInclude Include="GUITextField.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Delegate.h">
+      <Filter>Components\Delegate</Filter>
+    </ClInclude>
+    <ClInclude Include="IClickable.h">
+      <Filter>Interfaces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

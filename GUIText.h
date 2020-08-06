@@ -26,6 +26,8 @@ public:
 	void set_style(const sf::Text::Style& style);
 	void set_text(const std::string& text);
 	void set_size(const unsigned short& size);
+	void set_position(const Vector2& position);
+	void set_position(const float& x, const float& y);
 	
 	void attach_to(DrawableObject* object);
 
@@ -35,6 +37,7 @@ public:
 	const sf::Uint32& get_style() const;
 	const std::string& get_text() const;
 	const unsigned short& get_size() const;
+	const Vector2& get_position() const;
 
 	void input_update(sf::Event& event) override;
 

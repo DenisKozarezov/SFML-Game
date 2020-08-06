@@ -58,6 +58,14 @@ void GUIText::set_size(const unsigned short& size)
 {
 	this->gui_text->setCharacterSize(size);
 }
+void GUIText::set_position(const Vector2& position)
+{
+	this->gui_text->setPosition(position.x, position.y);
+}
+void GUIText::set_position(const float& x, const float& y)
+{
+	set_position(Vector2(x, y));
+}
 
 void GUIText::attach_to(DrawableObject* object)
 {
@@ -87,6 +95,10 @@ const std::string& GUIText::get_text() const
 const unsigned short& GUIText::get_size() const
 {
 	return this->gui_text->getCharacterSize();
+}
+const Vector2& GUIText::get_position() const
+{
+	return Vector2(this->gui_text->getPosition().x, this->gui_text->getPosition().y);
 }
 
 void GUIText::input_update(sf::Event& event)
