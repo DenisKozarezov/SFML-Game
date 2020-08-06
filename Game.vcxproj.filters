@@ -64,7 +64,7 @@
     <Filter Include="Math\DataStruct">
       <UniqueIdentifier>{8713d501-3f32-46b4-9b2a-0b2aa82f7a66}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Components\Action">
+    <Filter Include="Components\Delegate">
       <UniqueIdentifier>{9cccff37-ef40-4323-86a8-14cb62917162}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

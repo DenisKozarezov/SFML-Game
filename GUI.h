@@ -15,7 +15,7 @@ private:
 
 	bool* hidden;
 	
-	std::vector<sf::Drawable*>* text;
+	std::vector<GUIElement*>* text;
 
 	static GUI* instance;
 
@@ -23,7 +23,7 @@ private:
 	GUIText* mp;
 	GUIText* damage;
 
-	static void add(sf::Drawable* object);
+	static void add(GUIElement* element);
 
 	GUI();
 	GUI& operator=(const GUI&) = delete;
@@ -35,6 +35,7 @@ public:
 	static void show(const bool& status);
 	void initialize();
 
-	void update(sf::RenderWindow& window);
+	void graphics_update(sf::RenderWindow& window);
+	void input_update(sf::Event& event);
 };
 #endif

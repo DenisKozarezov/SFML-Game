@@ -5,22 +5,6 @@ VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game.vcxproj", "{63A74858-0ECE-42E5-B327-E612FA825AE2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{19D4731F-03C3-4E13-997C-DEF8B5509D99}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Animation", "Animation", "{EB960141-121E-4FF2-B9D4-0C7AAD091FBB}"
-	ProjectSection(SolutionItems) = preProject
-		Animation.cpp = Animation.cpp
-		Animation.h = Animation.h
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Animator", "Animator", "{AA3D6493-458F-42A7-A04A-1D0EF8449239}"
-	ProjectSection(SolutionItems) = preProject
-		Animator.cpp = Animator.cpp
-		Animator.h = Animator.h
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Camera", "Camera", "{86AFDCAA-4A2B-45BC-BA39-4E4381B983E6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -40,11 +24,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{EB960141-121E-4FF2-B9D4-0C7AAD091FBB} = {19D4731F-03C3-4E13-997C-DEF8B5509D99}
-		{AA3D6493-458F-42A7-A04A-1D0EF8449239} = {19D4731F-03C3-4E13-997C-DEF8B5509D99}
-		{86AFDCAA-4A2B-45BC-BA39-4E4381B983E6} = {19D4731F-03C3-4E13-997C-DEF8B5509D99}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {429EB0A2-3DC1-4572-B6B5-FE585FC768F1}

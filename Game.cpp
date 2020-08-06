@@ -51,6 +51,7 @@ void Game::input_update()
 		if (event.type == sf::Event::Closed)
 		{
 			this->window->close();
+			this->gui->input_update(event);
 		}
 	}
 	
@@ -65,7 +66,8 @@ void Game::graphics_update()
 	this->window->clear();
 
 	DrawableContainer::update(*this->window);	
-	this->gui->update(*this->window);
+
+	this->gui->graphics_update(*this->window);
 
 	this->window->display();
 }

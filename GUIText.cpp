@@ -1,5 +1,6 @@
 #include "GUIText.h"
 #include "DrawableContainer.h"
+#include "GUI.h"
 
 void GUIText::initialize()
 {
@@ -18,14 +19,15 @@ GUIText::GUIText(const Vector2& position, const std::string& text)
 	initialize();
 	this->gui_text->setString(text);
 	this->gui_text->setPosition(position.x, position.y);
-	GUI::add(this->gui_text);
+	this->drawable_object = this->gui_text;
+	GUI::add(this);
 }
 GUIText::GUIText(const float& x, const float& y, const std::string& text)
 {
 	initialize();
 	this->gui_text->setString(text);
 	this->gui_text->setPosition(x, y);
-	GUI::add(this->gui_text);
+	GUI::add(this);
 }
 
 void GUIText::set_color(const sf::Color& color)
@@ -85,6 +87,10 @@ const std::string& GUIText::get_text() const
 const unsigned short& GUIText::get_size() const
 {
 	return this->gui_text->getCharacterSize();
+}
+
+void GUIText::input_update(sf::Event& event)
+{
 }
 
 GUIText::~GUIText()

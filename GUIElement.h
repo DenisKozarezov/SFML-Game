@@ -1,15 +1,19 @@
-#pragma once
+#ifndef _GUIELEMENT_H_
+#define _GUIELEMENT_H_
 #include "SFML/Graphics.hpp"
 
 class GUIElement
 {
 private:
-	sf::Drawable* drawable_object;
+	friend class GUI;
 public:
-	GUIElement() = default;
+	GUIElement();
 
-	virtual void update() = 0;
+	static void destroy(GUIElement* element);
+	virtual void input_update(sf::Event& event) = 0;
 
-	virtual ~GUIElement() = 0;
+	virtual ~GUIElement();
+protected:
+	sf::Drawable* drawable_object;
 };
-
+#endif

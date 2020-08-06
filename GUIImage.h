@@ -2,8 +2,9 @@
 #include "Vector2.h"
 #include "GUIText.h"
 #include "struct.h"
+#include "GUIElement.h"
 
-class GUIImage final
+class GUIImage final : GUIElement
 {
 private:
 	Sprite* label;
@@ -21,6 +22,8 @@ public:
 	const Vector2& get_size() const;
 	const Vector2& get_position() const;
 	const sf::Texture& get_texture() const;
+
+	void input_update(sf::Event& event) override;
 
 	~GUIImage();
 };

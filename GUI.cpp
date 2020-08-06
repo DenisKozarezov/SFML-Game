@@ -4,9 +4,9 @@
 
 GUI* GUI::instance = 0;
 
-void GUI::add(sf::Drawable* object)
+void GUI::add(GUIElement* element)
 {
-	GUI::get_instance()->text->push_back(object);
+	GUI::get_instance()->text->push_back(element);
 }
 void GUI::initialize()
 {
@@ -33,15 +33,12 @@ void GUI::initialize()
 	sf::Texture damage_texture;
 	damage_texture.loadFromFile(ProjectResourcesPath::Sprites + "owl.jpg");
 	GUIImage* damage = new GUIImage(Rect(700, 50, 50, 50), damage_texture);
-
-	GUIButton* button = new GUIButton(Rect(1, 1, 1, 1));
-	
 }
 
 GUI::GUI()
 {
 	this->hidden = new bool(0);
-	this->text = new std::vector<sf::Drawable*>;
+	this->text = new std::vector<GUIElement*>;
 }
 GUI* GUI::get_instance()
 {
@@ -59,17 +56,27 @@ void GUI::show(const bool& status)
 	
 }
 
-void GUI::update(sf::RenderWindow& window)
+void GUI::graphics_update(sf::RenderWindow& window)
 {
 	if (this->text->size() > 0)
 	{
 		for (auto object : *text)
 		{
-			window.draw(*object);
+			if (object->drawable_object) window.draw(*object->drawable_object);
 		}
 	}
 
 	this->hp->set_text("Health: " + std::to_string(Player::get_main_player()->get_main_character()->get_health()));
 	this->mp->set_text("Mana: -");
 	this->damage->set_text("Damage: " + std::to_string(Player::get_main_player()->get_main_character()->get_damage()));
+}
+void GUI::input_update(sf::Event& event)
+{
+	if (this->text->size() > 0)
+	{
+		for (auto object : *text)
+		{
+			object->input_update(event);
+		}
+	}
 }

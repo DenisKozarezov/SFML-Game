@@ -1,4 +1,5 @@
 #include "GUIImage.h"
+#include "GUI.h"
 
 GUIImage::GUIImage(const Rect& rectangle, const sf::Texture& image)
 {
@@ -7,7 +8,8 @@ GUIImage::GUIImage(const Rect& rectangle, const sf::Texture& image)
 	this->label->setTexture(image);
 	set_width(rectangle.width);
 	set_height(rectangle.height);
-	GUI::add(this->label);
+	this->drawable_object = this->label;
+	GUI::add(this);
 }
 
 void GUIImage::set_width(const float& width)
@@ -54,6 +56,11 @@ const sf::Texture& GUIImage::get_texture() const
 {
 	return *this->label->getTexture();
 }
+
+void GUIImage::input_update(sf::Event& event)
+{
+}
+
 
 GUIImage::~GUIImage()
 {

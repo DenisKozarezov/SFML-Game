@@ -4,9 +4,9 @@
 #include "DrawableObject.h"
 #include "Vector2.h"
 #include "Resources.cpp"
-#include "GUI.h"
+#include "GUIElement.h"
 
-class GUIText final
+class GUIText final : GUIElement
 {
 private:
 	sf::Text* gui_text;
@@ -35,6 +35,8 @@ public:
 	const sf::Uint32& get_style() const;
 	const std::string& get_text() const;
 	const unsigned short& get_size() const;
+
+	void input_update(sf::Event& event) override;
 
 	~GUIText();
 };
