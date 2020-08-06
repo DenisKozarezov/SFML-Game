@@ -141,6 +141,9 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Components\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="GUITextField.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Unit.h">
@@ -211,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Components\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="GUITextField.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

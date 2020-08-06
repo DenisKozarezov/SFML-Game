@@ -1,4 +1,5 @@
 #include "GUIButton.h"
+#include <iostream>
 
 void GUIButton::initialize()
 {
@@ -9,8 +10,7 @@ void GUIButton::initialize()
     this->background->hover = new sf::Texture;
     this->background->active = new sf::Texture;
     this->background->passive = new sf::Texture;
-    this->current = new Sprite; 
-    this->drawable_object = this->current;
+    this->current = new Sprite;
 }
 
 GUIButton::GUIButton(const Rect& rectangle)
@@ -19,6 +19,12 @@ GUIButton::GUIButton(const Rect& rectangle)
     this->text = new GUIText(rectangle.x, rectangle.y, "");
     this->position = new Vector2(rectangle.x, rectangle.y);
     this->size = new Vector2(rectangle.width, rectangle.height);
+    sf::Texture texture;
+    texture.create(rectangle.width, rectangle.height);
+    this->current->setTexture(texture);
+    this->current->setColor(sf::Color::White);
+    this->current->setPosition(rectangle.x, rectangle.y);
+    this->drawable_object = this->current;
     GUI::add(this);
 }
 GUIButton::GUIButton(const Rect& rectangle, const std::string& text)
@@ -26,7 +32,14 @@ GUIButton::GUIButton(const Rect& rectangle, const std::string& text)
     initialize();
     this->text = new GUIText(rectangle.x, rectangle.y, text);
     this->position = new Vector2(rectangle.x, rectangle.y);
+    sf::Texture texture;
+    texture.create(rectangle.width, rectangle.height);
+    this->current->setTexture(texture);
+    this->current->setColor(sf::Color::White);
     this->size = new Vector2(rectangle.width, rectangle.height);
+    this->current->setPosition(rectangle.x, rectangle.y);
+    this->drawable_object = this->current;
+    GUI::add(this);
 }
 
 void GUIButton::select()
@@ -69,13 +82,14 @@ void GUIButton::set_size(const float& width, const float& height)
 {
     set_size(Vector2(width, height));
 }
-void GUIButton::set_action(function action)
+void GUIButton::set_action(Action action)
 {
     this->action = action;
 }
-void GUIButton::invoke()
+template<typename... Args>
+void GUIButton::invoke(Args... args)
 {
-    this->action();
+    if (this->action) this->action(args...);
 }
 
 const bool& GUIButton::IsHover() const

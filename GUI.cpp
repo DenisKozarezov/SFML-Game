@@ -1,6 +1,7 @@
 #include "GUI.h"
 #include "DrawableContainer.h"
 #include "Player.h"
+#include <iostream>
 
 GUI* GUI::instance = 0;
 
@@ -56,27 +57,17 @@ void GUI::show(const bool& status)
 	
 }
 
-void GUI::graphics_update(sf::RenderWindow& window)
-{
-	if (this->text->size() > 0)
-	{
-		for (auto object : *text)
-		{
-			if (object->drawable_object) window.draw(*object->drawable_object);
-		}
-	}
-
-	this->hp->set_text("Health: " + std::to_string(Player::get_main_player()->get_main_character()->get_health()));
-	this->mp->set_text("Mana: -");
-	this->damage->set_text("Damage: " + std::to_string(Player::get_main_player()->get_main_character()->get_damage()));
-}
-void GUI::input_update(sf::Event& event)
+void GUI::update(sf::RenderWindow& window, sf::Event& event)
 {
 	if (this->text->size() > 0)
 	{
 		for (auto object : *text)
 		{
 			object->input_update(event);
+			if (object->drawable_object) window.draw(*object->drawable_object);
 		}
 	}
+	this->hp->set_text("Health: " + std::to_string(Player::get_main_player()->get_main_character()->get_health()));
+	this->mp->set_text("Mana: -");
+	this->damage->set_text("Damage: " + std::to_string(Player::get_main_player()->get_main_character()->get_damage()));
 }

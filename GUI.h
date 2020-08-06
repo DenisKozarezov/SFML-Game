@@ -36,6 +36,6 @@ public:
 	void initialize();
 
 	void graphics_update(sf::RenderWindow& window);
-	void input_update(sf::Event& event);
+	void update(sf::RenderWindow& window, sf::Event& event);
 };
 #endif

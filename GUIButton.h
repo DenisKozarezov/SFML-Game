@@ -2,7 +2,6 @@
 #define _GUIBUTTON_H_
 #include "GUI.h"
 #include "struct.h"
-#include <stdarg.h>
 
 class GUIButton final : GUIElement
 {
@@ -16,9 +15,14 @@ private:
 	Vector2* size;
 	Sprite* current;
 
-	typedef void(*function)();
-	function action;
+	typedef void(*Action)();
+	Action action;
 
+	struct Background;
+	Background* background;
+
+	void initialize();
+public:
 	struct Background
 	{
 	public:
@@ -28,10 +32,7 @@ private:
 		sf::Texture* passive;
 		~Background();
 	};
-	Background* background;
 
-	void initialize();
-public:
 	GUIButton(const Rect& rectangle);
 	GUIButton(const Rect& rectangle, const std::string& text);
 
@@ -45,8 +46,9 @@ public:
 	void set_size(const Vector2& size);
 	void set_size(const float& width, const float& height);
 
-	void set_action(function action);
-	void invoke();
+	void set_action(Action action);
+	template<typename... Args>
+	void invoke(Args... args);
 	
 	void input_update(sf::Event& event) override;
 

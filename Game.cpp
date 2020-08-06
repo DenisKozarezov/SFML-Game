@@ -2,6 +2,7 @@
 
 Game::Game()
 {
+	this->event = new sf::Event;
 	this->window = new sf::RenderWindow(sf::VideoMode(1900, 900), "My Game");
 	this->window->setFramerateLimit(120);
 
@@ -45,29 +46,31 @@ void Game::run()
 }
 void Game::input_update()
 {
-	sf::Event event;
-	while (this->window->pollEvent(event))
+	this->event = new sf::Event;
+
+	while (this->window->pollEvent(*this->event))
 	{
-		if (event.type == sf::Event::Closed)
+		if (this->event->type == sf::Event::Closed)
 		{
 			this->window->close();
-			this->gui->input_update(event);
 		}
 	}
 	
 	if (this->window->hasFocus())
 	{
 		this->camera->input_update(*this->window);
-		this->player->input_update(event);
+		this->player->input_update(*this->event);
+
 	}
+
+	delete this->event;
 }
 void Game::graphics_update()
 {
 	this->window->clear();
 
 	DrawableContainer::update(*this->window);	
-
-	this->gui->graphics_update(*this->window);
+	this->gui->update(*this->window, *this->event);
 
 	this->window->display();
 }
