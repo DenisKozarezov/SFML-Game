@@ -1,12 +1,12 @@
 #ifndef _GUITEXT_H_
 #define _GUITEXT_H_
 #include "SFML/Graphics.hpp"
+#include "DrawableObject.h"
 #include "Vector2.h"
 #include "Resources.cpp"
-#include "DrawableObject.h"
 #include "GUI.h"
 
-class GUIText final : DrawableObject
+class GUIText final
 {
 private:
 	sf::Text* gui_text;
@@ -35,8 +35,6 @@ public:
 	const sf::Uint32& get_style() const;
 	const std::string& get_text() const;
 	const unsigned short& get_size() const;
-
-	void update() override;
 
 	~GUIText();
 };

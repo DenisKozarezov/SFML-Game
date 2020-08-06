@@ -1,15 +1,17 @@
 #ifndef _GUI_H_
 #define _GUI_H_
 #include <vector>
-#include "DrawableLayer.h"
 #include "GUIText.h"
+#include "GUIElement.h"
 #include "GUIImage.h"
+#include "GUIButton.h"
 
 class GUI final
 {
 private:
 	friend class GUIText;
 	friend class GUIImage;
+	friend class GUIButton;
 
 	bool* hidden;
 	

@@ -32,7 +32,7 @@ Warrior::Warrior(const Vector2& position) : Unit(position)
 	animator->get_animation("Idle")->set_interval(150);
 	animator->get_animation("Run")->set_interval(100);
 
-	this->set_speed(1);
+	this->set_speed(1.2f);
 
 	animator->play("Idle");
 }

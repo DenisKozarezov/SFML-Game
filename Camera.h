@@ -9,19 +9,18 @@ class Camera
 private:
 	friend class Game;
 
-	Vector2* position = new Vector2(0.f, 0.f);
+	bool* faded;
+	bool* moving;
 
-	bool* faded = new bool(false);
-	bool* moving = new bool(false);
+	Vector2* position;
+	float* speed;
+	float* time;
 
-	float* speed = new float(1);
-	float* time = new float(0);
-
-	Vector2* lerp_position = new Vector2;
-	float* factor = new float(0);
+	Vector2* lerp_position;
+	float* factor;
 
 	DrawableObject* attached_target;
-	Vector2* point_target = new Vector2;
+	Vector2* point_target;
 
 	void move(const Vector2& point);
 	void move(const float& point_x, const float& offset_y);

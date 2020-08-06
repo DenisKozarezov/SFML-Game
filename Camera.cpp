@@ -3,7 +3,16 @@
 
 Camera::Camera()
 {
+	this->faded = new bool(false);
+	this->moving = new bool(false);
 
+	this->position = new Vector2(0.f, 0.f);
+	this->speed = new float(1);
+	this->time = new float(0);
+
+	this->lerp_position = new Vector2;
+	this->factor = new float(0);
+	this->point_target = new Vector2;
 }
 
 Camera::~Camera()
@@ -38,10 +47,12 @@ void Camera::update(const double& deltaTime)
 }
 void Camera::input_update(const sf::RenderWindow& window)
 {
-	float left = Math::percent_of(0.03f, window.getSize().x);
-	float right = Math::percent_of(0.97f, window.getSize().x);
-	float up = Math::percent_of(0.03f, window.getSize().y);
-	float down = Math::percent_of(0.97f, window.getSize().y);
+	const float dragging_diff = 40;
+	float left = window.getPosition().x + dragging_diff;
+	float right = window.getPosition().x + window.getSize().x - dragging_diff;
+	float up = window.getPosition().y + dragging_diff;
+	float down = window.getPosition().y + window.getSize().y - dragging_diff;
+
 	if (sf::Mouse::getPosition().x <= left)
 	{
 		Vector2 position = get_position() + Vector2::right;

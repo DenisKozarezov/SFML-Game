@@ -2,7 +2,9 @@
 
 Game::Game()
 {
-	this->window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "My Game");
+	this->window = new sf::RenderWindow(sf::VideoMode(1900, 900), "My Game");
+	this->window->setFramerateLimit(120);
+
 	DrawableContainer::initialize(5);
 
 	this->gui = GUI::get_instance();
@@ -52,8 +54,11 @@ void Game::input_update()
 		}
 	}
 	
-	this->camera->input_update(*this->window);
-	this->player->input_update(event);	
+	if (this->window->hasFocus())
+	{
+		this->camera->input_update(*this->window);
+		this->player->input_update(event);
+	}
 }
 void Game::graphics_update()
 {

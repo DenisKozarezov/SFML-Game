@@ -16,7 +16,6 @@ void GUIText::initialize()
 GUIText::GUIText(const Vector2& position, const std::string& text)
 {
 	initialize();
-	set_screen_position(position);
 	this->gui_text->setString(text);
 	this->gui_text->setPosition(position.x, position.y);
 	GUI::add(this->gui_text);
@@ -24,7 +23,6 @@ GUIText::GUIText(const Vector2& position, const std::string& text)
 GUIText::GUIText(const float& x, const float& y, const std::string& text)
 {
 	initialize();
-	set_screen_position(x, y);
 	this->gui_text->setString(text);
 	this->gui_text->setPosition(x, y);
 	GUI::add(this->gui_text);
@@ -89,12 +87,8 @@ const unsigned short& GUIText::get_size() const
 	return this->gui_text->getCharacterSize();
 }
 
-void GUIText::update()
-{
-	
-}
-
 GUIText::~GUIText()
 {
 	delete this->gui_text;
+	delete this->font;
 }

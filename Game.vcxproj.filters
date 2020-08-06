@@ -64,13 +64,13 @@
     <Filter Include="Math\DataStruct">
       <UniqueIdentifier>{8713d501-3f32-46b4-9b2a-0b2aa82f7a66}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components\Action">
+      <UniqueIdentifier>{9cccff37-ef40-4323-86a8-14cb62917162}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Components\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Unit.cpp">
       <Filter>Components\Unit</Filter>
@@ -108,9 +108,6 @@
     <ClCompile Include="PlayerInput.cpp">
       <Filter>Input</Filter>
     </ClCompile>
-    <ClCompile Include="Animator.cpp">
-      <Filter>Components\Animator</Filter>
-    </ClCompile>
     <ClCompile Include="GUI.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
@@ -132,11 +129,20 @@
     <ClCompile Include="GUIImage.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="GUIButton.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIElement.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Components\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Components\Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.h">
-      <Filter>Components\Animation</Filter>
-    </ClInclude>
     <ClInclude Include="Unit.h">
       <Filter>Components\Unit</Filter>
     </ClInclude>
@@ -173,9 +179,6 @@
     <ClInclude Include="PlayerInput.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="Animator.h">
-      <Filter>Components\Animator</Filter>
-    </ClInclude>
     <ClInclude Include="GUI.h">
       <Filter>GUI</Filter>
     </ClInclude>
@@ -196,6 +199,18 @@
     </ClInclude>
     <ClInclude Include="struct.h">
       <Filter>Math\DataStruct</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIButton.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIElement.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Components\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Components\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

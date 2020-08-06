@@ -14,18 +14,28 @@ void GUI::initialize()
 	this->hp->set_color(sf::Color::Red);
 	this->hp->set_size(20);
 
+	sf::Texture heart_texture;
+	heart_texture.loadFromFile(ProjectResourcesPath::Sprites + "heart.png");
+	GUIImage* heart = new GUIImage(Rect(200, 50, 50, 50), heart_texture);
+
 	this->mp = new GUIText(Vector2(500, 100), "");
 	this->mp->set_color(sf::Color::Blue);
 	this->mp->set_size(20);
+
+	sf::Texture mp_texture;
+	mp_texture.loadFromFile(ProjectResourcesPath::Sprites + "mana.png");
+	GUIImage* mp = new GUIImage(Rect(500, 50, 50, 50), mp_texture);
 
 	this->damage = new GUIText(Vector2(700, 100), "");
 	this->damage->set_color(sf::Color::Yellow);
 	this->damage->set_size(20);
 
-	sf::Texture texture;
-	texture.loadFromFile("C:/Users/Acer/source/repos/Game/x64/resources/sprites/owl.jpg");
-	GUIImage* image = new GUIImage(Rect(200, 200, 100, 100), texture);
-	image->set_size(50, 50);
+	sf::Texture damage_texture;
+	damage_texture.loadFromFile(ProjectResourcesPath::Sprites + "owl.jpg");
+	GUIImage* damage = new GUIImage(Rect(700, 50, 50, 50), damage_texture);
+
+	GUIButton* button = new GUIButton(Rect(1, 1, 1, 1));
+	
 }
 
 GUI::GUI()

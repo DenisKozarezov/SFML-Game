@@ -1,10 +1,12 @@
 #include "GUIImage.h"
 
-GUIImage::GUIImage(const Rect& rectangle, const sf::Texture image)
+GUIImage::GUIImage(const Rect& rectangle, const sf::Texture& image)
 {
 	this->label = new Sprite;
 	this->label->setPosition(rectangle.x, rectangle.y);
 	this->label->setTexture(image);
+	set_width(rectangle.width);
+	set_height(rectangle.height);
 	GUI::add(this->label);
 }
 
@@ -40,11 +42,6 @@ void GUIImage::set_texture(const sf::Texture& texture)
 	this->label->setTexture(texture);
 }
 
-void GUIImage::update()
-{
-
-}
-
 const Vector2& GUIImage::get_size() const
 {
 	return Vector2(this->label->getTexture()->getSize().x, this->label->getTexture()->getSize().y);
@@ -56,4 +53,9 @@ const Vector2& GUIImage::get_position() const
 const sf::Texture& GUIImage::get_texture() const
 {
 	return *this->label->getTexture();
+}
+
+GUIImage::~GUIImage()
+{
+	delete this->label;
 }
