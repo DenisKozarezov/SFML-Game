@@ -12,7 +12,6 @@ class Game
 {
 private:
 	sf::Event* event;
-	sf::RenderWindow* window;
 	sf::Clock* clock;
 	sf::Time* time;
 
@@ -26,6 +25,8 @@ private:
 	void input_update();
 	void events_update();
 public:
+	static sf::RenderWindow* window;
+
 	bool* isActive;
 
 	Game();	

@@ -1,10 +1,10 @@
 #ifndef _GUIBUTTON_H_
 #define _GUIBUTTON_H_
 #include "GUI.h"
-#include "struct.h"
 #include "IClickable.h"
+#include "Game.h"
 
-class GUIButton final : GUIElement, IClickable
+class GUIButton final : public GUIElement, public IClickable
 {
 private:
 	bool* hover;
@@ -15,9 +15,6 @@ private:
 	Vector2* position;
 	Vector2* size;
 	Sprite* current;
-
-	typedef void(*Action)();
-	Action action;
 
 	struct Background;
 	Background* background;
@@ -47,10 +44,6 @@ public:
 	void set_size(const Vector2& size);
 	void set_size(const float& width, const float& height);
 
-	void set_action(Action action);
-	template<typename... Args>
-	void invoke(Args... args);
-	
 	void input_update(sf::Event& event) override;
 
 	const bool& IsHover() const;

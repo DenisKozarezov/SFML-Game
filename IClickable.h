@@ -1,9 +1,12 @@
-#pragma once
+#ifndef _ICLICKABLE_H_
+#define _ICLICKABLE_H_
+#include "SFML/Graphics.hpp"
 #include "Delegate.h"
+#include "struct.h"
 
 class IClickable
 {
-protected:
+public:
 	IClickable();
 
 	Delegate* OnDisabled;
@@ -12,8 +15,11 @@ protected:
 	Delegate* OnActive;
 	Delegate* OnPointerEnter;
 	Delegate* OnPointerExit;
-	Delegate* OnPointerDown;
-	Delegate* OnPointerUp;
+	Delegate* OnMouseDown;
+	Delegate* OnMouseUp;	
 
 	virtual ~IClickable();
+protected:
+	const static bool& IsHover(const Rect& rectangle, const Vector2& mousePosition);
 };
+#endif

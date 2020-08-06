@@ -1,10 +1,11 @@
 #include "GUIButton.h"
+#include <iostream>
 
 void GUIButton::initialize()
 {
     this->hover = new bool(0);
     this->active = new bool(0);
-    this->interactable = new bool(0);
+    this->interactable = new bool(1);
     this->background = new Background();
     this->background->hover = new sf::Texture;
     this->background->active = new sf::Texture;
@@ -81,20 +82,10 @@ void GUIButton::set_size(const float& width, const float& height)
 {
     set_size(Vector2(width, height));
 }
-void GUIButton::set_action(Action action)
-{
-    this->action = action;
-}
-template<typename... Args>
-void GUIButton::invoke(Args... args)
-{
-    if (this->action) this->action(args...);
-}
 
 const bool& GUIButton::IsHover() const
 {
-    sf::FloatRect rect(sf::Vector2f(this->position->x, this->position->y), sf::Vector2f(this->size->x, this->size->y));
-    return rect.contains(sf::Mouse::getPosition().x, sf::Mouse::getPosition().y);
+    return *this->hover;
 }
 const bool& GUIButton::IsActive() const
 {
@@ -133,13 +124,29 @@ GUIButton::~GUIButton()
 
 void GUIButton::input_update(sf::Event& event)
 {
-    if (this->IsHover())
+    Vector2 mousePosition(sf::Mouse::getPosition(*Game::window).x, sf::Mouse::getPosition(*Game::window).y);
+    if (IClickable::IsHover(Rect(*this->position, *this->size), mousePosition) && *this->interactable)
     {
-        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Right)
+        *this->hover = true;
+        if (!this->OnPointerEnter->IsNull()) this->OnPointerEnter->invoke();
+
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Left)
         {
-            if (this->action) invoke();
+            std::cout << "MOUSE!\n";
+            if (!this->OnClick->IsNull()) this->OnClick->invoke();
+        }
+        else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
+        {
+            if (!this->OnMouseUp->IsNull()) this->OnMouseUp->invoke();
         }
     }
+
+    else
+    {
+        *this->hover = false;
+        if (!this->OnPointerExit->IsNull()) this->OnPointerExit->invoke();
+    }
+        
 }
 
 GUIButton::Background::~Background()

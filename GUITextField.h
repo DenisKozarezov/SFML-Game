@@ -15,6 +15,9 @@ private:
 	GUIText* text;	
 	Sprite* background;
 
+	Vector2* position;
+	Vector2* size;
+
 	void initialize();
 public:
 	GUITextField(const Rect& rectangle);
@@ -23,7 +26,6 @@ public:
 	void set_interactable(const bool& status);
 	void set_position(const Vector2& position);
 	void set_position(const float& x, const float& y);
-	void set_text(const std::string& text);
 
 	const bool& IsInteractable() const;
 	const bool& IsSelected() const;

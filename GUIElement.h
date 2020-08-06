@@ -10,10 +10,10 @@ public:
 	GUIElement();
 
 	static void destroy(GUIElement* element);
-	virtual void input_update(sf::Event& event) = 0;
 
 	virtual ~GUIElement();
 protected:
 	sf::Drawable* drawable_object;
+	virtual void input_update(sf::Event& event) = 0;
 };
 #endif

@@ -36,10 +36,10 @@ void Vector2::set(const float& x, const float& y)
 	this->x = x;
 	this->y = y;
 }
-const std::string& Vector2::to_string() const
+const std::string Vector2::to_string() const
 {
-	std::string result = "(" + static_cast<char>(this->x);
-	result += "; " + static_cast<char>(this->y);
+	std::string result = "(" + std::to_string(x);
+	result += "; " + std::to_string(y);
 	result += ")";
 	return result;
 }

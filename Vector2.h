@@ -32,7 +32,7 @@ public:
 	void set(const float& x, const float& y);
 
 	/// Returns the record with coordinates of the vector. Example: (1, 2);
-	const std::string& to_string() const;
+	const std::string to_string() const;
 
 	/// Returns the dot product of two vectors.
 	const static float& scalar(const Vector2& vector1, const Vector2& vector2);

@@ -1,9 +1,10 @@
 #include "Game.h"
 
+sf::RenderWindow* Game::window = 0;
 Game::Game()
 {
 	this->event = new sf::Event;
-	this->window = new sf::RenderWindow(sf::VideoMode(1900, 900), "My Game");
+	this->window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "My Game");
 	this->window->setFramerateLimit(120);
 
 	DrawableContainer::initialize(5);

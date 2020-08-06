@@ -34,6 +34,10 @@ void GUI::initialize()
 	sf::Texture damage_texture;
 	damage_texture.loadFromFile(ProjectResourcesPath::Sprites + "owl.jpg");
 	GUIImage* damage = new GUIImage(Rect(700, 50, 50, 50), damage_texture);
+
+	GUIButton* button1 = new GUIButton(Rect(100, 500, 100, 50));
+	*button1->OnClick += []() {std::cout << "BUTTON WORKED!\n"; };
+	GUIButton* button2 = new GUIButton(Rect(100, 700, 100, 50));
 }
 
 GUI::GUI()

@@ -1,4 +1,5 @@
 #include "IClickable.h"
+#include <iostream>
 
 IClickable::IClickable()
 {
@@ -8,8 +9,17 @@ IClickable::IClickable()
 	this->OnActive = new Delegate;
 	this->OnPointerEnter = new Delegate;
 	this->OnPointerExit = new Delegate;
-	this->OnPointerDown = new Delegate;
-	this->OnPointerUp = new Delegate;
+	this->OnMouseDown = new Delegate;
+	this->OnMouseUp = new Delegate;
+}
+
+const bool& IClickable::IsHover(const Rect& rectangle, const Vector2& mousePosition)
+{
+	float min_x = rectangle.x;
+	float max_x = rectangle.x + rectangle.width;
+	float min_y = rectangle.y;
+	float max_y = rectangle.y + rectangle.height;
+	return mousePosition.x >= min_x && mousePosition.x <= max_x && mousePosition.y >= min_y && mousePosition.y <= max_y;
 }
 
 IClickable::~IClickable()
@@ -20,6 +30,6 @@ IClickable::~IClickable()
 	delete this->OnActive;
 	delete this->OnPointerEnter;
 	delete this->OnPointerExit;
-	delete this->OnPointerDown;
-	delete this->OnPointerUp;
+	delete this->OnMouseDown;
+	delete this->OnMouseUp;
 }

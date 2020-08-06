@@ -10,16 +10,33 @@ Delegate::Delegate(void(T::*function)(const Args&... args))
 	this->func = function;
 }
 
-template<typename... Args>
-void Delegate::invoke(const Args&... args)
+void Delegate::invoke()
 {
-	if (this->func) this->func(args...);
+	if (this->func) this->func();
+}
+
+const bool& Delegate::IsNull() const
+{
+	return this->func;
 }
 
 Delegate& Delegate::operator+=(Function<> function)
 {
 	this->func = func;
 	return *this;
+}
+Delegate& Delegate::operator=(const Delegate& delegate)
+{
+	this->func = delegate.func;
+	return *this;
+}
+bool Delegate::operator==(const Delegate& delegate)
+{
+	return this->func == delegate.func;
+}
+bool Delegate::operator!=(const Delegate& delegate)
+{
+	return !(this->func == delegate.func);
 }
 template<typename T, typename... Args>
 Delegate& Delegate::operator+=(void(T::* function)(const Args&...))
