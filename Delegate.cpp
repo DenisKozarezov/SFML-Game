@@ -1,46 +1,51 @@
 #include "Delegate.h"
 
-Delegate::Delegate(Function<> function)
-{
-	this->func = function;
-}
-template<typename T, typename ...Args>
-Delegate::Delegate(void(T::*function)(const Args&... args))
-{
-	this->func = function;
-}
-
 void Delegate::invoke()
 {
-	if (this->func) this->func();
+	std::vector<Function>::iterator it;
+	for (it = this->functions.begin(); it != this->functions.end(); it++) it->invoke();
 }
 
 const bool& Delegate::IsNull() const
 {
-	return this->func;
+	return this->functions.size() == 0;
 }
 
-Delegate& Delegate::operator+=(Function<> function)
+Delegate& Delegate::operator+=(Function::Lyambda lyambda)
 {
-	this->func = func;
+	this->functions.push_back(Function(lyambda));
 	return *this;
 }
+template<typename T, typename ...Args>
+Delegate& Delegate::operator+=(void(T::* function)(const Args...))
+{
+	this->functions.push_back(Function(function));
+	return *this;
+}
+Delegate& Delegate::operator+=(const Delegate& delegate)
+{
+	for (auto function : delegate.functions) this->functions.push_back(function);
+	return *this;
+}
+
+template<typename T, typename ...Args>
+Delegate& Delegate::operator-=(void(T::* function)(const Args...))
+{
+	std::vector<Function>::iterator first = this->functions.begin();
+	std::vector<Function>::iterator last = this->functions.end();
+	std::vector<Function>::iterator find = std::find(first, last, function);
+	if (find != last) this->functions.erase(find);
+	return *this;
+}
+
 Delegate& Delegate::operator=(const Delegate& delegate)
 {
-	this->func = delegate.func;
+	this->functions = delegate.functions;
 	return *this;
 }
-bool Delegate::operator==(const Delegate& delegate)
+
+void Delegate::Function::invoke()
 {
-	return this->func == delegate.func;
-}
-bool Delegate::operator!=(const Delegate& delegate)
-{
-	return !(this->func == delegate.func);
-}
-template<typename T, typename... Args>
-Delegate& Delegate::operator+=(void(T::* function)(const Args&...))
-{
-	this->func = function;
-	return *this;
+	if (this->_function) _function();
+	if (this->_lyambda) this->_lyambda();
 }

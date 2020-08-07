@@ -3,43 +3,40 @@
 
 void GUIButton::initialize()
 {
-    this->hover = new bool(0);
     this->active = new bool(0);
+    this->hover = new bool(0);
+    this->enabled = new bool(1);
     this->interactable = new bool(1);
+    this->position = new Vector2;
+    this->size = new Vector2;
     this->background = new Background();
-    this->background->hover = new sf::Texture;
-    this->background->active = new sf::Texture;
-    this->background->passive = new sf::Texture;
-    this->current = new Sprite;
+    this->current = this->background->passive;
+    this->current->setColor(sf::Color::White);
+
 }
 
 GUIButton::GUIButton(const Rect& rectangle)
 {
     initialize();
-    this->text = new GUIText(rectangle.x, rectangle.y, "");
-    this->position = new Vector2(rectangle.x, rectangle.y);
-    this->size = new Vector2(rectangle.width, rectangle.height);
-    sf::Texture texture;
-    texture.create(rectangle.width, rectangle.height);
-    this->current->setTexture(texture);
-    this->current->setColor(sf::Color::White);
-    this->current->setPosition(rectangle.x, rectangle.y);
+    set_size(rectangle.width, rectangle.height);
+    set_position(rectangle.x, rectangle.y);
     this->drawable_object = this->current;
     GUI::add(this);
+    this->text = new GUIText;
+    this->text->set_text("");
+    this->text->set_position(rectangle.x + rectangle.width / 2 - this->text->get_size().x / 2, rectangle.y);
 }
 GUIButton::GUIButton(const Rect& rectangle, const std::string& text)
 {
     initialize();
-    this->text = new GUIText(rectangle.x, rectangle.y, text);
-    this->position = new Vector2(rectangle.x, rectangle.y);
-    sf::Texture texture;
-    texture.create(rectangle.width, rectangle.height);
-    this->current->setTexture(texture);
-    this->current->setColor(sf::Color::White);
-    this->size = new Vector2(rectangle.width, rectangle.height);
+    set_size(rectangle.width, rectangle.height);
+    set_position(rectangle.x, rectangle.y);
     this->current->setPosition(rectangle.x, rectangle.y);
     this->drawable_object = this->current;
     GUI::add(this);
+    this->text = new GUIText;
+    this->text->set_text(text);
+    this->text->set_position(rectangle.x + rectangle.width / 2 - this->text->get_size().x / 2, rectangle.y);
 }
 
 void GUIButton::select()
@@ -52,6 +49,7 @@ void GUIButton::set_interactable(const bool& status)
 void GUIButton::set_text(const std::string& text)
 {
     this->text->set_text(text);
+    this->text->set_position(this->position->x + this->size->x / 2 - this->text->get_size().x / 2, this->position->y);
 }
 void GUIButton::set_image(const sf::Texture& texture)
 {
@@ -65,6 +63,7 @@ void GUIButton::set_position(const Vector2& position)
 {
     *this->position = position;
     this->current->setPosition(position.x, position.y);
+    if (this->text) this->text->set_position(position);
 }
 void GUIButton::set_position(const float& x, const float& y)
 {
@@ -82,14 +81,24 @@ void GUIButton::set_size(const float& width, const float& height)
 {
     set_size(Vector2(width, height));
 }
+void GUIButton::set_color(const sf::Color& color)
+{
+    this->background->active->setColor(color);
+    this->background->hover->setColor(color);
+    this->background->passive->setColor(color);
+}
+void GUIButton::set_color(const float& r, const float& g, const float& b, const float& a)
+{
+    set_color(sf::Color(r, g, b, a));
+}
 
 const bool& GUIButton::IsHover() const
 {
     return *this->hover;
 }
-const bool& GUIButton::IsActive() const
+const bool& GUIButton::IsEnabled() const
 {
-    return *this->active;
+    return *this->enabled;
 }
 const bool& GUIButton::IsInteractable() const
 {
@@ -105,16 +114,64 @@ const GUIButton::Background* GUIButton::get_background()
 }
 const Vector2& GUIButton::get_position()
 {
-    return Vector2(this->current->getPosition().x, this->current->getPosition().y);
+    return *this->position;
 }
 const Vector2& GUIButton::get_size()
 {
-    return Vector2(this->current->getTexture()->getSize().x, this->current->getTexture()->getSize().y);
+    return *this->size;
+}
+const sf::Color& GUIButton::get_color() const
+{
+    return this->current->getColor();
+}
+
+void GUIButton::input_update(sf::Event& event)
+{
+    Vector2 mousePosition(sf::Mouse::getPosition(*Game::window).x, sf::Mouse::getPosition(*Game::window).y);
+
+    if (IClickable::IsHover(Rect(*this->position, *this->size), mousePosition) && *this->interactable && *this->enabled)
+    {
+        if (!*this->hover)
+        {
+            *this->hover = true;
+            if (!this->OnPointerEnter->IsNull()) this->OnPointerEnter->invoke();
+        }
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            *this->active = true;
+            if (!this->OnActive->IsNull()) this->OnActive->invoke();
+        }
+        else
+        {
+            if (*this->active)
+            {
+                *this->active = false;
+                if (!this->OnClick->IsNull()) this->OnClick->invoke();
+                if (!this->OnMouseUp->IsNull()) this->OnMouseUp->invoke();
+            }
+        }
+    }
+    else
+    {
+        if (*this->hover)
+        {
+            *this->hover = false;
+            if (!this->OnPointerExit->IsNull()) this->OnPointerExit->invoke();
+        }
+    }
+    
+    if (!*this->enabled)
+    {
+        if (!this->OnDisabled->IsNull()) this->OnDisabled->invoke();
+    }
 }
 
 GUIButton::~GUIButton()
 {
+    delete this->active;
     delete this->interactable;
+    delete this->enabled;
     delete this->text;
     delete this->position;
     delete this->size;
@@ -122,31 +179,15 @@ GUIButton::~GUIButton()
     delete this->background;
 }
 
-void GUIButton::input_update(sf::Event& event)
+GUIButton::Background::Background()
 {
-    Vector2 mousePosition(sf::Mouse::getPosition(*Game::window).x, sf::Mouse::getPosition(*Game::window).y);
-    if (IClickable::IsHover(Rect(*this->position, *this->size), mousePosition) && *this->interactable)
-    {
-        *this->hover = true;
-        if (!this->OnPointerEnter->IsNull()) this->OnPointerEnter->invoke();
+    this->active = new Sprite;
+    this->hover = new Sprite;
+    this->passive = new Sprite;
 
-        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Left)
-        {
-            std::cout << "MOUSE!\n";
-            if (!this->OnClick->IsNull()) this->OnClick->invoke();
-        }
-        else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
-        {
-            if (!this->OnMouseUp->IsNull()) this->OnMouseUp->invoke();
-        }
-    }
-
-    else
-    {
-        *this->hover = false;
-        if (!this->OnPointerExit->IsNull()) this->OnPointerExit->invoke();
-    }
-        
+    sf::Texture* passive = new sf::Texture;
+    passive->loadFromFile(GUIButtonStyle::Default);
+    this->passive->setTexture(*passive);
 }
 
 GUIButton::Background::~Background()

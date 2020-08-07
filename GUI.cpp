@@ -9,11 +9,12 @@ void GUI::add(GUIElement* element)
 {
 	GUI::get_instance()->text->push_back(element);
 }
+
 void GUI::initialize()
 {
 	this->hp = new GUIText(Vector2(200, 100), "");
 	this->hp->set_color(sf::Color::Red);
-	this->hp->set_size(20);
+	this->hp->set_font_size(20);
 
 	sf::Texture heart_texture;
 	heart_texture.loadFromFile(ProjectResourcesPath::Sprites + "heart.png");
@@ -21,7 +22,7 @@ void GUI::initialize()
 
 	this->mp = new GUIText(Vector2(500, 100), "");
 	this->mp->set_color(sf::Color::Blue);
-	this->mp->set_size(20);
+	this->mp->set_font_size(20);
 
 	sf::Texture mp_texture;
 	mp_texture.loadFromFile(ProjectResourcesPath::Sprites + "mana.png");
@@ -29,15 +30,17 @@ void GUI::initialize()
 
 	this->damage = new GUIText(Vector2(700, 100), "");
 	this->damage->set_color(sf::Color::Yellow);
-	this->damage->set_size(20);
+	this->damage->set_font_size(20);
 
 	sf::Texture damage_texture;
 	damage_texture.loadFromFile(ProjectResourcesPath::Sprites + "owl.jpg");
 	GUIImage* damage = new GUIImage(Rect(700, 50, 50, 50), damage_texture);
 
-	GUIButton* button1 = new GUIButton(Rect(100, 500, 100, 50));
-	*button1->OnClick += []() {std::cout << "BUTTON WORKED!\n"; };
-	GUIButton* button2 = new GUIButton(Rect(100, 700, 100, 50));
+	GUIButton* button1 = new GUIButton(Rect(600, 500, 200, 50), "PLAY");
+	*button1->OnClick += [button1]() { button1->set_text("CLICKED!"); };
+	*button1->OnPointerEnter += [button1]() { button1->set_text("ENTER!"); };
+	*button1->OnPointerExit += [button1]() { button1->set_text("EXIT!"); };
+	*button1->OnActive += [button1]() { button1->set_text("ACTIVE!"); };
 }
 
 GUI::GUI()

@@ -11,11 +11,13 @@ class GUIText final : GUIElement
 private:
 	sf::Text* gui_text;
 
+	std::string* text;
 	sf::Font* font;
 	DrawableObject* object;
 
 	void initialize();	
 public:
+	GUIText();
 	GUIText(const Vector2& position, const std::string& text);
 	GUIText(const float& x, const float& y, const std::string& text);
 
@@ -25,7 +27,7 @@ public:
 	void set_font(const sf::Font& font);
 	void set_style(const sf::Text::Style& style);
 	void set_text(const std::string& text);
-	void set_size(const unsigned short& size);
+	void set_font_size(const unsigned short& size);
 	void set_position(const Vector2& position);
 	void set_position(const float& x, const float& y);
 	
@@ -36,8 +38,9 @@ public:
 	const sf::Font& get_font() const;
 	const sf::Uint32& get_style() const;
 	const std::string& get_text() const;
-	const unsigned short& get_size() const;
+	const unsigned short& get_font_size() const;
 	const Vector2& get_position() const;
+	const Vector2& get_size() const;
 
 	void input_update(sf::Event& event) override;
 

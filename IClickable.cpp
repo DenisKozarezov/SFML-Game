@@ -1,5 +1,4 @@
 #include "IClickable.h"
-#include <iostream>
 
 IClickable::IClickable()
 {

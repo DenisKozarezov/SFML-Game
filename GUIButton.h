@@ -7,8 +7,9 @@
 class GUIButton final : public GUIElement, public IClickable
 {
 private:
-	bool* hover;
 	bool* active;
+	bool* hover;
+	bool* enabled;
 	bool* interactable;
 
 	GUIText* text;
@@ -24,10 +25,10 @@ public:
 	struct Background
 	{
 	public:
-		Background() = default;
-		sf::Texture* hover;
-		sf::Texture* active;
-		sf::Texture* passive;
+		Background();
+		Sprite* hover;
+		Sprite* active;
+		Sprite* passive;
 		~Background();
 	};
 
@@ -43,16 +44,19 @@ public:
 	void set_position(const float& x, const float& y);
 	void set_size(const Vector2& size);
 	void set_size(const float& width, const float& height);
+	void set_color(const sf::Color& color);
+	void set_color(const float& r, const float& g, const float& b, const float& a);
 
 	void input_update(sf::Event& event) override;
 
 	const bool& IsHover() const;
-	const bool& IsActive() const;
+	const bool& IsEnabled() const;
 	const bool& IsInteractable() const;
 	const std::string& get_text() const;
 	const Background* get_background();
 	const Vector2& get_position();
 	const Vector2& get_size();
+	const sf::Color& get_color() const;
 
 	~GUIButton();
 };
