@@ -13,7 +13,6 @@ private:
 
 	std::string* text;
 	sf::Font* font;
-	DrawableObject* object;
 
 	void initialize();	
 public:

@@ -10,15 +10,7 @@ IClickable::IClickable()
 	this->OnPointerExit = new Delegate;
 	this->OnMouseDown = new Delegate;
 	this->OnMouseUp = new Delegate;
-}
-
-const bool& IClickable::IsHover(const Rect& rectangle, const Vector2& mousePosition)
-{
-	float min_x = rectangle.x;
-	float max_x = rectangle.x + rectangle.width;
-	float min_y = rectangle.y;
-	float max_y = rectangle.y + rectangle.height;
-	return mousePosition.x >= min_x && mousePosition.x <= max_x && mousePosition.y >= min_y && mousePosition.y <= max_y;
+	this->OnValueChanged = new Delegate;
 }
 
 IClickable::~IClickable()
@@ -31,4 +23,5 @@ IClickable::~IClickable()
 	delete this->OnPointerExit;
 	delete this->OnMouseDown;
 	delete this->OnMouseUp;
+	delete this->OnValueChanged;
 }

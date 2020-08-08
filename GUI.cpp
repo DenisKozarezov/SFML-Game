@@ -1,7 +1,7 @@
 #include "GUI.h"
-#include "DrawableContainer.h"
-#include "Player.h"
-#include <iostream>
+#include "GUIText.h"
+#include "GUIImage.h"
+#include "GUIButton.h"
 
 GUI* GUI::instance = 0;
 
@@ -9,28 +9,35 @@ void GUI::add(GUIElement* element)
 {
 	GUI::get_instance()->text->push_back(element);
 }
-
+void GUI::show(const bool& status)
+{
+	
+}
+void GUI::focus(const bool& status)
+{
+	*GUI::get_instance()->focused = status;
+}
 void GUI::initialize()
 {
-	this->hp = new GUIText(Vector2(200, 100), "");
-	this->hp->set_color(sf::Color::Red);
-	this->hp->set_font_size(20);
+	GUIText* hp = new GUIText(Vector2(200, 100), "Health: 0");
+	hp->set_color(sf::Color::Red);
+	hp->set_font_size(20);
 
 	sf::Texture heart_texture;
 	heart_texture.loadFromFile(ProjectResourcesPath::Sprites + "heart.png");
 	GUIImage* heart = new GUIImage(Rect(200, 50, 50, 50), heart_texture);
 
-	this->mp = new GUIText(Vector2(500, 100), "");
-	this->mp->set_color(sf::Color::Blue);
-	this->mp->set_font_size(20);
+	GUIText* mp = new GUIText(Vector2(500, 100), "Mana: 0");
+	mp->set_color(sf::Color::Blue);
+	mp->set_font_size(20);
 
 	sf::Texture mp_texture;
 	mp_texture.loadFromFile(ProjectResourcesPath::Sprites + "mana.png");
-	GUIImage* mp = new GUIImage(Rect(500, 50, 50, 50), mp_texture);
+	GUIImage* mana = new GUIImage(Rect(500, 50, 50, 50), mp_texture);
 
-	this->damage = new GUIText(Vector2(700, 100), "");
-	this->damage->set_color(sf::Color::Yellow);
-	this->damage->set_font_size(20);
+	GUIText* dmg = new GUIText(Vector2(700, 100), "Damage: 0");
+	dmg->set_color(sf::Color::Yellow);
+	dmg->set_font_size(20);
 
 	sf::Texture damage_texture;
 	damage_texture.loadFromFile(ProjectResourcesPath::Sprites + "owl.jpg");
@@ -54,14 +61,13 @@ GUI* GUI::get_instance()
 	return instance;
 }
 
-const bool& GUI::IsHidden() const
+const bool& GUI::IsHidden() 
 {
-	return *this->hidden;
+	return *GUI::get_instance()->hidden;
 }
-
-void GUI::show(const bool& status)
+const bool& GUI::IsFocused()
 {
-	
+	return *GUI::get_instance()->focused;
 }
 
 void GUI::update(sf::RenderWindow& window, sf::Event& event)
@@ -74,7 +80,4 @@ void GUI::update(sf::RenderWindow& window, sf::Event& event)
 			if (object->drawable_object) window.draw(*object->drawable_object);
 		}
 	}
-	this->hp->set_text("Health: " + std::to_string(Player::get_main_player()->get_main_character()->get_health()));
-	this->mp->set_text("Mana: -");
-	this->damage->set_text("Damage: " + std::to_string(Player::get_main_player()->get_main_character()->get_damage()));
 }

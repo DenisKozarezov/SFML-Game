@@ -35,6 +35,7 @@ GUIText::GUIText(const float& x, const float& y, const std::string& text)
 	initialize();
 	this->gui_text->setString(text);
 	this->gui_text->setPosition(x, y);
+	this->drawable_object = this->gui_text;
 	*this->text = text;
 	GUI::add(this);
 }
@@ -78,7 +79,7 @@ void GUIText::set_position(const float& x, const float& y)
 
 void GUIText::attach_to(DrawableObject* object)
 {
-	this->object = object;
+
 }
 
 const sf::Color& GUIText::get_color() const

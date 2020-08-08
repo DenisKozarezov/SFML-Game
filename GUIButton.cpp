@@ -1,5 +1,4 @@
 #include "GUIButton.h"
-#include <iostream>
 
 void GUIButton::initialize()
 {
@@ -9,10 +8,9 @@ void GUIButton::initialize()
     this->interactable = new bool(1);
     this->position = new Vector2;
     this->size = new Vector2;
-    this->background = new Background();
+    this->background = new Background;
     this->current = this->background->passive;
     this->current->setColor(sf::Color::White);
-
 }
 
 GUIButton::GUIButton(const Rect& rectangle)
@@ -63,7 +61,7 @@ void GUIButton::set_position(const Vector2& position)
 {
     *this->position = position;
     this->current->setPosition(position.x, position.y);
-    if (this->text) this->text->set_position(position);
+    if (this->text) this->text->set_position(position.x + this->size->x / 2 - this->text->get_size().x / 2, position.y);
 }
 void GUIButton::set_position(const float& x, const float& y)
 {
@@ -129,7 +127,7 @@ void GUIButton::input_update(sf::Event& event)
 {
     Vector2 mousePosition(sf::Mouse::getPosition(*Game::window).x, sf::Mouse::getPosition(*Game::window).y);
 
-    if (IClickable::IsHover(Rect(*this->position, *this->size), mousePosition) && *this->interactable && *this->enabled)
+    if (Rect::contains(Rect(*this->position, *this->size), mousePosition) && *this->interactable && *this->enabled)
     {
         if (!*this->hover)
         {
@@ -185,9 +183,12 @@ GUIButton::Background::Background()
     this->hover = new Sprite;
     this->passive = new Sprite;
 
-    sf::Texture* passive = new sf::Texture;
-    passive->loadFromFile(GUIButtonStyle::Default);
-    this->passive->setTexture(*passive);
+    this->active_texture = new sf::Texture;
+    this->hover_texture = new sf::Texture;
+    this->passive_texture = new sf::Texture;
+
+    this->passive_texture->loadFromFile(GUIButtonStyle::Default);
+    this->passive->setTexture(*this->passive_texture);
 }
 
 GUIButton::Background::~Background()
@@ -195,4 +196,7 @@ GUIButton::Background::~Background()
     delete this->hover;
     delete this->active;
     delete this->passive;
+    delete this->hover_texture;
+    delete this->active_texture;
+    delete this->passive_texture;
 }

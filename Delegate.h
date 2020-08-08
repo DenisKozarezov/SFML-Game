@@ -24,6 +24,9 @@ private:
 public:
 	Delegate() = default;
 
+	/// <summary>
+	/// Invokation of all functions that were added in this delegate. Also includes lyambda-expressions.
+	/// </summary>
 	void invoke();
 
 	const bool& IsNull() const;

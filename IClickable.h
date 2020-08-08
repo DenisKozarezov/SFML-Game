@@ -2,7 +2,7 @@
 #define _ICLICKABLE_H_
 #include "SFML/Graphics.hpp"
 #include "Delegate.h"
-#include "struct.h"
+#include "Rect.h"
 
 class IClickable
 {
@@ -17,9 +17,8 @@ public:
 	Delegate* OnPointerExit;
 	Delegate* OnMouseDown;
 	Delegate* OnMouseUp;	
+	Delegate* OnValueChanged;
 
 	virtual ~IClickable();
-protected:
-	const static bool& IsHover(const Rect& rectangle, const Vector2& mousePosition);
 };
 #endif

@@ -1,9 +1,10 @@
 #include "GUIImage.h"
-#include "GUI.h"
 
-GUIImage::GUIImage(const Rect& rectangle, const sf::Texture& image)
+GUIImage::GUIImage(const Rect& rectangle, const sf::Texture image)
 {
 	this->label = new Sprite;
+	this->texture = new sf::Texture;
+	*this->texture = image;
 	this->label->setPosition(rectangle.x, rectangle.y);
 	this->label->setTexture(image);
 	set_width(rectangle.width);
@@ -41,6 +42,7 @@ void GUIImage::set_position(const float& x, const float& y)
 }
 void GUIImage::set_texture(const sf::Texture& texture)
 {
+	*this->texture = texture;
 	this->label->setTexture(texture);
 }
 

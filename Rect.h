@@ -20,4 +20,10 @@ public:
 		this->width = width;
 		this->height = height;
 	}
+
+	const static bool& contains(const Rect& rectangle, const Vector2& point);
+	const static bool& intersects(const Rect& rectangle1, const Rect& rectangle2);
+
+	const bool& contains(const Vector2& point);
+	const bool& intersects(const Rect& rectangle);
 };

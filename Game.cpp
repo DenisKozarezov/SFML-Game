@@ -4,7 +4,7 @@ sf::RenderWindow* Game::window = 0;
 Game::Game()
 {
 	this->event = new sf::Event;
-	this->window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "My Game");
+	this->window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "SFML-Game", sf::Style::Fullscreen);
 	this->window->setFramerateLimit(120);
 
 	DrawableContainer::initialize(5);

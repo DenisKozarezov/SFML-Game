@@ -1,15 +1,18 @@
-#pragma once
+#ifndef _GUIIMAGE_H_
+#define _GUIIMAGE_H_
 #include "Vector2.h"
-#include "GUIText.h"
-#include "struct.h"
+#include "GUI.h"
+#include "Sprite.h"
+#include "Rect.h"
 #include "GUIElement.h"
 
-class GUIImage final : GUIElement
+class GUIImage final : public GUIElement
 {
 private:
 	Sprite* label;
+	sf::Texture* texture;
 public:
-	GUIImage(const Rect& rectangle, const sf::Texture& image);
+	GUIImage(const Rect& rectangle, const sf::Texture image);
 
 	void set_width(const float& width);
 	void set_height(const float& height);
@@ -27,4 +30,4 @@ public:
 
 	~GUIImage();
 };
-
+#endif
