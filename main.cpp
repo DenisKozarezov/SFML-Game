@@ -3,7 +3,7 @@
 
 int main()
 {
-	Game game;
-	game.run();
+	Game* game = Game::get_instance();
+	game->run();
 	return 0;
 }

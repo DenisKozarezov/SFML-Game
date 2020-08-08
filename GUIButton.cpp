@@ -4,13 +4,12 @@ void GUIButton::initialize()
 {
     this->active = new bool(0);
     this->hover = new bool(0);
-    this->enabled = new bool(1);
     this->interactable = new bool(1);
-    this->position = new Vector2;
     this->size = new Vector2;
     this->background = new Background;
     this->current = this->background->passive;
     this->current->setColor(sf::Color::White);
+    this->position = new Vector2;
 }
 
 GUIButton::GUIButton(const Rect& rectangle)
@@ -94,10 +93,6 @@ const bool& GUIButton::IsHover() const
 {
     return *this->hover;
 }
-const bool& GUIButton::IsEnabled() const
-{
-    return *this->enabled;
-}
 const bool& GUIButton::IsInteractable() const
 {
     return *this->interactable;
@@ -127,26 +122,26 @@ void GUIButton::input_update(sf::Event& event)
 {
     Vector2 mousePosition(sf::Mouse::getPosition(*Game::window).x, sf::Mouse::getPosition(*Game::window).y);
 
-    if (Rect::contains(Rect(*this->position, *this->size), mousePosition) && *this->interactable && *this->enabled)
+    if (Rect::contains(Rect(*this->position, *this->size), mousePosition) && *this->interactable && IsEnabled() && !IsHidden())
     {
         if (!*this->hover)
         {
             *this->hover = true;
-            if (!this->OnPointerEnter->IsNull()) this->OnPointerEnter->invoke();
+            this->OnPointerEnter->invoke();
         }
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             *this->active = true;
-            if (!this->OnActive->IsNull()) this->OnActive->invoke();
+            this->OnActive->invoke();
         }
         else
         {
             if (*this->active)
             {
                 *this->active = false;
-                if (!this->OnClick->IsNull()) this->OnClick->invoke();
-                if (!this->OnMouseUp->IsNull()) this->OnMouseUp->invoke();
+                this->OnClick->invoke();
+                this->OnMouseUp->invoke();
             }
         }
     }
@@ -155,13 +150,13 @@ void GUIButton::input_update(sf::Event& event)
         if (*this->hover)
         {
             *this->hover = false;
-            if (!this->OnPointerExit->IsNull()) this->OnPointerExit->invoke();
+            this->OnPointerExit->invoke();
         }
     }
     
-    if (!*this->enabled)
+    if (!IsEnabled())
     {
-        if (!this->OnDisabled->IsNull()) this->OnDisabled->invoke();
+        this->OnDisabled->invoke();
     }
 }
 
@@ -169,9 +164,8 @@ GUIButton::~GUIButton()
 {
     delete this->active;
     delete this->interactable;
-    delete this->enabled;
-    delete this->text;
     delete this->position;
+    delete this->text;
     delete this->size;
     delete this->current;
     delete this->background;

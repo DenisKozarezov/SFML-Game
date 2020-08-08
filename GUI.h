@@ -13,7 +13,10 @@ private:
 
 	static GUI* instance;
 
+	void update();
+
 	GUI();
+
 	GUI& operator=(const GUI&) = delete;
 public:
 	static void add(GUIElement* element);
@@ -26,7 +29,6 @@ public:
 	const static bool& IsHidden();
 	const static bool& IsFocused();
 
-	void graphics_update(sf::RenderWindow& window);
 	void update(sf::RenderWindow& window, sf::Event& event);
 };
 #endif

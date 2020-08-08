@@ -2,6 +2,7 @@
 
 GUIImage::GUIImage(const Rect& rectangle, const sf::Texture image)
 {
+	this->position = new Vector2(rectangle.x, rectangle.y);
 	this->label = new Sprite;
 	this->texture = new sf::Texture;
 	*this->texture = image;
@@ -34,6 +35,7 @@ void GUIImage::set_size(const float& width, const float& height)
 }
 void GUIImage::set_position(const Vector2& position)
 {
+	*this->position = position;
 	this->label->setPosition(position.x, position.y);
 }
 void GUIImage::set_position(const float& x, const float& y)
@@ -52,7 +54,7 @@ const Vector2& GUIImage::get_size() const
 }
 const Vector2& GUIImage::get_position() const
 {
-	return Vector2(this->label->getPosition().x, this->label->getPosition().y);
+	return *this->position;
 }
 const sf::Texture& GUIImage::get_texture() const
 {
@@ -63,8 +65,9 @@ void GUIImage::input_update(sf::Event& event)
 {
 }
 
-
 GUIImage::~GUIImage()
 {
 	delete this->label;
+	delete this->position;
+	delete this->texture;
 }

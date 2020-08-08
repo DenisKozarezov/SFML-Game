@@ -13,6 +13,8 @@ void GUIText::initialize()
 	font = new sf::Font;
 	font->loadFromFile(Fonts::Consola);
 	this->gui_text->setFont(*font);
+
+	this->position = new Vector2;
 }
 
 GUIText::GUIText()
@@ -28,6 +30,7 @@ GUIText::GUIText(const Vector2& position, const std::string& text)
 	this->gui_text->setPosition(position.x, position.y);
 	this->drawable_object = this->gui_text;
 	*this->text = text;
+	*this->position = position;
 	GUI::add(this);
 }
 GUIText::GUIText(const float& x, const float& y, const std::string& text)
@@ -37,9 +40,19 @@ GUIText::GUIText(const float& x, const float& y, const std::string& text)
 	this->gui_text->setPosition(x, y);
 	this->drawable_object = this->gui_text;
 	*this->text = text;
+	*this->position = Vector2(x, y);
 	GUI::add(this);
 }
 
+void GUIText::set_position(const Vector2& position)
+{
+	*this->position = position;
+	this->gui_text->setPosition(position.x, position.y);
+}
+void GUIText::set_position(const float& x, const float& y)
+{
+	set_position(Vector2(x, y));
+}
 void GUIText::set_color(const sf::Color& color)
 {
 	this->gui_text->setFillColor(color);
@@ -62,19 +75,12 @@ void GUIText::set_style(const sf::Text::Style& style)
 }
 void GUIText::set_text(const std::string& text)
 {
+	*this->text = text;
 	this->gui_text->setString(text);
 }
 void GUIText::set_font_size(const unsigned short& size)
 {
 	this->gui_text->setCharacterSize(size);
-}
-void GUIText::set_position(const Vector2& position)
-{
-	this->gui_text->setPosition(position.x, position.y);
-}
-void GUIText::set_position(const float& x, const float& y)
-{
-	set_position(Vector2(x, y));
 }
 
 void GUIText::attach_to(DrawableObject* object)
@@ -82,6 +88,10 @@ void GUIText::attach_to(DrawableObject* object)
 
 }
 
+const Vector2& GUIText::get_position() const
+{
+	return *this->position;
+}
 const sf::Color& GUIText::get_color() const
 {
 	return this->gui_text->getFillColor();
@@ -100,20 +110,21 @@ const sf::Uint32& GUIText::get_style() const
 }
 const std::string& GUIText::get_text() const
 {
-	return this->gui_text->getString();
+	return *this->text;
 }
 const unsigned short& GUIText::get_font_size() const
 {
 	return this->gui_text->getCharacterSize();
 }
-const Vector2& GUIText::get_position() const
-{
-	return Vector2(this->gui_text->getPosition().x, this->gui_text->getPosition().y);
-}
 const Vector2& GUIText::get_size() const
 {
 	float width = (this->gui_text->findCharacterPos(this->text->length() - 1) - this->gui_text->findCharacterPos(0)).x;
 	return Vector2(width, this->gui_text->getLocalBounds().height);
+}
+const float& GUIText::get_minimum_width() const
+{
+	if (this->text->length() >= 1) return this->gui_text->findCharacterPos(1).x - this->gui_text->findCharacterPos(0).x;
+	else return 0;
 }
 
 void GUIText::input_update(sf::Event& event)
@@ -123,5 +134,7 @@ void GUIText::input_update(sf::Event& event)
 GUIText::~GUIText()
 {
 	delete this->gui_text;
+	delete this->text;
 	delete this->font;
+	delete this->position;
 }

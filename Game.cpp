@@ -1,6 +1,8 @@
 #include "Game.h"
 
 sf::RenderWindow* Game::window = 0;
+Game *Game::instance = 0;
+
 Game::Game()
 {
 	this->event = new sf::Event;
@@ -14,7 +16,7 @@ Game::Game()
 	this->time = new sf::Time;
 	this->clock = new sf::Clock;
 	this->player = new Player;
-	this->isActive = new bool(true);
+	this->focused = new bool(true);
 
 	Player::set_main_player(this->player);
 
@@ -31,27 +33,28 @@ Game::~Game()
 
 	delete this->time;
 	delete this->camera;
-	delete this->isActive;
+	delete this->focused;
 	delete this->window;
 }
 
 void Game::run()
 {		
-	while (this->window->isOpen())
+	while (Game::get_instance()->window->isOpen())
 	{		
-		input_update();
-		graphics_update();
+		Game::get_instance()->input_update();
+		Game::get_instance()->graphics_update();
 
-		this->clock->restart();
+		Game::get_instance()->clock->restart();
 	}
 }
 void Game::input_update()
 {
-	this->event = new sf::Event;
+	sf::Event event;
 
-	while (this->window->pollEvent(*this->event))
+	while (this->window->pollEvent(event))
 	{
-		if (this->event->type == sf::Event::Closed)
+		*this->event = event;
+		if (event.type == sf::Event::Closed)
 		{
 			this->window->close();
 		}
@@ -60,11 +63,13 @@ void Game::input_update()
 	if (this->window->hasFocus())
 	{
 		this->camera->input_update(*this->window);
-		this->player->input_update(*this->event);
-
+		this->player->input_update(event);
 	}
-
-	delete this->event;
+}
+Game* Game::get_instance()
+{
+	if (!instance) instance = new Game;
+	return instance;
 }
 void Game::graphics_update()
 {

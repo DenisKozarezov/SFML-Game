@@ -1,14 +1,21 @@
 #include "Delegate.h"
 
-void Delegate::invoke()
+template<typename T>
+Delegate::Delegate(T* type, void(T::*function)())
 {
-	std::vector<Function>::iterator it;
-	for (it = this->functions.begin(); it != this->functions.end(); it++) it->invoke();
+	this->functions.push_back(Member<T>(type, function));
 }
 
-const bool& Delegate::IsNull() const
+void Delegate::invoke()
 {
-	return this->functions.size() == 0;
+	if (this->functions.size() > 0)
+	{
+		for (auto it = this->functions.begin(); it != this->functions.end(); it++) it->invoke();
+	}
+}
+void Delegate::clear()
+{
+	this->functions.clear();
 }
 
 Delegate& Delegate::operator+=(Function::Lyambda lyambda)
@@ -16,8 +23,7 @@ Delegate& Delegate::operator+=(Function::Lyambda lyambda)
 	this->functions.push_back(Function(lyambda));
 	return *this;
 }
-template<typename T, typename ...Args>
-Delegate& Delegate::operator+=(void(T::* function)(const Args...))
+Delegate& Delegate::operator+=(void(*function)())
 {
 	this->functions.push_back(Function(function));
 	return *this;
@@ -28,24 +34,36 @@ Delegate& Delegate::operator+=(const Delegate& delegate)
 	return *this;
 }
 
-template<typename T, typename ...Args>
-Delegate& Delegate::operator-=(void(T::* function)(const Args...))
+Delegate& Delegate::operator-=(void(*function)())
 {
-	std::vector<Function>::iterator first = this->functions.begin();
-	std::vector<Function>::iterator last = this->functions.end();
-	std::vector<Function>::iterator find = std::find(first, last, function);
-	if (find != last) this->functions.erase(find);
+	for (auto it = this->functions.begin(); it != this->functions.end(); it++)
+	{
+		if (it->function == function)
+		{
+			this->functions.erase(it);
+			break;
+		}
+	}
 	return *this;
 }
-
-Delegate& Delegate::operator=(const Delegate& delegate)
+template<typename T>
+Delegate& Delegate::operator-=(void(T::*function)())
 {
-	this->functions = delegate.functions;
+	for (auto it = this->functions.begin(); it != this->functions.end(); it++)
+	{
+		Member<T> member = dynamic_cast<Delegate::Member<T>*>(*it);
+		if (member.member == function) this->functions.erase(it);
+	}
 	return *this;
 }
 
 void Delegate::Function::invoke()
 {
-	if (this->_function) _function();
-	if (this->_lyambda) this->_lyambda();
+	if (this->function) this->function();
+	if (this->lyambda) this->lyambda();
+}
+template<typename T>
+void Delegate::Member<T>::invoke()
+{
+	if (this->member) (this->type->*member)();
 }

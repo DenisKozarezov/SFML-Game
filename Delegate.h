@@ -8,36 +8,54 @@ private:
 	class Function
 	{
 	public:
-		template<typename... Args>
-		using Func = void(*)(const Args...);
+		using Func = void(*)();
 		using Lyambda = std::function<void()>;
-		Function(Func<> function) : _function(function) {}
-		Function(Lyambda lyambda) : _lyambda(lyambda) {}
 
-		void invoke();
+		Func function = 0;
+		Lyambda lyambda = 0;
+
+		Function(Func function) : function(function) {}
+		Function(Lyambda lyambda) : lyambda(lyambda) {}
+
+		virtual void invoke();
+	};
+
+	template<typename T>
+	class Member : public Function
+	{
 	private:
-		Func<> _function = 0;
-		Lyambda _lyambda = 0;
+		using M = void(T::*)();
+		T* type;
+		M member;
+	public:
+		Member(T* type, M member) : type(type), member(member) {}
+
+		void invoke() override;
 	};
 
 	std::vector<Function> functions;
 public:
 	Delegate() = default;
+	template<typename T>
+	Delegate(T* type, void(T::*function)());
 
 	/// <summary>
 	/// Invokation of all functions that were added in this delegate. Also includes lyambda-expressions.
 	/// </summary>
 	void invoke();
 
-	const bool& IsNull() const;
+	/// <summary>
+	/// Clear the list of delegate functions.
+	/// </summary>
+	void clear();
 
 	Delegate& operator+=(Function::Lyambda lyambda);
-	template<typename T, typename... Args>
-	Delegate& operator+=(void(T::*function)(const Args...));
+	Delegate& operator+=(void(*function)());
 	Delegate& operator+=(const Delegate& delegate);
 
-	template<typename T, typename... Args>
-	Delegate& operator-=(void(T::* function)(const Args...));
+	Delegate& operator-=(void(*function)());
+	template<typename T>
+	Delegate& operator-=(void(T::*function)());
 
-	Delegate& operator=(const Delegate& delegate);
-};	
+	Delegate& operator=(const Delegate&) = default;
+};

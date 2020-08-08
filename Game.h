@@ -17,8 +17,11 @@ private:
 
 	Camera* camera;
 	GUI* gui;
-
 	Player* player;
+
+	static Game* instance;
+
+	bool* focused;
 
 	void initialize();
 	void graphics_update();
@@ -26,12 +29,15 @@ private:
 	void events_update();
 public:
 	static sf::RenderWindow* window;
-
-	bool* isActive;
+	static Game* get_instance();
 
 	Game();	
-	void run();
-	void shutdown();
+
+	static void run();
+	static void focus(const bool& status);
+	static void quit();
+
+	static const bool* IsFocused();
 
 	~Game();
 };

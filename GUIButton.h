@@ -11,18 +11,18 @@ class GUIButton final : public GUIElement, public IClickable
 private:
 	bool* active;
 	bool* hover;
-	bool* enabled;
 	bool* interactable;
 
-	GUIText* text;
 	Vector2* position;
+	GUIText* text;
 	Vector2* size;
 	Sprite* current;
 
 	struct Background;
 	Background* background;
 
-	void initialize();
+	void initialize();	
+	void input_update(sf::Event& event) override;
 public:
 	struct Background
 	{
@@ -54,7 +54,6 @@ public:
 	/// </summary>
 	/// <param name="text - string"></param>
 	void set_text(const std::string& text);
-
 
 	void set_image(const sf::Texture& texture);
 
@@ -105,15 +104,7 @@ public:
 	/// <param name="a - alpha channel's factor"></param>
 	void set_color(const float& r, const float& g, const float& b, const float& a);
 
-	void input_update(sf::Event& event) override;
-
 	const bool& IsHover() const;
-
-	/// <summary>
-	/// Return the state of the button.
-	/// </summary>
-	/// <returns></returns>
-	const bool& IsEnabled() const;
 
 	/// <summary>
 	/// Return the interactive state of the button.

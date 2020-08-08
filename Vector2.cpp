@@ -80,6 +80,16 @@ const Vector2& Vector2::operator=(std::initializer_list<Vector2> vectors)
 	}
 	return *this;
 }
+const Vector2& Vector2::operator=(std::vector<Vector2>& vectors)
+{
+	Vector2* ptr = this;
+	std::vector<Vector2>::iterator it;
+	for (it = vectors.begin(); it != vectors.end(); it++, ptr++)
+	{
+		*ptr = *it;
+	}
+	return *this;
+}
 
 const Vector2& Vector2::operator+(const Vector2& vector)
 {

@@ -11,6 +11,7 @@ class GUIImage final : public GUIElement
 private:
 	Sprite* label;
 	sf::Texture* texture;
+	Vector2* position;
 public:
 	GUIImage(const Rect& rectangle, const sf::Texture image);
 

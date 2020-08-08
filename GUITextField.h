@@ -26,7 +26,11 @@ private:
 	Vector2* size;
 	Sprite* current;
 
+	sf::Clock* clock;
+	bool* textEntered;
+
 	void initialize();
+	void input_update(sf::Event& event) override;
 public:
 	struct Background
 	{
@@ -62,8 +66,6 @@ public:
 	const Vector2& get_size() const;
 	const std::string& get_text() const;
 	const unsigned short& get_characters_limit() const;
-
-	void GUIElement::input_update(sf::Event& event) override;
 
 	~GUITextField();
 };

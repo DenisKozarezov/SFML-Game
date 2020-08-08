@@ -2,6 +2,7 @@
 #include <string>
 #include "Unit.h"
 #include "PlayerInput.h"
+#include "GUI.h"
 
 class Player final
 {

@@ -9,10 +9,13 @@ void GUITextField::initialize()
 	this->isReadOnly = new bool(0);
 
 	this->background = new Background;
-	this->characters_limit = new unsigned short(10);
-	this->position = new Vector2;
+	this->characters_limit = new unsigned short(0);
 	this->size = new Vector2;
 	this->current = this->background->passive;
+	this->position = new Vector2;
+
+	this->clock = new sf::Clock;
+	this->textEntered = new bool(0);
 }
 
 GUITextField::GUITextField(const Rect& rectangle)
@@ -20,11 +23,11 @@ GUITextField::GUITextField(const Rect& rectangle)
 	initialize();
 	set_size(rectangle.width, rectangle.height);
 	set_position(rectangle.x, rectangle.y);
+	this->current->setPosition(rectangle.x, rectangle.y);
 	this->drawable_object = this->current;
 	GUI::add(this);
-	this->text = new GUIText;
-	this->text->set_text("");
-	this->text->set_position(rectangle.x, rectangle.y);
+	this->text = new GUIText(rectangle.x, rectangle.y, "");
+	set_characters_limit(rectangle.width / this->text->get_minimum_width());
 }
 GUITextField::GUITextField(const Rect& rectangle, const std::string& text)
 {
@@ -34,9 +37,8 @@ GUITextField::GUITextField(const Rect& rectangle, const std::string& text)
 	this->current->setPosition(rectangle.x, rectangle.y);
 	this->drawable_object = this->current;
 	GUI::add(this);
-	this->text = new GUIText;
-	this->text->set_text(text);
-	this->text->set_position(rectangle.x, rectangle.y);
+	this->text = new GUIText(rectangle.x, rectangle.y, text);
+	set_characters_limit(rectangle.width / this->text->get_minimum_width());
 }
 
 void GUITextField::set_interactable(const bool& status)
@@ -53,6 +55,8 @@ void GUITextField::set_readonly(const bool& status)
 }
 void GUITextField::set_position(const Vector2& position)
 {
+	*this->position = position;
+	this->current->setPosition(position.x, position.y);
 	if (this->text) this->text->set_position(position);
 }
 void GUITextField::set_position(const float& x, const float& y)
@@ -62,8 +66,8 @@ void GUITextField::set_position(const float& x, const float& y)
 void GUITextField::set_size(const Vector2& size)
 {
 	*this->size = size;
-	float factor_x = this->current->getTexture()->getSize().x / size.x;
-	float factor_y = this->current->getTexture()->getSize().y / size.y;
+	float factor_x = size.x / this->current->getTexture()->getSize().x;
+	float factor_y = size.y / this->current->getTexture()->getSize().y;
 	this->current->setScale(factor_x, factor_y);
 }
 void GUITextField::set_size(const float& width, const float& height)
@@ -93,7 +97,7 @@ const bool& GUITextField::IsReadOnly() const
 }
 const Vector2& GUITextField::get_position() const
 {
-	return this->text->get_position();
+	return *this->position;
 }
 const Vector2& GUITextField::get_size() const
 {
@@ -111,19 +115,22 @@ const unsigned short& GUITextField::get_characters_limit() const
 void GUITextField::input_update(sf::Event& event)
 {
     Vector2 mousePosition(sf::Mouse::getPosition(*Game::window).x, sf::Mouse::getPosition(*Game::window).y);
-	if (Rect::contains(Rect(*this->position, *this->size), mousePosition) && *this->interactable)
+	if (Rect::contains(Rect(*this->position, *this->size), mousePosition) && *this->interactable && IsEnabled() && !IsHidden())
 	{
 		if (!*this->hover)
 		{
 			*this->hover = true;
-			if (!this->OnPointerEnter->IsNull()) this->OnPointerEnter->invoke();
+			this->OnPointerEnter->invoke();
 		}
 
-		if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			*this->selected = true;
 			GUI::focus(true);
-			if (!this->OnClick->IsNull()) this->OnClick->invoke();
+		}
+		else
+		{
+			if (*this->selected) this->OnClick->invoke();
 		}
 	}
 	else
@@ -131,22 +138,37 @@ void GUITextField::input_update(sf::Event& event)
 		if (*this->hover)
 		{
 			*this->hover = false;
-			if (!this->OnPointerExit->IsNull()) this->OnPointerExit->invoke();
+			this->OnPointerExit->invoke();
 		}
 
-		if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			*this->selected = false;
 			GUI::focus(false);
 		}
 	}
 
-	if (*this->selected)
+	if (*this->selected && *this->interactable && IsEnabled() && !IsHidden())
 	{
-		if (event.type == sf::Event::KeyPressed && this->text->get_text().length() < *this->characters_limit && !*this->isReadOnly)
+		if (event.type == sf::Event::TextEntered)
 		{
-			this->text->set_text(this->text->get_text() + (char)event.key.code);
-			if (!this->OnValueChanged->IsNull()) this->OnValueChanged->invoke();
+			if (event.text.unicode == 8 && this->clock->getElapsedTime().asMilliseconds() >= 100)
+			{
+				this->clock->restart();
+				this->text->set_text(this->text->get_text().substr(0, this->text->get_text().length() - 1));
+				this->OnValueChanged->invoke();
+				this->clock->restart();
+			}
+			else if (event.text.unicode != 8 && this->text->get_text().length() < *this->characters_limit && !*this->textEntered)
+			{
+				*this->textEntered = true;
+				this->text->set_text(this->text->get_text() + static_cast<char>(event.text.unicode));
+				this->OnValueChanged->invoke();	
+			}
+		}
+		else if (event.type == sf::Event::KeyReleased)
+		{
+			*this->textEntered = false;
 		}
 	}
 }
@@ -162,8 +184,11 @@ GUITextField::~GUITextField()
 	delete this->text;
 	delete this->background;
 	delete this->characters_limit;
-	delete this->position;
 	delete this->size;
+	delete this->position;
+
+	delete this->clock;
+	delete this->textEntered;
 }
 
 GUITextField::Background::Background()
