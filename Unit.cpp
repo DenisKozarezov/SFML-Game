@@ -15,6 +15,7 @@ void Unit::initialize()
 	this->health = new unsigned int(0);
 	this->damage = new unsigned int(0);
 	this->speed = new float(0);
+	this->velocity = new Vector2;
 
 	this->isPaused = new bool(false);
 	this->isDead = new bool(false);
@@ -26,6 +27,8 @@ void Unit::initialize()
 	this->sprite_sheets->insert(std::pair<const std::string, sf::Texture*>("Idle", new sf::Texture));
 	this->sprite_sheets->insert(std::pair<const std::string, sf::Texture*>("Run", new sf::Texture));
 	this->sprite_sheets->insert(std::pair<const std::string, sf::Texture*>("Jump", new sf::Texture));	
+
+	this->collider = new BoxCollider;
 }
 
 Unit::Unit(const Vector2& position)
@@ -45,28 +48,6 @@ Unit::Unit(const float& x, const float& y)
 	initialize();
 }
 
-Unit::~Unit()
-{
-	delete this->name;
-	delete this->tag;
-	delete this->health;
-	delete this->damage;
-	delete this->speed;
-	
-	delete this->animator;
-
-	delete this->isPaused;
-	delete this->isMovable;
-	delete this->isDead;
-
-	std::map<std::string, sf::Texture*>::iterator it;
-	for (it = this->sprite_sheets->begin(); it != this->sprite_sheets->end(); it++)
-	{
-		delete it->second;
-	}
-	delete this->sprite_sheets;
-}
-
 const std::string& Unit::get_name() const
 {
 	return *this->name;
@@ -83,11 +64,15 @@ const float& Unit::get_speed() const
 {
 	return *this->speed;
 }
+const Vector2& Unit::get_velocity() const
+{
+	return *this->velocity;
+}
 Animator* Unit::get_animator() const
 {
 	return this->animator;
 }
-Collision* Unit::get_collider() const
+Collision* Unit::get_collider()
 {
 	return this->collider;
 }
@@ -108,14 +93,19 @@ void Unit::set_speed(const float& factor)
 {
 	*this->speed = factor;
 }
+void Unit::set_velocity(const Vector2& velocity)
+{
+	*this->velocity = velocity;
+}
 
 void Unit::move(const Vector2& offset)
 {
 	if (*this->isMovable && !*this->isDead)
 	{
-		set_world_position(get_world_position() + offset * *this->speed);
-		set_screen_position(get_screen_position() + offset * *this->speed);
+		set_world_position(get_world_position() + offset);
+		set_screen_position(get_screen_position() + offset);
 		offset_sprite(offset);
+		get_collider()->set_position(get_collider()->get_position() + offset);
 	}
 }
 void Unit::move(const float& offset_x, const float& offset_y)
@@ -139,4 +129,27 @@ const bool operator==(const Unit& unit1, const Unit& unit2)
 const bool operator!=(const Unit& unit1, const Unit& unit2)
 {
 	return !(unit1 == unit2);
+}
+
+Unit::~Unit()
+{
+	delete this->name;
+	delete this->tag;
+	delete this->health;
+	delete this->damage;
+	delete this->speed;
+	delete this->velocity;
+	
+	delete this->animator;
+
+	delete this->isPaused;
+	delete this->isMovable;
+	delete this->isDead;
+
+	std::map<std::string, sf::Texture*>::iterator it;
+	for (it = this->sprite_sheets->begin(); it != this->sprite_sheets->end(); it++)
+	{
+		delete it->second;
+	}
+	delete this->sprite_sheets;
 }

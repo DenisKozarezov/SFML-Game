@@ -4,6 +4,7 @@ GUIElement::GUIElement()
 {
 	this->hidden = new bool(0);
 	this->enabled = new bool(1);
+	this->position = new Vector2;
 }
 
 void GUIElement::destroy(GUIElement* element)
@@ -30,9 +31,15 @@ const bool& GUIElement::IsEnabled() const
 	return *this->enabled;
 }
 
+const Vector2& GUIElement::get_position() const
+{
+	return *this->position;
+}
+
 GUIElement::~GUIElement()
 {
 	delete this->drawable_object;
 	delete this->hidden;
 	delete this->enabled;
+	delete this->position;
 }

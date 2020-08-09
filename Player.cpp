@@ -27,10 +27,12 @@ void Player::input_update(const sf::Event& event)
 
 				this->mainCharacter->get_animator()->play("Run");
 			}
+			this->mainCharacter->set_velocity(Vector2::right * this->mainCharacter->get_speed());
 			this->mainCharacter->move(Vector2::right * this->mainCharacter->get_speed());
 		}
 		else if (event.type == sf::Event::KeyReleased && event.key.code == input->Right())
 		{
+			this->mainCharacter->set_velocity(Vector2(0, this->mainCharacter->get_velocity().y));
 			this->mainCharacter->get_animator()->play("Idle");
 		}
 
@@ -42,10 +44,12 @@ void Player::input_update(const sf::Event& event)
 
 				this->mainCharacter->get_animator()->play("Run");
 			}
+			this->mainCharacter->set_velocity(Vector2::left * this->mainCharacter->get_speed());
 			this->mainCharacter->move(Vector2::left * this->mainCharacter->get_speed());
 		}
 		else if (event.type == sf::Event::KeyReleased && event.key.code == input->Left())
 		{
+			this->mainCharacter->set_velocity(Vector2(0, this->mainCharacter->get_velocity().y));
 			this->mainCharacter->get_animator()->play("Idle");
 		}
 	}

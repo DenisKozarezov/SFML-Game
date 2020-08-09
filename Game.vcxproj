@@ -157,7 +157,9 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Delegate.cpp" />
     <ClCompile Include="DrawableContainer.cpp" />
@@ -173,7 +175,6 @@
     <ClCompile Include="GUIText.cpp" />
     <ClCompile Include="GUITextField.cpp" />
     <ClCompile Include="GUIToogle.cpp" />
-    <ClCompile Include="IClickable.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -190,7 +191,9 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Delegate.h" />
     <ClInclude Include="DrawableContainer.h" />
@@ -206,7 +209,6 @@
     <ClInclude Include="GUIText.h" />
     <ClInclude Include="GUITextField.h" />
     <ClInclude Include="GUIToogle.h" />
-    <ClInclude Include="IClickable.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerInput.h" />

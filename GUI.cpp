@@ -8,8 +8,13 @@ GUI* GUI::instance = 0;
 
 void GUI::add(GUIElement* element)
 {
-	GUI::get_instance()->text->push_back(element);
+	GUI::get_instance()->elements->push_back(element);
 }
+void GUI::add(Collision* collider)
+{
+	GUI::get_instance()->colliders->push_back(collider);
+}
+
 void GUI::show(const bool& status)
 {
 	
@@ -46,23 +51,20 @@ void GUI::initialize()
 	GUIImage* damage = new GUIImage(Rect(700, 50, 50, 50), damage_texture);
 
 	GUIButton* button1 = new GUIButton(Rect(600, 500, 200, 50), "BUTTON");
-	*button1->OnClick += [button1]() { button1->set_text("CLICKED!"); };
+	*button1->OnClick += &Game::quit;
 	*button1->OnPointerEnter += [button1]() { button1->set_text("ENTER!"); };
 	*button1->OnPointerExit += [button1]() { button1->set_text("EXIT!"); };
 	*button1->OnActive += [button1]() { button1->set_text("ACTIVE!"); };
 
 	GUITextField* field = new GUITextField(Rect(800, 800, 400, 30), "TEXT FIELD");
 }
-void GUI::update()
-{
-
-}
 
 GUI::GUI()
 {
 	this->focused = new bool(0);
 	this->hidden = new bool(0);
-	this->text = new std::vector<GUIElement*>;
+	this->elements = new std::vector<GUIElement*>;
+	this->colliders = new std::vector<Collision*>;
 }
 GUI* GUI::get_instance()
 {
@@ -81,14 +83,20 @@ const bool& GUI::IsFocused()
 
 void GUI::update(sf::RenderWindow& window, sf::Event& event)
 {
-	if (this->text->size() > 0)
+	if (this->elements->size() > 0)
 	{
-		for (auto object : *text)
+		for (auto object : *elements)
 		{
 			object->input_update(event);
 			if (object->drawable_object && !object->IsHidden()) window.draw(*object->drawable_object);
 		}
 	}
 
-	update();
+	if (this->colliders->size() > 0)
+	{
+		for (auto object : *colliders)
+		{
+			if (object->outline && *object->showOutline) window.draw(*object->outline);
+		}
+	}
 }

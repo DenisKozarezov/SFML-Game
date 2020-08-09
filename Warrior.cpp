@@ -2,17 +2,13 @@
 
 void Warrior::update()
 {
-	this->collider->update();
 	if (this->animator->currentAnimation != nullptr) this->animator->currentAnimation->play();
 }
 
 Warrior::Warrior(const Vector2& position) : Unit(position)
 {
-	this->collider = new Collision(this);
-	this->collider->add_point(Vector2(-100, -100));
-	this->collider->add_point(Vector2(-100, 100));
-	this->collider->add_point(Vector2(100, 100));
-	this->collider->add_point(Vector2(100, -100));
+	this->collider->set_position(position);
+	this->collider->set_size(Vector2(100, 100));
 
 	this->sprite_sheets->find("Idle")->second->loadFromFile(ProjectResourcesPath::Sprites + "idle.png");
 	this->sprite_sheets->find("Run")->second->loadFromFile(ProjectResourcesPath::Sprites + "run.png");
@@ -37,10 +33,6 @@ Warrior::Warrior(const Vector2& position) : Unit(position)
 	animator->play("Idle");
 }
 
-Warrior::Warrior(const float&x, const float&y) : Unit(x, y)
-{
-	
-}
 
 Warrior::~Warrior()
 {

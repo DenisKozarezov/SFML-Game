@@ -64,9 +64,6 @@
     <Filter Include="Components\Delegate">
       <UniqueIdentifier>{9cccff37-ef40-4323-86a8-14cb62917162}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Interfaces">
-      <UniqueIdentifier>{878a3745-14b2-46a2-9806-7f2af4e0592d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Math\Rect">
       <UniqueIdentifier>{8713d501-3f32-46b4-9b2a-0b2aa82f7a66}</UniqueIdentifier>
     </Filter>
@@ -132,9 +129,6 @@
     <ClCompile Include="Delegate.cpp">
       <Filter>Components\Delegate</Filter>
     </ClCompile>
-    <ClCompile Include="IClickable.cpp">
-      <Filter>Interfaces</Filter>
-    </ClCompile>
     <ClCompile Include="Rect.cpp">
       <Filter>Math\Rect</Filter>
     </ClCompile>
@@ -164,6 +158,12 @@
     </ClCompile>
     <ClCompile Include="GUIPanel.cpp">
       <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>Components\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleCollider.cpp">
+      <Filter>Components\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,9 +221,6 @@
     <ClInclude Include="Delegate.h">
       <Filter>Components\Delegate</Filter>
     </ClInclude>
-    <ClInclude Include="IClickable.h">
-      <Filter>Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="Rect.h">
       <Filter>Math\Rect</Filter>
     </ClInclude>
@@ -253,6 +250,12 @@
     </ClInclude>
     <ClInclude Include="GUIPanel.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>Components\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleCollider.h">
+      <Filter>Components\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

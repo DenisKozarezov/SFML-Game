@@ -9,7 +9,15 @@ void GUIButton::initialize()
     this->background = new Background;
     this->current = this->background->passive;
     this->current->setColor(sf::Color::White);
-    this->position = new Vector2;
+
+    this->OnDisabled = new Delegate;
+    this->OnClick = new Delegate;
+    this->OnHover = new Delegate;
+    this->OnActive = new Delegate;
+    this->OnPointerEnter = new Delegate;
+    this->OnPointerExit = new Delegate;
+    this->OnMouseDown = new Delegate;
+    this->OnMouseUp = new Delegate;
 }
 
 GUIButton::GUIButton(const Rect& rectangle)
@@ -105,10 +113,6 @@ const GUIButton::Background* GUIButton::get_background()
 {
     return this->background;
 }
-const Vector2& GUIButton::get_position()
-{
-    return *this->position;
-}
 const Vector2& GUIButton::get_size()
 {
     return *this->size;
@@ -164,11 +168,19 @@ GUIButton::~GUIButton()
 {
     delete this->active;
     delete this->interactable;
-    delete this->position;
     delete this->text;
     delete this->size;
     delete this->current;
     delete this->background;
+
+    delete this->OnDisabled;
+    delete this->OnClick;
+    delete this->OnHover;
+    delete this->OnActive;
+    delete this->OnPointerEnter;
+    delete this->OnPointerExit;
+    delete this->OnMouseDown;
+    delete this->OnMouseUp;
 }
 
 GUIButton::Background::Background()

@@ -13,8 +13,6 @@ void GUIText::initialize()
 	font = new sf::Font;
 	font->loadFromFile(Fonts::Consola);
 	this->gui_text->setFont(*font);
-
-	this->position = new Vector2;
 }
 
 GUIText::GUIText()
@@ -88,10 +86,6 @@ void GUIText::attach_to(DrawableObject* object)
 
 }
 
-const Vector2& GUIText::get_position() const
-{
-	return *this->position;
-}
 const sf::Color& GUIText::get_color() const
 {
 	return this->gui_text->getFillColor();
@@ -136,5 +130,4 @@ GUIText::~GUIText()
 	delete this->gui_text;
 	delete this->text;
 	delete this->font;
-	delete this->position;
 }

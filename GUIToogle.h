@@ -15,11 +15,10 @@ public:
 	
 	void set_value(const bool& status);
 	void set_interactable(const bool& status);
-	void set_position(const Vector2& position);
+	void set_position(const Vector2& position) override;
 	void set_position(const float& x, const float& y);
 
 	const bool& get_value() const;
 	const bool& IsInteractable() const;
-	const Vector2& get_position() const;
 };
 #endif

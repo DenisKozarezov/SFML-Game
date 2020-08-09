@@ -3,11 +3,12 @@
 #include "GUIElement.h"
 #include "GUI.h"
 #include "GUIText.h"
-#include "IClickable.h"
+#include "Delegate.h"
 #include "Sprite.h"
 #include "Game.h"
+#include "Rect.h"
 
-class GUITextField final : public GUIElement, public IClickable 
+class GUITextField final : public GUIElement
 {
 private:
 	bool* hover;
@@ -22,7 +23,6 @@ private:
 
 	unsigned short* characters_limit;
 
-	Vector2* position;
 	Vector2* size;
 	Sprite* current;
 
@@ -32,6 +32,12 @@ private:
 	void initialize();
 	void input_update(sf::Event& event) override;
 public:
+	Delegate* OnDisabled;
+	Delegate* OnClick;
+	Delegate* OnPointerEnter;
+	Delegate* OnPointerExit;
+	Delegate* OnValueChanged;
+
 	struct Background
 	{
 	private:
@@ -52,7 +58,7 @@ public:
 	void set_interactable(const bool& status);
 	void set_multiline(const bool& status);
 	void set_readonly(const bool& status);
-	void set_position(const Vector2& position);
+	void set_position(const Vector2& position) override;
 	void set_position(const float& x, const float& y);
 	void set_size(const Vector2& size);
 	void set_size(const float& width, const float& height);
@@ -62,7 +68,6 @@ public:
 	const bool& IsSelected() const;
 	const bool& IsMultiline() const;
 	const bool& IsReadOnly() const;
-	const Vector2& get_position() const;
 	const Vector2& get_size() const;
 	const std::string& get_text() const;
 	const unsigned short& get_characters_limit() const;

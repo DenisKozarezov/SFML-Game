@@ -6,6 +6,7 @@
 #include "Animator.h"
 #include "Collision.h"
 #include "ProjectPath.cpp"
+#include "BoxCollider.h"
 
 class Unit : public DrawableObject
 {
@@ -32,13 +33,15 @@ public:
 	void set_health(const unsigned int& value);
 	void set_damage(const unsigned int& value);
 	void set_speed(const float& factor);
+	void set_velocity(const Vector2& velocity);
 
 	const std::string& get_name() const;
 	const unsigned int& get_health() const;
 	const unsigned int& get_damage() const;
 	const float& get_speed() const;
+	const Vector2& get_velocity() const;
 	Animator* get_animator() const;
-	Collision* get_collider() const;
+	Collision* get_collider();
 
 	void move(const Vector2& point);
 	void move(const float& x, const float& y);
@@ -49,9 +52,9 @@ public:
 	virtual ~Unit();
 protected:
 	Animator* animator;
-
+	BoxCollider* collider;
+	Vector2* velocity;
 	std::map<const std::string, sf::Texture*>* sprite_sheets;
-	Collision* collider;
 };
 const bool operator==(const Unit& unit1, const Unit& unit2);
 const bool operator!=(const Unit& unit1, const Unit& unit2);

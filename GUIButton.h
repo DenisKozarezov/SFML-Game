@@ -2,18 +2,18 @@
 #define _GUIBUTTON_H_
 #include "GUIText.h"
 #include "GUI.h"
-#include "IClickable.h"
 #include "Sprite.h"
+#include "Delegate.h"
 #include "Game.h"
+#include "Rect.h"
 
-class GUIButton final : public GUIElement, public IClickable
+class GUIButton final : public GUIElement
 {
 private:
 	bool* active;
 	bool* hover;
 	bool* interactable;
 
-	Vector2* position;
 	GUIText* text;
 	Vector2* size;
 	Sprite* current;
@@ -24,6 +24,15 @@ private:
 	void initialize();	
 	void input_update(sf::Event& event) override;
 public:
+	Delegate* OnDisabled;
+	Delegate* OnClick;
+	Delegate* OnHover;
+	Delegate* OnActive;
+	Delegate* OnPointerEnter;
+	Delegate* OnPointerExit;
+	Delegate* OnMouseDown;
+	Delegate* OnMouseUp;
+
 	struct Background
 	{
 	private:
@@ -67,7 +76,7 @@ public:
 	/// Set the position of the button.
 	/// </summary>
 	/// <param name="position"></param>
-	void set_position(const Vector2& position);
+	void set_position(const Vector2& position) override;
 
 	/// <summary>
 	/// Set the position of the button.	
@@ -123,12 +132,6 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	const Background* get_background();
-
-	/// <summary>
-	/// Return of the position of this button.
-	/// </summary>
-	/// <returns></returns>
-	const Vector2& get_position();
 
 	/// <summary>
 	/// Return the size of this button.

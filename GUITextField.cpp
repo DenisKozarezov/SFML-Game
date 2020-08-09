@@ -12,10 +12,15 @@ void GUITextField::initialize()
 	this->characters_limit = new unsigned short(0);
 	this->size = new Vector2;
 	this->current = this->background->passive;
-	this->position = new Vector2;
 
 	this->clock = new sf::Clock;
 	this->textEntered = new bool(0);
+
+	this->OnClick = new Delegate;
+	this->OnDisabled = new Delegate;
+	this->OnPointerEnter = new Delegate;
+	this->OnPointerExit = new Delegate;
+	this->OnValueChanged = new Delegate;
 }
 
 GUITextField::GUITextField(const Rect& rectangle)
@@ -94,10 +99,6 @@ const bool& GUITextField::IsMultiline() const
 const bool& GUITextField::IsReadOnly() const
 {
 	return *this->isReadOnly;
-}
-const Vector2& GUITextField::get_position() const
-{
-	return *this->position;
 }
 const Vector2& GUITextField::get_size() const
 {
@@ -185,10 +186,15 @@ GUITextField::~GUITextField()
 	delete this->background;
 	delete this->characters_limit;
 	delete this->size;
-	delete this->position;
 
 	delete this->clock;
 	delete this->textEntered;
+
+	delete this->OnClick;
+	delete this->OnDisabled;
+	delete this->OnPointerEnter;
+	delete this->OnPointerExit;
+	delete this->OnValueChanged;
 }
 
 GUITextField::Background::Background()

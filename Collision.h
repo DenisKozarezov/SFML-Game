@@ -1,39 +1,42 @@
-#pragma once
+#ifndef _COLLISION_H_
+#define _COLLISION_H_
 #include "Vector2.h"
 #include "DrawableObject.h"
+#include <vector>
 
-class Collision final
+class Collision
 {
 private:
-	Vector2* points = new Vector2[50];
-	Vector2* offsets = new Vector2[50];
-	unsigned int* size = new unsigned int(0);
+	friend class GUI;
+	bool* isTrigger;
+	bool* enabled;
+	bool* showOutline;
 
-	bool* isTrigger = new bool(false);
-	bool* enabled = new bool(true);
+	DrawableObject* object;	
+	static std::vector<Collision*>* colliders;
 public:
-	DrawableObject* object;
+	Collision();
 
-	explicit Collision() = default;
-	explicit Collision(Vector2 points[], DrawableObject* object);
-	explicit Collision(DrawableObject* object);
+	void set_trigger(const bool& status);
+	void set_enabled(const bool& status);
+	virtual void set_position(const Vector2& position);
+	void show_outline(const bool& status);
 
 	const bool& IsTrigger() const;
 	const bool& IsEnabled() const;
+	const Vector2& get_position() const;
+	DrawableObject* get_object();
 
-	void update();
-	void draw(sf::RenderWindow& window);
+	const virtual bool& IsCollided() const;
 
-	void add_point(const Vector2& offset);
-	void remove_point(const unsigned int& index);
-	void set_trigger(const bool& status);
-	void set_enabled(const bool& status);
-	void rotate(const float& angle);
-	const bool& intersects(const Collision& collision);
-	const bool& contains(const Vector2& point);
+	const virtual bool& intersects(Collision* collider) const = 0;
+	const virtual bool& contains(const Vector2& point) const = 0;
 
-	~Collision();
+	virtual ~Collision();
+protected:
+	Vector2* position;
+	sf::Drawable* outline;
 };
 const bool& operator==(const Collision& collision1, const Collision& collision2);
 const bool& operator!=(const Collision& collision1, const Collision& collision2);
-
+#endif

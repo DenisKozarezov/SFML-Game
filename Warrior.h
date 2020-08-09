@@ -7,7 +7,6 @@ private:
 	void update() override;
 public:	
 	Warrior(const Vector2& position);
-	Warrior(const float& x, const float& y);
 
 	const Warrior& operator=(const Warrior& unit);	
 

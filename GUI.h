@@ -2,6 +2,7 @@
 #define _GUI_H_
 #include <vector>
 #include "GUIElement.h"
+#include "Collision.h"
 
 class GUI final
 {
@@ -9,17 +10,17 @@ private:
 	bool* hidden;
 	bool* focused;
 	
-	std::vector<GUIElement*>* text;
+	std::vector<GUIElement*>* elements;
+	std::vector<Collision*>* colliders;
 
 	static GUI* instance;
-
-	void update();
 
 	GUI();
 
 	GUI& operator=(const GUI&) = delete;
 public:
 	static void add(GUIElement* element);
+	static void add(Collision* collider);
 	static void show(const bool& status);
 	static void focus(const bool& status);
 	void initialize();

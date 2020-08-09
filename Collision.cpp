@@ -1,14 +1,32 @@
 #include "Collision.h"
-#include <iostream>
+#include "BoxCollider.h"
+#include "CircleCollider.h"
 
-Collision::Collision(DrawableObject* object)
+std::vector<Collision*>* Collision::colliders = new std::vector<Collision*>;
+Collision::Collision()
 {
-	this->object = object;
+	this->isTrigger = new bool(0);
+	this->enabled = new bool(1);
+	this->position = new Vector2;
+	this->showOutline = new bool(0);
+	this->colliders->push_back(this);
 }
-Collision::Collision(Vector2 points[], DrawableObject* object)
+
+void Collision::set_trigger(const bool& status)
 {
-	this->offsets = points;
-	this->object = object;
+	*this->isTrigger = status;
+}
+void Collision::set_enabled(const bool& status)
+{
+	*this->enabled = status;
+}
+void Collision::set_position(const Vector2& position)
+{
+	*this->position = position;
+}
+void Collision::show_outline(const bool& status)
+{
+	*this->showOutline = status;
 }
 
 const bool& Collision::IsTrigger() const
@@ -19,113 +37,18 @@ const bool& Collision::IsEnabled() const
 {
 	return *this->enabled;
 }
-
-void Collision::update()
+const Vector2& Collision::get_position() const
 {
-	if (this->size > 0)
-	{
-		for (int i = 0; i < *this->size; i++)
-		{
-			this->points[i] = this->object->get_world_position() + this->offsets[i];
-		}
-	}
+	return *this->position;
+}
+DrawableObject* Collision::get_object()
+{
+	return this->object;
 }
 
-void Collision::add_point(const Vector2& offset)
+const bool& Collision::IsCollided() const
 {
-	this->offsets[*this->size] = Vector2(offset.x, offset.y);
-	Vector2 position(this->object->get_world_position().x + offset.x, this->object->get_world_position().y + offset.y);
-	this->points[*this->size] = Vector2(position.x, position.y);
-	*this->size += 1;
-}
-void Collision::remove_point(const unsigned int& index)
-{
-	delete &this->offsets[index];
-	delete &this->points[index];
-	for (int i = index + 1; i < *this->size - index - 1; i++)
-	{
-		this->offsets[index - 1] = this->offsets[index];
-		this->points[index - 1] = this->points[index];
-	}
-	delete &this->offsets[*this->size];
-	delete &this->points[*this->size];
-	*this->size -= 1;
-}
-void Collision::set_trigger(const bool& status)
-{
-	*this->isTrigger = status;
-}
-void Collision::set_enabled(const bool& status)
-{
-	*this->enabled = status;
-}
-
-void Collision::rotate(const float& angle)
-{
-	for (int i = 0; i < *this->size; i++)
-	{
-		this->points[i].x = this->points[i].x * cos(angle) - this->points[i].y * sin(angle);
-		this->points[i].y = this->points[i].x * cos(angle) + this->points[i].y * sin(angle);
-	}
-}
-const bool& Collision::intersects(const Collision& collision)
-{
-	if (*this->size > 0)
-	{
-		for (int i = 0; i < *collision.size; i++)
-		{
-			if (this->contains(collision.points[i])) return true;
-		}
-		return false;
-	}
-}
-const bool& Collision::contains(const Vector2& point)
-{
-	/*bool result = false;
-	int j = *this->size - 1;
-	for (int i = 0; i < *this->size; i++)
-	{
-		if (this->points[i].y < point.y && this->points[j].y >= point.y || this->points[j].y < point.y && this->points[i].y >= point.y)
-		{
-			if (this->points[i].x + (point.y - this->points[i].y) / (this->points[j].y - this->points[i].y) * (this->points[j].x - this->points[i].x) < point.x)
-			{
-				result = !result;
-			}
-		}
-		j = i;
-	}
-	return result;*/
-
-	float min_distance = INFINITY;
-	Vector2 min_point1, min_point2, min_point3;
-	unsigned int index = 0;
-	for (int i = 0; i < *this->size; i++)
-	{
-		float distance = Vector2::distance(this->points[i], point);
-		if (distance < min_distance)
-		{
-			min_distance = distance;
-			min_point1 = this->points[i];
-			index = i;
-		}
-	}
-
-	min_point2 = index > 0 ? this->points[index - 1] : this->points[*this->size - 1];
-	min_point3 = index < *this->size - 1 ? this->points[index + 1] : this->points[0];
-
-	std::cout << min_point1.x << " " << min_point1.y << "\n";
-	std::cout << min_point2.x << " " << min_point2.y << "\n";
-	std::cout << min_point3.x << " " << min_point3.y << "\n";
-
-	Vector2 v1 = min_point2 - min_point1;
-	Vector2 v2 = min_point3 - min_point1;
-	Vector2 n1 = Vector2(v1.x, v2.y);
-	Vector2 n2 = Vector2(v2.x, v2.y);
-	Vector2 normal = Vector2::lerp(n1, n2, 0.5f);
-	
-	std::cout << Vector2::angle(min_point1, min_point2) << "\n";
-
-	return Vector2::scalar(point, normal) > 0 ? true : false;
+	return true;
 }
 
 const bool& operator==(const Collision& collision1, const Collision& collision2)
@@ -141,13 +64,11 @@ Collision::~Collision()
 {
 	delete this->enabled;
 	delete this->isTrigger;
-	
-	for (int i = 0; i < *this->size; i++)
-	{
-		delete &this->points[i];
-		delete &this->offsets[i];
-	}
-	delete this->points;
-	delete this->offsets;
-	delete this->size;
+	delete this->position;
+	delete this->showOutline;
+	delete this->outline;
+	std::vector<Collision*>::iterator first = this->colliders->begin();
+	std::vector<Collision*>::iterator last = this->colliders->end();
+	std::vector<Collision*>::iterator find = std::find(first, last, this);
+	this->colliders->erase(find);
 }
