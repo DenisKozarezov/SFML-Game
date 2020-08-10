@@ -21,7 +21,7 @@ Game::Game()
 	Player::set_main_player(this->player);
 
 	Warrior* warrior1 = new Warrior(Vector2(600, 200));
-	//Warrior* warrior2 = new Warrior(Vector2(800, 200));
+	Warrior* warrior2 = new Warrior(Vector2(800, 200));
 	this->player->set_main_character(warrior1);
 
 	this->gui->initialize();
@@ -29,13 +29,13 @@ Game::Game()
 Game::~Game()
 {
 	delete this->clock;
-
 	delete this->player;
-
 	delete this->time;
 	delete this->camera;
 	delete this->focused;
 	delete this->window;
+	delete this->gui;
+	delete this->event;
 }
 
 void Game::run()
@@ -44,7 +44,7 @@ void Game::run()
 	{		
 		Game::get_instance()->input_update();
 		Game::get_instance()->graphics_update();
-
+		//Collision::check_collision();
 		Game::get_instance()->clock->restart();
 	}
 }
@@ -61,7 +61,7 @@ void Game::input_update()
 		*this->event = event;
 		if (event.type == sf::Event::Closed)
 		{
-			this->window->close();
+			Game::quit();
 		}
 	}
 	

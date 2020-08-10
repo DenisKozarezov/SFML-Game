@@ -9,7 +9,7 @@ class BoxCollider : public Collision
 {
 private:
 	Vector2* size;
-	Vector2* points[];
+	Vector2* points[4];
 
 	void initialize();
 public:

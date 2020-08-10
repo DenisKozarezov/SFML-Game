@@ -8,7 +8,7 @@ Collision::Collision()
 	this->isTrigger = new bool(0);
 	this->enabled = new bool(1);
 	this->position = new Vector2;
-	this->showOutline = new bool(0);
+	this->showOutline = new bool(1);
 	this->colliders->push_back(this);
 }
 
@@ -46,9 +46,41 @@ DrawableObject* Collision::get_object()
 	return this->object;
 }
 
-const bool& Collision::IsCollided() const
+void Collision::check_collision()
 {
-	return true;
+	if (colliders->size() > 1)
+	{
+		for (auto& collider1 : *colliders)
+		{
+			for (auto& collider2 : *colliders)
+			{
+				if (collider1 != collider2)
+				{
+					if	(
+						(dynamic_cast<BoxCollider*>(collider1) && dynamic_cast<BoxCollider*>(collider2)
+						&&
+						dynamic_cast<BoxCollider*>(collider1)->intersects(dynamic_cast<BoxCollider*>(collider2)))
+
+						||
+
+						(dynamic_cast<BoxCollider*>(collider1) && dynamic_cast<CircleCollider*>(collider2)
+						&&
+						dynamic_cast<BoxCollider*>(collider1)->intersects(dynamic_cast<CircleCollider*>(collider2)))
+
+						||
+
+						(dynamic_cast<CircleCollider*>(collider1) && dynamic_cast<CircleCollider*>(collider2)
+						&&
+						dynamic_cast<CircleCollider*>(collider1)->intersects(dynamic_cast<CircleCollider*>(collider2)))
+						)
+
+					{
+
+					}
+				}
+			}
+		}
+	}
 }
 
 const bool& operator==(const Collision& collision1, const Collision& collision2)

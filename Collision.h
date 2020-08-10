@@ -27,7 +27,7 @@ public:
 	const Vector2& get_position() const;
 	DrawableObject* get_object();
 
-	const virtual bool& IsCollided() const;
+	static void check_collision();
 
 	const virtual bool& intersects(Collision* collider) const = 0;
 	const virtual bool& contains(const Vector2& point) const = 0;

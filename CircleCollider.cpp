@@ -53,14 +53,6 @@ const bool& CircleCollider::intersects(Collision* collider) const
 	return true;
 }
 
-//const bool& CircleCollider::intersects(BoxCollider* collider) const
-//{
-//	return collider->intersects(this);
-//}
-//const bool& CircleCollider::intersects(CircleCollider* collider) const
-//{
-//	return Vector2::distance(*this->position, *collider->position) <= *this->radius + *collider->radius;
-//}
 const bool& CircleCollider::contains(const Vector2& point) const
 {
 	return Vector2::distance(*this->position, point) <= *this->radius;

@@ -2,7 +2,7 @@
 
 void Warrior::update()
 {
-	if (this->animator->currentAnimation != nullptr) this->animator->currentAnimation->play();
+	if (this->animator->currentAnimation) this->animator->currentAnimation->play();
 }
 
 Warrior::Warrior(const Vector2& position) : Unit(position)

@@ -105,7 +105,7 @@ void Unit::move(const Vector2& offset)
 		set_world_position(get_world_position() + offset);
 		set_screen_position(get_screen_position() + offset);
 		offset_sprite(offset);
-		get_collider()->set_position(get_collider()->get_position() + offset);
+		if (this->collider) this->collider->set_position(collider->get_position() + offset);
 	}
 }
 void Unit::move(const float& offset_x, const float& offset_y)

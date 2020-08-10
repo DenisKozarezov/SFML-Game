@@ -4,6 +4,6 @@
 int main()
 {
 	Game* game = Game::get_instance();
-	game->run();
+	game->run();	
 	return 0;
 }
