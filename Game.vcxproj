@@ -164,8 +164,8 @@
     <ClCompile Include="Delegate.cpp" />
     <ClCompile Include="DrawableContainer.cpp" />
     <ClCompile Include="DrawableLayer.cpp" />
-    <ClCompile Include="DrawableObject.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUIElement.cpp" />
@@ -198,8 +198,8 @@
     <ClInclude Include="Delegate.h" />
     <ClInclude Include="DrawableContainer.h" />
     <ClInclude Include="DrawableLayer.h" />
-    <ClInclude Include="DrawableObject.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUIElement.h" />

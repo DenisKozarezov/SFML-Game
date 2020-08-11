@@ -19,7 +19,7 @@ private:
 	Vector2* lerp_position;
 	float* factor;
 
-	DrawableObject* attached_target;
+	GameObject* attached_target;
 	Vector2* point_target;
 
 	void move(const Vector2& point);
@@ -45,7 +45,7 @@ public:
 
 	void stop();
 
-	void attach_to(DrawableObject* object);
+	void attach_to(GameObject* object);
 	void detach();
 
 	void set_speed(const float& value);

@@ -11,6 +11,10 @@ void CircleCollider::initialize()
 	dynamic_cast<sf::CircleShape*>(this->outline)->setRadius(0);
 }
 
+void CircleCollider::set_outline_color(const sf::Color& color)
+{
+	dynamic_cast<sf::CircleShape*>(this->outline)->setOutlineColor(color);
+}
 CircleCollider::CircleCollider()
 {
 	initialize();

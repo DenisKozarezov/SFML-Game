@@ -7,11 +7,9 @@ void Unit::update()
 
 void Unit::initialize()
 {	
-	DrawableObject::initialize(this, 0);
+	GameObject::initialize(this, 0);
 	*this->get_sprite()->isMultiple = true;
 
-	this->name = new std::string("Empty name");
-	this->tag = new std::string("Empty tag");
 	this->health = new unsigned int(0);
 	this->damage = new unsigned int(0);
 	this->speed = new float(0);
@@ -45,10 +43,6 @@ Unit::Unit(const float& x, const float& y)
 	initialize();
 }
 
-void Unit::set_name(const std::string& name)
-{
-	*this->name = name;
-}
 void Unit::set_health(const unsigned int& value)
 {
 	*this->health = value;
@@ -61,26 +55,7 @@ void Unit::set_speed(const float& factor)
 {
 	*this->speed = factor;
 }
-void Unit::move(const Vector2& position)
-{
-	set_position(position);
-	this->get_sprite()->setPosition(position.x, position.y);
-	if (this->collider) this->collider->set_position(position);
-}
-void Unit::move(const float& offset_x, const float& offset_y)
-{
-	move(Vector2(offset_x, offset_y));
-}
-void Unit::kill()
-{
-	health = 0;
-	DrawableObject::destroy(this);
-}
 
-const std::string& Unit::get_name() const
-{
-	return *this->name;
-}
 const unsigned int& Unit::get_health() const
 {
 	return *this->health;
@@ -102,6 +77,35 @@ Collision* Unit::get_collider()
 	return this->collider;
 }
 
+const bool& Unit::IsPaused() const
+{
+	return *this->isPaused;
+}
+const bool& Unit::IsDead() const
+{
+	return *this->isDead;
+}
+const bool& Unit::IsMovable() const
+{
+	return *this->isMovable;
+}
+
+void Unit::move(const Vector2& position)
+{
+	set_position(position);
+	this->get_sprite()->setPosition(position.x, position.y);
+	if (this->collider) this->collider->set_position(position);
+}
+void Unit::move(const float& offset_x, const float& offset_y)
+{
+	move(Vector2(offset_x, offset_y));
+}
+void Unit::kill()
+{
+	health = 0;
+	GameObject::destroy(this);
+}
+
 const Unit& Unit::operator=(const Unit& unit)
 {
 	return *this;
@@ -117,8 +121,6 @@ const bool operator!=(const Unit& unit1, const Unit& unit2)
 
 Unit::~Unit()
 {
-	delete this->name;
-	delete this->tag;
 	delete this->health;
 	delete this->damage;
 	delete this->speed;

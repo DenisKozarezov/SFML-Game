@@ -1,7 +1,6 @@
 #include "Collision.h"
 #include "BoxCollider.h"
 #include "CircleCollider.h"
-#include <iostream>
 
 std::vector<Collision*>* Collision::colliders = new std::vector<Collision*>;
 Collision::Collision()
@@ -14,6 +13,8 @@ Collision::Collision()
 
 	this->OnCollisionEnter = new Delegate;
 	this->OnCollisionExit = new Delegate;
+	this->OnTriggerEnter = new Delegate;
+	this->OnTriggerExit = new Delegate;
 
 	this->colliders->push_back(this);
 }
@@ -30,7 +31,7 @@ void Collision::set_position(const Vector2& position)
 {
 	*this->position = position;
 }
-void Collision::set_object(DrawableObject* object)
+void Collision::set_object(GameObject* object)
 {
 	this->object = object;
 }
@@ -55,7 +56,7 @@ const Vector2& Collision::get_position() const
 {
 	return *this->position;
 }
-DrawableObject* Collision::get_object() const
+GameObject* Collision::get_object() const
 {
 	return this->object;
 }
@@ -89,18 +90,37 @@ void Collision::check_collision()
 						)
 
 					{
-						*collider1->collided = true;
-						*collider2->collided = true;
-						//collider1->get_object()->move(collider1->get_correct_collision(collider2));
+						if (!*collider1->isTrigger && !*collider1->collided)
+						{
+							*collider1->collided = true;
+							collider1->OnCollisionEnter->invoke();
+							collider1->set_outline_color(sf::Color::Yellow);
+						}
 						collider1->get_object()->move(collider1->get_position() - collider1->get_object()->get_velocity());
 						collider1->get_object()->set_velocity(Vector2::zero);
-						collider1->OnCollisionEnter->invoke();
-						collider2->OnCollisionEnter->invoke();
+							
+											
+						/*if (!*collider2->isTrigger)
+						{
+							*collider2->collided = true;
+							collider2->OnCollisionEnter->invoke();
+							collider2->set_outline_color(sf::Color::Yellow);
+						}*/
 					}
 					else
 					{
-						if (*collider1->collided) {	*collider1->collided = false; collider1->OnCollisionExit->invoke();	}
-						if (*collider2->collided) {	*collider2->collided = false; collider2->OnCollisionExit->invoke(); }
+						if (*collider1->collided) 
+						{	
+							*collider1->collided = false; 
+							collider1->OnCollisionExit->invoke();	
+							collider1->set_outline_color(sf::Color::Green);
+						}
+						/*if (*collider2->collided)
+						{
+							*collider2->collided = false;
+							collider2->OnCollisionExit->invoke();
+							collider2->set_outline_color(sf::Color::Green);
+						}*/
 					}
 				}
 			}
@@ -128,6 +148,8 @@ Collision::~Collision()
 
 	delete this->OnCollisionEnter;
 	delete this->OnCollisionExit;
+	delete this->OnTriggerEnter;
+	delete this->OnTriggerExit;
 
 	std::vector<Collision*>::iterator first = this->colliders->begin();
 	std::vector<Collision*>::iterator last = this->colliders->end();

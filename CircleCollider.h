@@ -9,6 +9,7 @@ private:
 	float* radius;
 
 	void initialize();
+	void set_outline_color(const sf::Color& color) override;
 public:
 	CircleCollider();
 	CircleCollider(const Vector2& position, const float& radius);

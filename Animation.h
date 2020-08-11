@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include <vector>
-#include "DrawableObject.h"
+#include "GameObject.h"
 
 class Animation final
 {
@@ -18,7 +18,7 @@ private:
 	bool* _isPlaying = new bool(false);
 	bool* isStopped = new bool(false);
 
-	DrawableObject* target;
+	GameObject* target;
 	sf::Clock* clock = new sf::Clock;
 public:
 	/// Флаг, значение которого задаёт зацикленность текущей анимации.
@@ -26,9 +26,9 @@ public:
 
 	const bool& isPlaying() const;
 
-	explicit Animation(DrawableObject* target);
-	explicit Animation(const sf::Texture& sprite_sheet, const unsigned int& frames, DrawableObject* target);
-	explicit Animation(const std::string& name, DrawableObject* target);
+	explicit Animation(GameObject* target);
+	explicit Animation(const sf::Texture& sprite_sheet, const unsigned int& frames, GameObject* target);
+	explicit Animation(const std::string& name, GameObject* target);
 
 	/// Возвращает название текущей анимации.	
 	/// \return Строка названия.

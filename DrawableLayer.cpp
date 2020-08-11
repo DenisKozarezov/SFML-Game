@@ -4,7 +4,7 @@ DrawableLayer::DrawableLayer()
 {
 	this->hidden = new bool(0);
 	this->updatable = new bool(1);
-	this->layer = new std::vector<DrawableObject*>;
+	this->layer = new std::vector<GameObject*>;
 }
 
 const bool& DrawableLayer::IsHidden() const
@@ -27,7 +27,7 @@ void DrawableLayer::make_unupdatable()
 	*this->updatable = false;
 }
 
-void DrawableLayer::add(DrawableObject* object)
+void DrawableLayer::add(GameObject* object)
 {
 	this->layer->push_back(object);
 }
@@ -36,27 +36,27 @@ void DrawableLayer::remove_group(const T& type)
 {
 
 }
-void DrawableLayer::remove(DrawableObject* object)
+void DrawableLayer::remove(GameObject* object)
 {
-	std::vector<DrawableObject*>::iterator first = this->layer->begin();
-	std::vector<DrawableObject*>::iterator last = this->layer->end();
-	std::vector<DrawableObject*>::iterator it = std::find(first, last, object);
+	std::vector<GameObject*>::iterator first = this->layer->begin();
+	std::vector<GameObject*>::iterator last = this->layer->end();
+	std::vector<GameObject*>::iterator it = std::find(first, last, object);
 	if (it != last) this->layer->erase(it);
 }
-const bool& DrawableLayer::is_contain(DrawableObject* object) const
+const bool& DrawableLayer::is_contain(GameObject* object) const
 {
-	std::vector<DrawableObject*>::iterator first = this->layer->begin();
-	std::vector<DrawableObject*>::iterator last = this->layer->end();
-	std::vector<DrawableObject*>::iterator it = std::find(first, last, object);
+	std::vector<GameObject*>::iterator first = this->layer->begin();
+	std::vector<GameObject*>::iterator last = this->layer->end();
+	std::vector<GameObject*>::iterator it = std::find(first, last, object);
 	return it != last;
 }
 
 void DrawableLayer::update(sf::RenderWindow& window)
 {
-	std::vector<DrawableObject*>::iterator it;
+	std::vector<GameObject*>::iterator it;
 	for (it = this->layer->begin(); it != this->layer->end(); it++)
 	{
-		DrawableObject* object = dynamic_cast<DrawableObject*>(*it);
+		GameObject* object = dynamic_cast<GameObject*>(*it);
 		if (!object->IsHidden())
 		{
 			object->update();
@@ -65,7 +65,7 @@ void DrawableLayer::update(sf::RenderWindow& window)
 	}
 }
 
-std::vector<DrawableObject*>* DrawableLayer::get_layer()
+std::vector<GameObject*>* DrawableLayer::get_layer()
 {
 	return this->layer;
 }
@@ -74,7 +74,7 @@ DrawableLayer::~DrawableLayer()
 {
 	delete this->hidden;
 
-	std::vector<DrawableObject*>::iterator it;
+	std::vector<GameObject*>::iterator it;
 	for (it = this->layer->begin(); it != this->layer->end(); it++) delete* it;
 	delete this->layer;	
 }

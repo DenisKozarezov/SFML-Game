@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////////////////////
 #ifndef _DRAWABLELAYER_H_
 #define _DRAWABLELAYER_H_
-#include "DrawableObject.h"
+#include "GameObject.h"
 #include <vector>
 
 class DrawableLayer final
@@ -13,7 +13,7 @@ private:
 	bool* hidden;
 	bool* updatable;
 
-	std::vector<DrawableObject*>* layer;
+	std::vector<GameObject*>* layer;
 public:
 	DrawableLayer();
 
@@ -23,7 +23,7 @@ public:
 	void hide(const bool& status);
 	void make_unupdatable();
 
-	void add(DrawableObject* object);
+	void add(GameObject* object);
 
 	/// Remove the group of objects by classified attribute.
 	/// \param type - classified attribute.
@@ -32,15 +32,15 @@ public:
 
 	/// Remove the object from drawing process WITHOUT deallocation.
 	/// \param *object - pointer to object
-	void remove(DrawableObject* object);
+	void remove(GameObject* object);
 
 	/// Return the result of finding object in layer.
 	/// \param *object - pointer to object
-	const bool& is_contain(DrawableObject* object) const;
+	const bool& is_contain(GameObject* object) const;
 
 	void update(sf::RenderWindow& window);
 
-	std::vector<DrawableObject*>* get_layer();
+	std::vector<GameObject*>* get_layer();
 
 	~DrawableLayer();
 };

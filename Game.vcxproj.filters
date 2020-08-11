@@ -67,6 +67,9 @@
     <Filter Include="Math\Rect">
       <UniqueIdentifier>{8713d501-3f32-46b4-9b2a-0b2aa82f7a66}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components\GameObject">
+      <UniqueIdentifier>{3d2cc000-a4f5-4ff5-9206-804fc2e46225}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -109,9 +112,6 @@
       <Filter>Input</Filter>
     </ClCompile>
     <ClCompile Include="DrawableLayer.cpp">
-      <Filter>Drawable</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawableObject.cpp">
       <Filter>Drawable</Filter>
     </ClCompile>
     <ClCompile Include="DrawableContainer.cpp">
@@ -165,6 +165,9 @@
     <ClCompile Include="CircleCollider.cpp">
       <Filter>Components\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Components\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Unit.h">
@@ -204,9 +207,6 @@
       <Filter>Input</Filter>
     </ClInclude>
     <ClInclude Include="DrawableLayer.h">
-      <Filter>Drawable</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawableObject.h">
       <Filter>Drawable</Filter>
     </ClInclude>
     <ClInclude Include="DrawableContainer.h">
@@ -256,6 +256,9 @@
     </ClInclude>
     <ClInclude Include="CircleCollider.h">
       <Filter>Components\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Components\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

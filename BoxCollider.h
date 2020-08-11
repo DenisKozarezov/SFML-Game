@@ -12,6 +12,7 @@ private:
 	Vector2* points[4];
 
 	void initialize();
+	void set_outline_color(const sf::Color& color) override;
 public:
 	BoxCollider();
 	BoxCollider(const Vector2& position, const Vector2& size);

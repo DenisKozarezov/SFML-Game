@@ -1,10 +1,10 @@
 #include "Animator.h"
 
-Animator::Animator(DrawableObject* parent)
+Animator::Animator(GameObject* parent)
 {
 	this->parent = parent;
 }
-Animator::Animator(Animation* animations, const unsigned int& size, DrawableObject* parent)
+Animator::Animator(Animation* animations, const unsigned int& size, GameObject* parent)
 {
 	this->parent = parent;
 	for (unsigned int i = 0; i < size; i++)
@@ -12,7 +12,7 @@ Animator::Animator(Animation* animations, const unsigned int& size, DrawableObje
 		this->animations->insert(std::pair<const std::string, Animation*>(animations[i].get_name(), &animations[i]));
 	}
 }
-Animator::Animator(const std::vector<Animation*> animations, DrawableObject* parent)
+Animator::Animator(const std::vector<Animation*> animations, GameObject* parent)
 {
 	this->parent = parent;
 	for (int i = 0; i < animations.size(); i++)
@@ -97,7 +97,7 @@ Animation* Animator::get_animation(const std::string& name) const
 {
 	return animations->find(name)->second;
 }
-const DrawableObject* Animator::get_parent()
+const GameObject* Animator::get_parent()
 {
 	return this->parent;
 }

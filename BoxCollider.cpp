@@ -14,6 +14,11 @@ void BoxCollider::initialize()
 	dynamic_cast<sf::RectangleShape*>(this->outline)->setFillColor(sf::Color::Transparent);
 }
 
+void BoxCollider::set_outline_color(const sf::Color& color)
+{
+	dynamic_cast<sf::RectangleShape*>(this->outline)->setOutlineColor(color);
+}
+
 BoxCollider::BoxCollider()
 {
 	initialize();

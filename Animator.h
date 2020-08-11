@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "Animation.h"
-#include "DrawableObject.h"
+#include "GameObject.h"
 
 class Animator final
 {
@@ -12,13 +12,13 @@ private:
 	bool* isPaused = new bool(false);
 	bool* _isPlaying = new bool(false);
 
-	DrawableObject* parent = nullptr;
+	GameObject* parent = nullptr;
 public:
 	Animation* currentAnimation = nullptr;
 
-	explicit Animator(DrawableObject* parent);
-	explicit Animator(Animation* animations, const unsigned int& size, DrawableObject* parent);
-	explicit Animator(const std::vector<Animation*> animations, DrawableObject* parent);
+	explicit Animator(GameObject* parent);
+	explicit Animator(Animation* animations, const unsigned int& size, GameObject* parent);
+	explicit Animator(const std::vector<Animation*> animations, GameObject* parent);
 	
 	/// <summary>
 	/// ƒобавление анимации в список аниматора.
@@ -70,7 +70,7 @@ public:
 
 	Animation* get_animation(const int& index) const;
 	Animation* get_animation(const std::string& name) const;
-	const DrawableObject* get_parent();
+	const GameObject* get_parent();
 	const bool& isPlaying() const;
 
 	~Animator();

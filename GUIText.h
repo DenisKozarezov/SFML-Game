@@ -1,7 +1,7 @@
 #ifndef _GUITEXT_H_
 #define _GUITEXT_H_
 #include "SFML/Graphics.hpp"
-#include "DrawableObject.h"
+#include "GameObject.h"
 #include "Vector2.h"
 #include "Resources.cpp"
 #include "GUIElement.h"
@@ -31,7 +31,7 @@ public:
 	void set_text(const std::string& text);
 	void set_font_size(const unsigned short& size);
 
-	void attach_to(DrawableObject* object);
+	void attach_to(GameObject* object);
 
 	const sf::Color& get_color() const;
 	const Vector2& get_scale() const;

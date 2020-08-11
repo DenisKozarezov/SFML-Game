@@ -2,16 +2,16 @@
 
 std::map<const std::string, DrawableLayer*>* DrawableContainer::layers =
 	new std::map<const std::string, DrawableLayer*>;
-void DrawableContainer::remove(DrawableObject* object)
+void DrawableContainer::remove(GameObject* object)
 {
 	std::map<const std::string, DrawableLayer*>::iterator it;
 	for (it = layers->begin(); it != layers->end(); it++)
 	{
 		if (it->second->get_layer()->size() > 0)
 		{
-			std::vector<DrawableObject*>::iterator first = it->second->get_layer()->begin();
-			std::vector<DrawableObject*>::iterator last = it->second->get_layer()->end();
-			std::vector<DrawableObject*>::iterator find = std::find(first, last, object);
+			std::vector<GameObject*>::iterator first = it->second->get_layer()->begin();
+			std::vector<GameObject*>::iterator last = it->second->get_layer()->end();
+			std::vector<GameObject*>::iterator find = std::find(first, last, object);
 			if (find != last)
 			{
 				it->second->remove(object);

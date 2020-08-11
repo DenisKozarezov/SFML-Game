@@ -81,7 +81,7 @@ void GUIText::set_font_size(const unsigned short& size)
 	this->gui_text->setCharacterSize(size);
 }
 
-void GUIText::attach_to(DrawableObject* object)
+void GUIText::attach_to(GameObject* object)
 {
 
 }

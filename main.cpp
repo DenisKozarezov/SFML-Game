@@ -1,6 +1,5 @@
 ﻿#include <SFML/Graphics.hpp>
 #include "Game.h"
-#include "Vector2.h"
 
 int main()
 {

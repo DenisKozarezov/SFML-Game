@@ -14,12 +14,12 @@
 class DrawableContainer final
 {
 private:
-	friend class DrawableObject;
+	friend class GameObject;
 	friend class Camera;
 
 	static std::map<const std::string, DrawableLayer*>* layers;
 
-	static void remove(DrawableObject* object);
+	static void remove(GameObject* object);
 public:
 	/// <summary>
 	/// Initialization of graphic layers with specified amount.

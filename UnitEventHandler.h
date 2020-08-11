@@ -1,5 +1,5 @@
 #pragma once
-#include "DrawableObject.h"
+#include "GameObject.h"
 #include <vector>
 
 class UnitEventHandler
@@ -7,9 +7,9 @@ class UnitEventHandler
 private:
 	typedef void(*Action)();
 	Action event;
-	DrawableObject* object;
+	GameObject* object;
 public:
-	UnitEventHandler(DrawableObject* object);
+	UnitEventHandler(GameObject* object);
 
 	UnitEventHandler* Dead;
 	UnitEventHandler* Attacked;

@@ -1,10 +1,10 @@
 #include "Animation.h"
 
-Animation::Animation(DrawableObject* target)
+Animation::Animation(GameObject* target)
 {
 	this->target = target;
 }
-Animation::Animation(const sf::Texture& sprite_sheet, const unsigned int& size, DrawableObject* target)
+Animation::Animation(const sf::Texture& sprite_sheet, const unsigned int& size, GameObject* target)
 {
 	this->source = std::make_shared<sf::Texture>(sprite_sheet);
 	this->target = target;
@@ -12,7 +12,7 @@ Animation::Animation(const sf::Texture& sprite_sheet, const unsigned int& size, 
 	*this->_size = size;
 	*this->currentRect = sf::IntRect(0, 0, *this->deltaX, sprite_sheet.getSize().y);
 }
-Animation::Animation(const std::string& name, DrawableObject* target)
+Animation::Animation(const std::string& name, GameObject* target)
 {
 	this->target = target;
 	*this->name = name;
