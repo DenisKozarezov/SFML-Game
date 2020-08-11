@@ -20,16 +20,28 @@ Vector2::Vector2(const float& x, const float& y)
 	this->y = y;
 }
 
-Vector2 Vector2::normalize()
-{
-	Vector2 result = *this;
-	
-	return result;
+const Vector2 Vector2::normalize() const
+{	
+	return Vector2(this->x / magnitude(), this->y / magnitude());
 }
-float& Vector2::magnitude() const
+const Vector2 Vector2::unit() const
 {
-	float length = sqrt(pow(this->x, 2) + pow(this->y, 2));
-	return length;
+	float x = this->x != 0 ? this->x / this->x : 0;
+	float y = this->y != 0 ? this->y / this->y : 0;
+	return Vector2(x, y);
+}
+const float& Vector2::magnitude() const
+{
+	return sqrt(pow(this->x, 2) + pow(this->y, 2));
+}
+const Vector2 Vector2::perpendicular(const Vector2& vector1, const Vector2& vector2) const
+{
+	float b1 = (vector2.x * vector1.y - vector1.x * vector2.y) / (vector2.x - vector1.x);
+	float k = (vector2.y - vector1.y) / (vector2.x - vector1.x);
+	float b2 = this->y + (1 / k) * this->x;
+	float x = (b2 - b1) / (k + (1 / k));
+	float y = (-1 / k) * x + b2;
+	return Vector2(x, y);
 }
 void Vector2::set(const float& x, const float& y)
 {
@@ -44,13 +56,13 @@ const std::string Vector2::to_string() const
 	return result;
 }
 
-const float& Vector2::scalar(const Vector2& vector1, const Vector2& vector2)
+const float& Vector2::dot(const Vector2& vector1, const Vector2& vector2)
 {
 	return vector1.x * vector2.x + vector1.y * vector2.y;
 }
 const float& Vector2::angle(const Vector2& vector1, const Vector2& vector2)
 {
-	return scalar(vector1, vector2) / (vector1.magnitude() * vector2.magnitude());
+	return dot(vector1, vector2) / (vector1.magnitude() * vector2.magnitude());
 }
 const float& Vector2::distance(const Vector2& vector1, const Vector2& vector2)
 {
@@ -59,8 +71,8 @@ const float& Vector2::distance(const Vector2& vector1, const Vector2& vector2)
 const Vector2 Vector2::lerp(const Vector2& vector1, const Vector2& vector2, const float& factor)
 {
 	const float& _factor = Math::get_factor(factor);
-	const float& lerp_x = vector2.x - vector1.x;
-	const float& lerp_y = vector2.y - vector1.y;
+	const double& lerp_x = vector2.x - vector1.x;
+	const double& lerp_y = vector2.y - vector1.y;
 	return Vector2(lerp_x * _factor, lerp_y * _factor);
 }
 

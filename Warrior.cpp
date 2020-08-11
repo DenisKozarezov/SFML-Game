@@ -8,7 +8,8 @@ void Warrior::update()
 Warrior::Warrior(const Vector2& position) : Unit(position)
 {
 	this->collider->set_position(position);
-	this->collider->set_size(Vector2(100, 100));
+	this->collider->set_radius(50);
+	this->collider->set_object(this);
 
 	this->sprite_sheets->find("Idle")->second->loadFromFile(ProjectResourcesPath::Sprites + "idle.png");
 	this->sprite_sheets->find("Run")->second->loadFromFile(ProjectResourcesPath::Sprites + "run.png");
@@ -28,7 +29,7 @@ Warrior::Warrior(const Vector2& position) : Unit(position)
 	animator->get_animation("Idle")->set_interval(150);
 	animator->get_animation("Run")->set_interval(100);
 
-	this->set_speed(1.2f);
+	this->set_speed(2);
 
 	animator->play("Idle");
 }

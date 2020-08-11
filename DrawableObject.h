@@ -20,10 +20,8 @@ private:
 	friend class DrawableLayer;
 
 	unsigned int* layer;
-
-	Vector2* screen_position;
-	Vector2* world_position;
-
+	Vector2* position;
+	Vector2* velocity;
 	Sprite* sprite;
 
 	bool* hidden;
@@ -37,8 +35,15 @@ public:
 
 	void hide(const bool& status);
 
-	const Vector2& get_screen_position() const;
-	const Vector2& get_world_position() const;
+	virtual void move(const Vector2& position) = 0;
+
+	void set_velocity(const Vector2& velocity);
+	void set_velocity(const float& x_vector, const float& y_vector);
+	const Vector2& get_velocity() const;
+
+	void set_position(const Vector2& position);
+	void set_position(const float& x, const float& y);
+	const Vector2& get_position() const;
 
 	/// <summary>
 	/// Switch to an other layer with specified number.
@@ -78,14 +83,8 @@ protected:
 
 	void set_texture(const sf::Texture& texture);
 	void set_sprite(const Sprite& sprite);
-	void move_sprite(const Vector2& point);
+
 	void offset_sprite(const Vector2& offset);
-
-	void set_screen_position(const Vector2& point);
-	void set_screen_position(const float& x, const float& y);
-
-	void set_world_position(const Vector2& point);
-	void set_world_position(const float& x, const float& y);
 
 	/// <summary>
 	/// Initialization of graphic object and adding it in drawing container on zero layer.

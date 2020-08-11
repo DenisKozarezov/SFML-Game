@@ -4,8 +4,8 @@
 DrawableObject::DrawableObject()
 {
 	this->layer = new unsigned int(0);
-	this->screen_position = new Vector2(0.f, 0.f);
-	this->world_position = new Vector2(0.f, 0.f);
+	this->position = new Vector2;
+	this->velocity = new Vector2;
 	this->sprite = new Sprite;
 	this->hidden = new bool(0);
 }
@@ -24,30 +24,18 @@ void DrawableObject::set_sprite(const Sprite& sprite)
 {
 	*this->sprite = sprite;
 }
-void DrawableObject::move_sprite(const Vector2& point)
-{
-	this->sprite->setPosition(point.x, point.y);
-}
 void DrawableObject::offset_sprite(const Vector2& offset)
 {
-	this->sprite->setPosition(this->screen_position->x + offset.x, this->screen_position->y + offset.y);
+	move(get_position() + offset);
 }
 
-void DrawableObject::set_screen_position(const Vector2& point)
+void DrawableObject::set_position(const Vector2& position)
 {
-	*this->screen_position = point;
+	*this->position = position;
 }
-void DrawableObject::set_screen_position(const float& x, const float& y)
+void DrawableObject::set_position(const float& x, const float& y)
 {
-	set_screen_position(Vector2(x, y));
-}
-void DrawableObject::set_world_position(const Vector2& point)
-{
-	*this->world_position = point;
-}
-void DrawableObject::set_world_position(const float& x, const float& y)
-{
-	set_world_position(Vector2(x, y));
+	set_position(Vector2(x, y));
 }
 
 void DrawableObject::initialize(DrawableObject* object)
@@ -82,13 +70,23 @@ void DrawableObject::hide(const bool& status)
 	*this->hidden = status;
 }
 
-const Vector2& DrawableObject::get_screen_position() const
+void DrawableObject::set_velocity(const Vector2& velocity)
 {
-	return *this->screen_position;
+	*this->velocity = velocity;
 }
-const Vector2& DrawableObject::get_world_position() const
+
+void DrawableObject::set_velocity(const float& x_vector, const float& y_vector)
 {
-	return *this->world_position;
+	set_velocity(Vector2(x_vector, y_vector));
+}
+
+const Vector2& DrawableObject::get_velocity() const
+{
+	return *this->velocity;
+}
+const Vector2& DrawableObject::get_position() const
+{
+	return *this->position;
 }
 const bool& DrawableObject::IsSwappedX() const
 {
@@ -112,14 +110,14 @@ void DrawableObject::swapX(const bool& status)
 
 	if (status)
 	{
-		set_screen_position(this->get_screen_position() + Vector2(width, 0));
+		*this->position += Vector2(width, 0);
 		if (this->sprite->getScale().x > 0)
 			this->sprite->setScale(-this->sprite->getScale().x, this->sprite->getScale().y);
 		this->sprite->swapX(true);
 	}
 	else
 	{
-		set_screen_position(this->get_screen_position() + Vector2(-width, 0));
+		*this->position += Vector2(-width, 0);
 		if (this->sprite->getScale().x < 0)
 			this->sprite->setScale(-this->sprite->getScale().x, this->sprite->getScale().y);
 		this->sprite->swapX(false);
@@ -133,14 +131,14 @@ void DrawableObject::swapY(const bool& status)
 
 	if (status)
 	{
-		set_screen_position(this->get_screen_position() + Vector2(0, height));
+		*this->position += Vector2(0, height);
 		if (this->sprite->getScale().y > 0)
 			this->sprite->setScale(this->sprite->getScale().x, -this->sprite->getScale().y);
 		this->sprite->swapY(true);
 	}
 	else
 	{
-		set_screen_position(this->get_screen_position() + Vector2(0, -height));
+		*this->position += Vector2(0, -height);
 		if (this->sprite->getScale().y < 0)
 			this->sprite->setScale(this->sprite->getScale().x, -this->sprite->getScale().y);
 		this->sprite->swapY(false);
@@ -156,9 +154,8 @@ DrawableObject::~DrawableObject()
 {
 	delete this->hidden;
 	delete this->layer;
-
-	delete this->screen_position;
-	delete this->world_position;
+	delete this->position;
+	delete this->velocity;
 
 	delete this->sprite;
 }

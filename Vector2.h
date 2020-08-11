@@ -9,24 +9,37 @@ public:
 	float x;
 	float y;
 
+	/// A vector with coordinates (0, 0).
 	const static Vector2 zero;
+	/// A vector with coordinates (-1, 0).
 	const static Vector2 left;
+	/// A vector with coordinates (1, 0).
 	const static Vector2 right;
+	/// A vector with coordinates (0, 1).
 	const static Vector2 up;
+	/// A vector with coordinates (0, -1).
 	const static Vector2 down;
+	/// A vector with coordinates (1, 1).
 	const static Vector2 one;
+	/// A vector with coordinates (+inf, +inf).
 	const static Vector2 positive_infinity;
+	/// A vector with coordinates (-inf, -inf).
 	const static Vector2 negative_infinity;
 
 	Vector2();
 	Vector2(const float& x, const float& y);
 
-	/// Return of the same vector with length 1.
-	/// \return length
-	Vector2 normalize();
+	/// Returns the normal vector.
+	const Vector2 normalize() const;
+
+	/// Returns the unit vector.
+	const Vector2 unit() const;
 
 	/// Return of the vector's length.
-	float& magnitude() const;
+	const float& magnitude() const;
+
+	/// Returns the perpendicular, released from the point to the line.
+	const Vector2 perpendicular(const Vector2& vector1, const Vector2& vector2) const;
 
 	/// Sets new coordinates for the vector.
 	void set(const float& x, const float& y);
@@ -34,8 +47,9 @@ public:
 	/// Returns the record with coordinates of the vector. Example: (1, 2);
 	const std::string to_string() const;
 
+
 	/// Returns the dot product of two vectors.
-	const static float& scalar(const Vector2& vector1, const Vector2& vector2);
+	const static float& dot(const Vector2& vector1, const Vector2& vector2);
 
 	/// Returns the angle between two vectors.
 	const static float& angle(const Vector2& vector1, const Vector2& vector2);

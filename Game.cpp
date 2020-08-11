@@ -21,7 +21,7 @@ Game::Game()
 	Player::set_main_player(this->player);
 
 	Warrior* warrior1 = new Warrior(Vector2(600, 200));
-	Warrior* warrior2 = new Warrior(Vector2(800, 200));
+	Warrior* warrior2 = new Warrior(Vector2(800, 150));
 	this->player->set_main_character(warrior1);
 
 	this->gui->initialize();
@@ -44,7 +44,7 @@ void Game::run()
 	{		
 		Game::get_instance()->input_update();
 		Game::get_instance()->graphics_update();
-		//Collision::check_collision();
+		Collision::check_collision();
 		Game::get_instance()->clock->restart();
 	}
 }

@@ -15,7 +15,6 @@ void Unit::initialize()
 	this->health = new unsigned int(0);
 	this->damage = new unsigned int(0);
 	this->speed = new float(0);
-	this->velocity = new Vector2;
 
 	this->isPaused = new bool(false);
 	this->isDead = new bool(false);
@@ -28,53 +27,22 @@ void Unit::initialize()
 	this->sprite_sheets->insert(std::pair<const std::string, sf::Texture*>("Run", new sf::Texture));
 	this->sprite_sheets->insert(std::pair<const std::string, sf::Texture*>("Jump", new sf::Texture));	
 
-	this->collider = new BoxCollider;
+	this->collider = new CircleCollider;
 }
 
 Unit::Unit(const Vector2& position)
 {
-	set_screen_position(position);
-	set_world_position(position);
-	move_sprite(position);
+	set_position(position);
+	move(position);
 
 	initialize();
 }
 Unit::Unit(const float& x, const float& y)
 {
-	set_screen_position(Vector2(x, y));
-	set_world_position(Vector2(x, y));
-	move_sprite(Vector2(x, y));
+	set_position(Vector2(x, y));
+	move(Vector2(x, y));
 
 	initialize();
-}
-
-const std::string& Unit::get_name() const
-{
-	return *this->name;
-}
-const unsigned int& Unit::get_health() const
-{
-	return *this->health;
-}
-const unsigned int& Unit::get_damage() const
-{
-	return *this->damage;
-}
-const float& Unit::get_speed() const
-{
-	return *this->speed;
-}
-const Vector2& Unit::get_velocity() const
-{
-	return *this->velocity;
-}
-Animator* Unit::get_animator() const
-{
-	return this->animator;
-}
-Collision* Unit::get_collider()
-{
-	return this->collider;
 }
 
 void Unit::set_name(const std::string& name)
@@ -93,20 +61,11 @@ void Unit::set_speed(const float& factor)
 {
 	*this->speed = factor;
 }
-void Unit::set_velocity(const Vector2& velocity)
+void Unit::move(const Vector2& position)
 {
-	*this->velocity = velocity;
-}
-
-void Unit::move(const Vector2& offset)
-{
-	if (*this->isMovable && !*this->isDead)
-	{
-		set_world_position(get_world_position() + offset);
-		set_screen_position(get_screen_position() + offset);
-		offset_sprite(offset);
-		if (this->collider) this->collider->set_position(collider->get_position() + offset);
-	}
+	set_position(position);
+	this->get_sprite()->setPosition(position.x, position.y);
+	if (this->collider) this->collider->set_position(position);
 }
 void Unit::move(const float& offset_x, const float& offset_y)
 {
@@ -116,6 +75,31 @@ void Unit::kill()
 {
 	health = 0;
 	DrawableObject::destroy(this);
+}
+
+const std::string& Unit::get_name() const
+{
+	return *this->name;
+}
+const unsigned int& Unit::get_health() const
+{
+	return *this->health;
+}
+const unsigned int& Unit::get_damage() const
+{
+	return *this->damage;
+}
+const float& Unit::get_speed() const
+{
+	return *this->speed;
+}
+Animator* Unit::get_animator() const
+{
+	return this->animator;
+}
+Collision* Unit::get_collider()
+{
+	return this->collider;
 }
 
 const Unit& Unit::operator=(const Unit& unit)
@@ -138,7 +122,6 @@ Unit::~Unit()
 	delete this->health;
 	delete this->damage;
 	delete this->speed;
-	delete this->velocity;
 	
 	delete this->animator;
 

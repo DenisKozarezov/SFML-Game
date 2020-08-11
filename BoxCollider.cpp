@@ -60,9 +60,13 @@ const Vector2& BoxCollider::get_size() const
 const bool& BoxCollider::intersects(Collision* collider) const
 {
 	if (dynamic_cast<BoxCollider*>(collider))
-	{
-		Rect rect1(*this->position, *this->size);
-		Rect rect2(*dynamic_cast<BoxCollider*>(collider)->position, *dynamic_cast<BoxCollider*>(collider)->size);
+	{		
+		sf::FloatRect rect1(sf::Vector2f(this->position->x, this->position->y), sf::Vector2f(this->size->x, this->size->y));
+		float pos_x = collider->get_position().x;
+		float pos_y = collider->get_position().y;
+		float size_x = dynamic_cast<BoxCollider*>(collider)->size->x;
+		float size_y = dynamic_cast<BoxCollider*>(collider)->size->y;
+		sf::FloatRect rect2(sf::Vector2f(pos_x, pos_y), sf::Vector2f(size_x, size_y));
 		return rect1.intersects(rect2);
 	}
 
@@ -73,6 +77,13 @@ const bool& BoxCollider::intersects(Collision* collider) const
 		for (unsigned short i = 0; i < 4; i++)
 		{
 			if (collider->contains(*this->points[i])) return true;
+		}
+
+		for (unsigned short i = 1; i <= 3; i++)
+		{
+			Vector2 perpendicular = collider->get_position().perpendicular(*this->points[i], *this->points[i - 1]);
+			float radius = dynamic_cast<CircleCollider*>(collider)->get_radius();
+			if (Vector2::distance(perpendicular, collider->get_position()) < radius) return true;
 		}
 		return false;
 	}

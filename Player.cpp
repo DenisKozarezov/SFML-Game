@@ -23,12 +23,12 @@ void Player::input_update(const sf::Event& event)
 		{
 			if (this->mainCharacter->get_animator()->currentAnimation != this->mainCharacter->get_animator()->get_animation("Run"))
 			{
-				if (this->mainCharacter->IsSwappedX()) this->mainCharacter->swapX(false);
+				//if (this->mainCharacter->IsSwappedX()) this->mainCharacter->swapX(false);
 
 				this->mainCharacter->get_animator()->play("Run");
 			}
 			this->mainCharacter->set_velocity(Vector2::right * this->mainCharacter->get_speed());
-			this->mainCharacter->move(Vector2::right * this->mainCharacter->get_speed());
+			this->mainCharacter->move(this->mainCharacter->get_position() + this->mainCharacter->get_velocity());
 		}
 		else if (event.type == sf::Event::KeyReleased && event.key.code == input->Right())
 		{
@@ -40,12 +40,12 @@ void Player::input_update(const sf::Event& event)
 		{
 			if (this->mainCharacter->get_animator()->currentAnimation != this->mainCharacter->get_animator()->get_animation("Run"))
 			{
-				if (!this->mainCharacter->IsSwappedX()) this->mainCharacter->swapX(true);
+				//if (!this->mainCharacter->IsSwappedX()) this->mainCharacter->swapX(true);
 
 				this->mainCharacter->get_animator()->play("Run");
 			}
 			this->mainCharacter->set_velocity(Vector2::left * this->mainCharacter->get_speed());
-			this->mainCharacter->move(Vector2::left * this->mainCharacter->get_speed());
+			this->mainCharacter->move(this->mainCharacter->get_position() + this->mainCharacter->get_velocity());
 		}
 		else if (event.type == sf::Event::KeyReleased && event.key.code == input->Left())
 		{

@@ -48,11 +48,15 @@ const bool& CircleCollider::intersects(Collision* collider) const
 {
 	if (dynamic_cast<CircleCollider*>(collider))
 	{
-		//Rect rect2(*dynamic_cast<BoxCollider*>(collider)->position, *dynamic_cast<BoxCollider*>(collider)->size);
+		return Vector2::distance(*this->position, collider->get_position()) <= *this->radius + *dynamic_cast<CircleCollider*>(collider)->radius;
 	}
-	return true;
-}
 
+	if (dynamic_cast<BoxCollider*>(collider))
+	{
+		return dynamic_cast<BoxCollider*>(collider)->intersects(const_cast<CircleCollider*>(this));
+	}
+	return false;
+}
 const bool& CircleCollider::contains(const Vector2& point) const
 {
 	return Vector2::distance(*this->position, point) <= *this->radius;
