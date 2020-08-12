@@ -16,11 +16,11 @@ void GUITextField::initialize()
 	this->clock = new sf::Clock;
 	this->textEntered = new bool(0);
 
-	this->OnClick = new Delegate;
-	this->OnDisabled = new Delegate;
-	this->OnPointerEnter = new Delegate;
-	this->OnPointerExit = new Delegate;
-	this->OnValueChanged = new Delegate;
+	this->OnClick = new Delegate<void>;
+	this->OnDisabled = new Delegate<void>;
+	this->OnPointerEnter = new Delegate<void>;
+	this->OnPointerExit = new Delegate<void>;
+	this->OnValueChanged = new Delegate<void>;
 }
 
 GUITextField::GUITextField(const Rect& rectangle)

@@ -5,6 +5,13 @@
 #include "GUITextField.h"
 
 GUI* GUI::instance = 0;
+GUI::GUI()
+{
+	this->focused = new bool(0);
+	this->hidden = new bool(0);
+	this->elements = new std::list<GUIElement*>;
+	this->colliders = new std::list<Collision*>;
+}
 
 void GUI::add(GUIElement* element)
 {
@@ -51,21 +58,15 @@ void GUI::initialize()
 	GUIImage* damage = new GUIImage(Rect(700, 50, 50, 50), damage_texture);
 
 	GUIButton* button1 = new GUIButton(Rect(600, 500, 200, 50), "BUTTON");
-	*button1->OnClick += &Game::quit;
+	*button1->OnClick += [button1]() { button1->set_text("CLICKED!"); };
 	*button1->OnPointerEnter += [button1]() { button1->set_text("ENTER!"); };
+	*button1->OnPointerEnter += [button1]() { std::abs(1); };
 	*button1->OnPointerExit += [button1]() { button1->set_text("EXIT!"); };
 	*button1->OnActive += [button1]() { button1->set_text("ACTIVE!"); };
 
 	GUITextField* field = new GUITextField(Rect(800, 800, 400, 30), "TEXT FIELD");
 }
 
-GUI::GUI()
-{
-	this->focused = new bool(0);
-	this->hidden = new bool(0);
-	this->elements = new std::vector<GUIElement*>;
-	this->colliders = new std::vector<Collision*>;
-}
 GUI* GUI::get_instance()
 {
 	if (!instance) instance = new GUI;

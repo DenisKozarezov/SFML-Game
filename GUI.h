@@ -1,6 +1,6 @@
 #ifndef _GUI_H_
 #define _GUI_H_
-#include <vector>
+#include <list>
 #include "GUIElement.h"
 #include "Collision.h"
 
@@ -10,8 +10,8 @@ private:
 	bool* hidden;
 	bool* focused;
 	
-	std::vector<GUIElement*>* elements;
-	std::vector<Collision*>* colliders;
+	std::list<GUIElement*>* elements;
+	std::list<Collision*>* colliders;
 
 	static GUI* instance;
 

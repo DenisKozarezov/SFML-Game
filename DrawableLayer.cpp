@@ -4,7 +4,7 @@ DrawableLayer::DrawableLayer()
 {
 	this->hidden = new bool(0);
 	this->updatable = new bool(1);
-	this->layer = new std::vector<GameObject*>;
+	this->layer = new std::list<GameObject*>;
 }
 
 const bool& DrawableLayer::IsHidden() const
@@ -38,25 +38,23 @@ void DrawableLayer::remove_group(const T& type)
 }
 void DrawableLayer::remove(GameObject* object)
 {
-	std::vector<GameObject*>::iterator first = this->layer->begin();
-	std::vector<GameObject*>::iterator last = this->layer->end();
-	std::vector<GameObject*>::iterator it = std::find(first, last, object);
+	std::list<GameObject*>::iterator first = this->layer->begin();
+	std::list<GameObject*>::iterator last = this->layer->end();
+	std::list<GameObject*>::iterator it = std::find(first, last, object);
 	if (it != last) this->layer->erase(it);
 }
-const bool& DrawableLayer::is_contain(GameObject* object) const
+const bool& DrawableLayer::contains(GameObject* object) const
 {
-	std::vector<GameObject*>::iterator first = this->layer->begin();
-	std::vector<GameObject*>::iterator last = this->layer->end();
-	std::vector<GameObject*>::iterator it = std::find(first, last, object);
+	std::list<GameObject*>::iterator first = this->layer->begin();
+	std::list<GameObject*>::iterator last = this->layer->end();
+	std::list<GameObject*>::iterator it = std::find(first, last, object);
 	return it != last;
 }
 
 void DrawableLayer::update(sf::RenderWindow& window)
 {
-	std::vector<GameObject*>::iterator it;
-	for (it = this->layer->begin(); it != this->layer->end(); it++)
+	for (auto& object : *this->layer)
 	{
-		GameObject* object = dynamic_cast<GameObject*>(*it);
 		if (!object->IsHidden())
 		{
 			object->update();
@@ -65,7 +63,7 @@ void DrawableLayer::update(sf::RenderWindow& window)
 	}
 }
 
-std::vector<GameObject*>* DrawableLayer::get_layer()
+std::list<GameObject*>* DrawableLayer::get_layer()
 {
 	return this->layer;
 }
@@ -73,8 +71,8 @@ std::vector<GameObject*>* DrawableLayer::get_layer()
 DrawableLayer::~DrawableLayer()
 {
 	delete this->hidden;
+	delete this->updatable;
 
-	std::vector<GameObject*>::iterator it;
-	for (it = this->layer->begin(); it != this->layer->end(); it++) delete* it;
+	for (auto& object : *this->layer) delete object;
 	delete this->layer;	
 }

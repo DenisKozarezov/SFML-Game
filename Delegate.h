@@ -1,61 +1,113 @@
 #pragma once
-#include <vector>
+#include <list>
 #include <functional>
 
+template<typename... Args>
 class Delegate
 {
 private:
-	class Function
-	{
-	public:
-		using Func = void(*)();
-		using Lyambda = std::function<void()>;
-
-		Func function = 0;
-		Lyambda lyambda = 0;
-
-		Function(Func function) : function(function) {}
-		Function(Lyambda lyambda) : lyambda(lyambda) {}
-
-		virtual void invoke();
-	};
-
-	template<typename T>
-	class Member : public Function
-	{
-	private:
-		using M = void(T::*)();
-		T* type;
-		M member;
-	public:
-		Member(T* type, M member) : type(type), member(member) {}
-
-		void invoke() override;
-	};
-
-	std::vector<Function> functions;
+	using Function = std::function<void(Args...)>;
+	std::list<Function> functions;
 public:
-	Delegate() = default;
-	template<typename T>
-	Delegate(T* type, void(T::*function)());
+	Delegate<Args...>() = default;
+	template<typename Type>
+	Delegate<Args...>(Type* type, void(Type::*function)());
 
 	/// <summary>
-	/// Invokation of all functions that were added in this delegate. Also includes lyambda-expressions.
+	/// Invokation of all functions that were added in this delegate.
 	/// </summary>
-	void invoke();
+	void invoke(Args... args)
+	{
+		if (this->functions.size() > 0)
+		{
+			for (Function function : this->functions) function(args...);
+		}
+	}
 
 	/// <summary>
 	/// Clear the list of delegate functions.
 	/// </summary>
-	void clear();
+	void clear()
+	{
+		this->functions.clear();
+	}
 
-	Delegate& operator+=(Function::Lyambda lyambda);
-	Delegate& operator+=(void(*function)());
-	Delegate& operator+=(const Delegate& delegate);
+	/// <summary>
+	/// Adding a function in the delegate, including lambda-expressions.
+	/// </summary>
+	Delegate<Args...>& operator+=(Function function)
+	{
+		this->functions.push_back(function);
+		return *this;
+	}
 
-	Delegate& operator-=(void(*function)());
+	/// <summary>
+	/// Copying all functions of the delegate-operand.
+	/// </summary>
+	Delegate<Args...>& operator+=(const Delegate<Args...>& delegate)
+	{
+		for (auto function : delegate.functions) this->functions.push_back(function);
+		return *this;
+	}
+
+	Delegate<Args...>& operator-=(void(*function)());
+	template<typename Type>
+	Delegate<Args...>& operator-=(void(Type::*function)());
+
+	Delegate<Args...>& operator=(const Delegate<Args...>&) = default;
+};
+
+template<>
+class Delegate<void>
+{
+private:
+	using Function = std::function<void()>;
+	std::list<Function> functions;
+public:
+	Delegate() = default;
 	template<typename T>
-	Delegate& operator-=(void(T::*function)());
+	Delegate(T* type, void(*function)());
 
-	Delegate& operator=(const Delegate&) = default;
+	/// <summary>
+	/// Invokation of all functions that were added in this delegate.
+	/// </summary>
+	void invoke()
+	{
+		if (this->functions.size() > 0)
+		{
+			for (Function function : this->functions) function();
+		}
+	}
+
+	/// <summary>
+	/// Clear the list of delegate functions.
+	/// </summary>
+	void clear()
+	{
+		this->functions.clear();
+	}
+
+	/// <summary>
+	/// Adding a function in the delegate, including lambda-expressions.
+	/// </summary>
+	Delegate<void>& operator+=(Function function)
+	{
+		this->functions.push_back(Function(function));
+		return *this;
+	}
+
+	/// <summary>
+	/// Copying all functions of the delegate-operand.
+	/// </summary>
+	Delegate<void>& operator+=(const Delegate<void>& delegate)
+	{
+		for (auto function : delegate.functions) this->functions.push_back(function);
+		return *this;
+	}
+
+	Delegate<void>& operator-=(void(*function)());
+	template<typename T>
+	Delegate<void>& operator-=(void(T::* function)());
+
+	Delegate<void>& operator=(const Delegate<void>&) = default;
 };

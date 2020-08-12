@@ -1,12 +1,12 @@
 #ifndef _GUIPANEL_H_
 #define _GUIPANEL_H_
-#include <vector>
+#include <list>
 #include "GUIElement.h"
 
 class GUIPanel : public GUIElement
 {
 private:
-	std::vector<GUIElement*>* items;
+	std::list<GUIElement*>* items;
 public:
 	void add(GUIElement* element);
 	void remove(GUIElement* element);

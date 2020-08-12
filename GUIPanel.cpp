@@ -6,14 +6,14 @@ void GUIPanel::add(GUIElement* element)
 }
 void GUIPanel::remove(GUIElement* element)
 {
-	std::vector<GUIElement*>::iterator first = this->items->begin();
-	std::vector<GUIElement*>::iterator last = this->items->end();
-	std::vector<GUIElement*>::iterator find = std::find(first, last, element);
+	std::list<GUIElement*>::iterator first = this->items->begin();
+	std::list<GUIElement*>::iterator last = this->items->end();
+	std::list<GUIElement*>::iterator find = std::find(first, last, element);
 	if (find != last) this->items->erase(find);
 }
 void GUIPanel::remove(const unsigned short& index)
 {
-	std::vector<GUIElement*>::iterator it = this->items->begin();
+	std::list<GUIElement*>::iterator it = this->items->begin();
 	std::advance(it, index);
 	this->items->erase(it);
 }

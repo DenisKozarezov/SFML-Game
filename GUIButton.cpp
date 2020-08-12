@@ -10,14 +10,14 @@ void GUIButton::initialize()
     this->current = this->background->passive;
     this->current->setColor(sf::Color::White);
 
-    this->OnDisabled = new Delegate;
-    this->OnClick = new Delegate;
-    this->OnHover = new Delegate;
-    this->OnActive = new Delegate;
-    this->OnPointerEnter = new Delegate;
-    this->OnPointerExit = new Delegate;
-    this->OnMouseDown = new Delegate;
-    this->OnMouseUp = new Delegate;
+    this->OnDisabled = new Delegate<void>;
+    this->OnClick = new Delegate<void>;
+    this->OnHover = new Delegate<void>;
+    this->OnActive = new Delegate<void>;
+    this->OnPointerEnter = new Delegate<void>;
+    this->OnPointerExit = new Delegate<void>;
+    this->OnMouseDown = new Delegate<void>;
+    this->OnMouseUp = new Delegate<void>;
 }
 
 GUIButton::GUIButton(const Rect& rectangle)

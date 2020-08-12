@@ -22,20 +22,11 @@ Game::Game()
 
 	Warrior* warrior1 = new Warrior(Vector2(600, 200));
 	Warrior* warrior2 = new Warrior(Vector2(800, 150));
+	warrior1->set_name("Warrior1");
+	warrior2->set_name("Warrior2");
 	this->player->set_main_character(warrior1);
 
 	this->gui->initialize();
-}
-Game::~Game()
-{
-	delete this->clock;
-	delete this->player;
-	delete this->time;
-	delete this->camera;
-	delete this->focused;
-	delete this->window;
-	delete this->gui;
-	delete this->event;
 }
 
 void Game::run()
@@ -84,4 +75,16 @@ void Game::graphics_update()
 	this->gui->update(*this->window, *this->event);
 
 	this->window->display();
+}
+
+Game::~Game()
+{
+	delete this->clock;
+	delete this->player;
+	delete this->time;
+	delete this->camera;
+	delete this->focused;
+	delete this->window;
+	delete this->gui;
+	delete this->event;
 }

@@ -17,17 +17,17 @@ private:
 
 	GameObject* object;	
 
-	static std::vector<Collision*>* colliders;
+	static std::list<Collision*>* colliders;
 
 	static void check_collision();
 	virtual void set_outline_color(const sf::Color& color) = 0;
 public:
 	Collision();
 
-	Delegate* OnCollisionEnter;
-	Delegate* OnCollisionExit;
-	Delegate* OnTriggerEnter;
-	Delegate* OnTriggerExit;
+	Delegate<Collision*>* OnCollisionEnter;
+	Delegate<Collision*>* OnCollisionExit;
+	Delegate<Collision*>* OnTriggerEnter;
+	Delegate<Collision*>* OnTriggerExit;
 
 	void set_trigger(const bool& status);
 	void set_enabled(const bool& status);

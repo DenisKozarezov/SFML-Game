@@ -24,14 +24,14 @@ private:
 	void initialize();	
 	void input_update(sf::Event& event) override;
 public:
-	Delegate* OnDisabled;
-	Delegate* OnClick;
-	Delegate* OnHover;
-	Delegate* OnActive;
-	Delegate* OnPointerEnter;
-	Delegate* OnPointerExit;
-	Delegate* OnMouseDown;
-	Delegate* OnMouseUp;
+	Delegate<void>* OnDisabled;
+	Delegate<void>* OnClick;
+	Delegate<void>* OnHover;
+	Delegate<void>* OnActive;
+	Delegate<void>* OnPointerEnter;
+	Delegate<void>* OnPointerExit;
+	Delegate<void>* OnMouseDown;
+	Delegate<void>* OnMouseUp;
 
 	struct Background
 	{

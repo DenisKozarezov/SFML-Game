@@ -5,7 +5,7 @@
 #ifndef _DRAWABLELAYER_H_
 #define _DRAWABLELAYER_H_
 #include "GameObject.h"
-#include <vector>
+#include <list>
 
 class DrawableLayer final
 {
@@ -13,7 +13,7 @@ private:
 	bool* hidden;
 	bool* updatable;
 
-	std::vector<GameObject*>* layer;
+	std::list<GameObject*>* layer;
 public:
 	DrawableLayer();
 
@@ -36,11 +36,11 @@ public:
 
 	/// Return the result of finding object in layer.
 	/// \param *object - pointer to object
-	const bool& is_contain(GameObject* object) const;
+	const bool& contains(GameObject* object) const;
 
 	void update(sf::RenderWindow& window);
 
-	std::vector<GameObject*>* get_layer();
+	std::list<GameObject*>* get_layer();
 
 	~DrawableLayer();
 };

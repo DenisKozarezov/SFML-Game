@@ -32,11 +32,11 @@ private:
 	void initialize();
 	void input_update(sf::Event& event) override;
 public:
-	Delegate* OnDisabled;
-	Delegate* OnClick;
-	Delegate* OnPointerEnter;
-	Delegate* OnPointerExit;
-	Delegate* OnValueChanged;
+	Delegate<void>* OnDisabled;
+	Delegate<void>* OnClick;
+	Delegate<void>* OnPointerEnter;
+	Delegate<void>* OnPointerExit;
+	Delegate<void>* OnValueChanged;
 
 	struct Background
 	{

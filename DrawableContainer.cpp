@@ -9,9 +9,9 @@ void DrawableContainer::remove(GameObject* object)
 	{
 		if (it->second->get_layer()->size() > 0)
 		{
-			std::vector<GameObject*>::iterator first = it->second->get_layer()->begin();
-			std::vector<GameObject*>::iterator last = it->second->get_layer()->end();
-			std::vector<GameObject*>::iterator find = std::find(first, last, object);
+			std::list<GameObject*>::iterator first = it->second->get_layer()->begin();
+			std::list<GameObject*>::iterator last = it->second->get_layer()->end();
+			std::list<GameObject*>::iterator find = std::find(first, last, object);
 			if (find != last)
 			{
 				it->second->remove(object);
