@@ -20,6 +20,7 @@ private:
 	unsigned int* layer;
 	Vector2* position;
 	Vector2* velocity;
+	float* gravity;
 	Sprite* sprite;
 
 	bool* hidden;
@@ -57,6 +58,8 @@ public:
 	/// Sets the velocity of this object.
 	/// </summary>
 	void set_velocity(const float& x_vector, const float& y_vector);
+
+	void set_gravity(const float& scale);
 
 	/// <summary>
 	/// Switch to an other layer with specified number.
@@ -108,6 +111,8 @@ public:
 	/// Return of the object's current velocity.
 	/// </summary>
 	const Vector2& get_velocity() const;
+
+	const float& get_gravity() const;
 
 	const bool& IsSwappedX() const;
 	const bool& IsSwappedY() const;

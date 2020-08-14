@@ -57,14 +57,14 @@ void GUI::initialize()
 	damage_texture.loadFromFile(ProjectResourcesPath::Sprites + "owl.jpg");
 	GUIImage* damage = new GUIImage(Rect(700, 50, 50, 50), damage_texture);
 
-	GUIButton* button1 = new GUIButton(Rect(600, 500, 200, 50), "BUTTON");
+	GUIButton* button1 = new GUIButton(Rect(200, 1000, 200, 50), "BUTTON");
 	*button1->OnClick += [button1]() { button1->set_text("CLICKED!"); };
 	*button1->OnPointerEnter += [button1]() { button1->set_text("ENTER!"); };
 	*button1->OnPointerEnter += [button1]() { std::abs(1); };
 	*button1->OnPointerExit += [button1]() { button1->set_text("EXIT!"); };
 	*button1->OnActive += [button1]() { button1->set_text("ACTIVE!"); };
 
-	GUITextField* field = new GUITextField(Rect(800, 800, 400, 30), "TEXT FIELD");
+	GUITextField* field = new GUITextField(Rect(1500, 1000, 400, 30), "TEXT FIELD");
 }
 
 GUI* GUI::get_instance()

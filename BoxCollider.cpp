@@ -29,14 +29,16 @@ BoxCollider::BoxCollider(const Vector2& position, const Vector2& size)
 	initialize();
 	set_position(position);
 	set_size(size);
-	dynamic_cast<sf::RectangleShape*>(this->outline)->setPosition(position.x, position.y);
-	dynamic_cast<sf::RectangleShape*>(this->outline)->setSize(sf::Vector2f(size.x, size.y));
 	GUI::add(this);
 }
 
 void BoxCollider::set_position(const Vector2& position)
 {
 	*this->position = position;
+	*this->points[0] = Vector2(*this->position + Vector2(0, this->size->y));
+	*this->points[1] = *this->position;
+	*this->points[2] = Vector2(*this->position + Vector2(this->size->x, 0));
+	*this->points[3] = Vector2(*this->position + Vector2(this->size->x, this->size->y));
 	dynamic_cast<sf::RectangleShape*>(this->outline)->setPosition(position.x, position.y);
 }
 void BoxCollider::set_position(const float& x, const float& y)
@@ -47,10 +49,11 @@ void BoxCollider::set_size(const Vector2& size)
 {
 	*this->size = size;
 	dynamic_cast<sf::RectangleShape*>(this->outline)->setSize(sf::Vector2f(size.x, size.y));
-	*this->points[0] = Vector2(*this->position - size);
-	*this->points[1] = Vector2(*this->position + Vector2(-size.x, size.y));
-	*this->points[2] = Vector2(*this->position + size);
-	*this->points[3] = Vector2(*this->position + Vector2(size.x, -size.y));
+	*this->points[0] = Vector2(*this->position + Vector2(0, size.y));
+	*this->points[1] = *this->position;
+	*this->points[2] = Vector2(*this->position + Vector2(size.x, 0));
+	*this->points[3] = Vector2(*this->position + Vector2(size.x, size.y));
+	//dynamic_cast<sf::RectangleShape*>(this->outline)->setSize(sf::Vector2f(this->points[2]->x - this->points[0]->x, this->points[2]->y- this->points[0]->y));
 }
 void BoxCollider::set_size(const float& width, const float& height)
 {
@@ -77,18 +80,16 @@ const bool& BoxCollider::intersects(Collision* collider) const
 
 	if (dynamic_cast<CircleCollider*>(collider))
 	{
-		if (contains(collider->get_position())) return true;
+		Vector2 left = collider->get_position() + Vector2(0, dynamic_cast<CircleCollider*>(collider)->get_radius());
+		Vector2 right = collider->get_position() + Vector2(dynamic_cast<CircleCollider*>(collider)->get_radius() * 2, dynamic_cast<CircleCollider*>(collider)->get_radius());
+		Vector2 up = collider->get_position() + Vector2(dynamic_cast<CircleCollider*>(collider)->get_radius(), 0);
+		Vector2 down = collider->get_position() + Vector2(dynamic_cast<CircleCollider*>(collider)->get_radius(), dynamic_cast<CircleCollider*>(collider)->get_radius() * 2);
+
+		if (contains(left) || contains(right) || contains(up) || contains(down)) return true;
 
 		for (unsigned short i = 0; i < 4; i++)
 		{
 			if (collider->contains(*this->points[i])) return true;
-		}
-
-		for (unsigned short i = 1; i <= 3; i++)
-		{
-			Vector2 perpendicular = collider->get_position().perpendicular(*this->points[i], *this->points[i - 1]);
-			float radius = dynamic_cast<CircleCollider*>(collider)->get_radius();
-			if (Vector2::distance(perpendicular, collider->get_position()) < radius) return true;
 		}
 		return false;
 	}

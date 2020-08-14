@@ -17,8 +17,9 @@ private:
 
 	GameObject* object;	
 
-	static std::list<Collision*>* colliders;
+	static std::vector<Collision*>* colliders;
 
+	static bool intersects(Collision* collider1, Collision* collider2);
 	static void check_collision();
 	virtual void set_outline_color(const sf::Color& color) = 0;
 public:

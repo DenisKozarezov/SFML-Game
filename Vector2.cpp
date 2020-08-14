@@ -3,8 +3,8 @@
 const Vector2 Vector2::zero = Vector2(0, 0);
 const Vector2 Vector2::left = Vector2(-1, 0);
 const Vector2 Vector2::right = Vector2(1, 0);
-const Vector2 Vector2::up = Vector2(0, 1);
-const Vector2 Vector2::down = Vector2(0, -1);
+const Vector2 Vector2::up = Vector2(0, -1);
+const Vector2 Vector2::down = Vector2(0, 1);
 const Vector2 Vector2::one = Vector2(1, 1);
 const Vector2 Vector2::positive_infinity = Vector2(INFINITY, INFINITY);
 const Vector2 Vector2::negative_infinity = Vector2(-INFINITY, -INFINITY);
@@ -36,6 +36,9 @@ const float& Vector2::magnitude() const
 }
 const Vector2 Vector2::perpendicular(const Vector2& vector1, const Vector2& vector2) const
 {
+	if (vector2.x - vector1.x == 0) return Vector2(vector1.x, this->y);
+	if (vector2.y - vector2.y == 0) return Vector2(this->x, vector1.y);
+
 	float b1 = (vector2.x * vector1.y - vector1.x * vector2.y) / (vector2.x - vector1.x);
 	float k = (vector2.y - vector1.y) / (vector2.x - vector1.x);
 	float b2 = this->y + (1 / k) * this->x;

@@ -8,6 +8,7 @@ GameObject::GameObject()
 	this->layer = new unsigned int(0);
 	this->position = new Vector2;
 	this->velocity = new Vector2;
+	this->gravity = new float(0);
 	this->sprite = new Sprite;
 	this->hidden = new bool(0);
 }
@@ -35,6 +36,10 @@ void GameObject::set_velocity(const Vector2& velocity)
 void GameObject::set_velocity(const float& x_vector, const float& y_vector)
 {
 	set_velocity(Vector2(x_vector, y_vector));
+}
+void GameObject::set_gravity(const float& scale)
+{
+	*this->gravity = scale;
 }
 void GameObject::set_layer(const unsigned short& layer)
 {
@@ -118,6 +123,10 @@ const Vector2& GameObject::get_velocity() const
 {
 	return *this->velocity;
 }
+const float& GameObject::get_gravity() const
+{
+	return *this->gravity;
+}
 const bool& GameObject::IsSwappedX() const
 {
 	return this->sprite->IsSwappedX();
@@ -170,6 +179,6 @@ GameObject::~GameObject()
 	delete this->layer;
 	delete this->position;
 	delete this->velocity;
-
+	delete this->gravity;
 	delete this->sprite;
 }

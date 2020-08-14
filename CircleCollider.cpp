@@ -52,7 +52,9 @@ const bool& CircleCollider::intersects(Collision* collider) const
 {
 	if (dynamic_cast<CircleCollider*>(collider))
 	{
-		return Vector2::distance(*this->position, collider->get_position()) <= *this->radius + *dynamic_cast<CircleCollider*>(collider)->radius;
+		float radius = *dynamic_cast<CircleCollider*>(collider)->radius;
+		float distance = Vector2::distance(*this->position, collider->get_position());
+		return distance <= *this->radius + radius;
 	}
 
 	if (dynamic_cast<BoxCollider*>(collider))
@@ -63,7 +65,9 @@ const bool& CircleCollider::intersects(Collision* collider) const
 }
 const bool& CircleCollider::contains(const Vector2& point) const
 {
-	return Vector2::distance(*this->position, point) <= *this->radius;
+	Vector2 position(*this->position + Vector2(*this->radius, *this->radius));
+	float distance = Vector2::distance(position, point);
+	return distance <= *this->radius;
 }
 
 CircleCollider::~CircleCollider()

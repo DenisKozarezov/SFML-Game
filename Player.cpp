@@ -52,6 +52,27 @@ void Player::input_update(const sf::Event& event)
 			this->mainCharacter->set_velocity(Vector2(0, this->mainCharacter->get_velocity().y));
 			this->mainCharacter->get_animator()->play("Idle");
 		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		{
+			this->mainCharacter->set_velocity(Vector2::up * this->mainCharacter->get_speed());
+			this->mainCharacter->move(this->mainCharacter->get_position() + this->mainCharacter->get_velocity());
+		}
+		else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::W)
+		{
+			this->mainCharacter->set_velocity(Vector2(0, this->mainCharacter->get_velocity().y));
+		}
+
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			this->mainCharacter->set_velocity(Vector2::down * this->mainCharacter->get_speed());
+			this->mainCharacter->move(this->mainCharacter->get_position() + this->mainCharacter->get_velocity());
+		}
+		else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::S)
+		{
+		this->mainCharacter->set_velocity(Vector2(0, this->mainCharacter->get_velocity().y));
+		}
 	}
 }
 

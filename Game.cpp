@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "BoxCollider.h"
+#include <iostream>
 
 sf::RenderWindow* Game::window = 0;
 Game *Game::instance = 0;
@@ -20,10 +22,14 @@ Game::Game()
 
 	Player::set_main_player(this->player);
 
-	Warrior* warrior1 = new Warrior(Vector2(600, 200));
-	Warrior* warrior2 = new Warrior(Vector2(800, 150));
-	warrior1->set_name("Warrior1");
-	warrior2->set_name("Warrior2");
+	Warrior* warrior1 = new Warrior(Vector2(300, 200));
+	Warrior* warrior2 = new Warrior(Vector2(1300, 150));
+	warrior1->set_name("Warrior 1");
+	warrior2->set_name("Warrior 2");
+	BoxCollider* floor1 = new BoxCollider(Vector2(700, 700), Vector2(600, 300));
+	BoxCollider* floor2 = new BoxCollider(Vector2(200, 200), Vector2(100, 500));
+	BoxCollider* floor3 = new BoxCollider(Vector2(1300, 1300), Vector2(300, 300));
+	BoxCollider* floor4 = new BoxCollider(Vector2(900, 200), Vector2(100, 500));
 	this->player->set_main_character(warrior1);
 
 	this->gui->initialize();

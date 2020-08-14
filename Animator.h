@@ -10,7 +10,7 @@ private:
 		new std::map<const std::string, Animation*>;	
 
 	bool* isPaused = new bool(false);
-	bool* _isPlaying = new bool(false);
+	bool* isPlaying = new bool(false);
 
 	GameObject* parent = nullptr;
 public:
@@ -71,7 +71,7 @@ public:
 	Animation* get_animation(const int& index) const;
 	Animation* get_animation(const std::string& name) const;
 	const GameObject* get_parent();
-	const bool& isPlaying() const;
+	const bool& IsPlaying() const;
 
 	~Animator();
 };
