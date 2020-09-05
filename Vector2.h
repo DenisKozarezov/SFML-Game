@@ -47,7 +47,6 @@ public:
 	/// Returns the record with coordinates of the vector. Example: (1, 2);
 	const std::string to_string() const;
 
-
 	/// Returns the dot product of two vectors.
 	const static float& dot(const Vector2& vector1, const Vector2& vector2);
 

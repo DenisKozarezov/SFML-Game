@@ -3,7 +3,7 @@
 #include "Vector2.h"
 #include "GameObject.h"
 #include "Delegate.h"
-#include <vector>
+#include <list>
 
 class Collision
 {
@@ -17,7 +17,7 @@ private:
 
 	GameObject* object;	
 
-	static std::vector<Collision*>* colliders;
+	static std::list<Collision*>* colliders;
 
 	static bool intersects(Collision* collider1, Collision* collider2);
 	static void check_collision();

@@ -1,9 +1,8 @@
 #include "Collision.h"
 #include "BoxCollider.h"
 #include "CircleCollider.h"
-#include <iostream>
 
-std::vector<Collision*>* Collision::colliders = new std::vector<Collision*>;
+std::list<Collision*>* Collision::colliders = new std::list<Collision*>;
 Collision::Collision()
 {
 	this->isTrigger = new bool(0);
@@ -90,9 +89,9 @@ void Collision::check_collision()
 {
 	if (colliders->size() > 1)
 	{
-		// K = ((N - 1) * N) / 2;
-		std::vector<Collision*>::iterator it1 = colliders->begin();
-		std::vector<Collision*>::iterator it2 = colliders->begin();
+		// PAIRS COUNT K = ((N - 1) * N) / 2;
+		std::list<Collision*>::iterator it1 = colliders->begin();
+		std::list<Collision*>::iterator it2 = colliders->begin();
 		for (unsigned int i = 0; i < colliders->size() - 1; i++, std::advance(it1, 1))
 		{
 			for (unsigned int j = i + 1; j < colliders->size(); j++, it2 = colliders->begin())
@@ -100,9 +99,10 @@ void Collision::check_collision()
 				std::advance(it2, j);
 				Collision* collider1 = dynamic_cast<Collision*>(*it1);
 				Collision* collider2 = dynamic_cast<Collision*>(*it2);
+
 				if (collider1->intersects(collider2))
 				{
-					if (!*collider2->isTrigger)
+					if (!*collider1->isTrigger)
 					{
 						if (!*collider1->collided)
 						{
@@ -117,7 +117,7 @@ void Collision::check_collision()
 					}
 					else collider1->OnTriggerEnter->invoke(collider2);
 
-					if (!*collider1->isTrigger)
+					if (!*collider2->isTrigger)
 					{
 						if (!*collider2->collided)
 						{
@@ -140,7 +140,6 @@ void Collision::check_collision()
 						{
 							*collider1->collided = false;
 							collider1->OnCollisionExit->invoke(collider2);
-							collider1->set_outline_color(sf::Color::Green);
 						}
 					}
 					else collider1->OnTriggerExit->invoke(collider2);
@@ -151,7 +150,6 @@ void Collision::check_collision()
 						{
 							*collider2->collided = false;
 							collider2->OnCollisionExit->invoke(collider1);
-							collider2->set_outline_color(sf::Color::Green);
 						}
 					}
 					else collider2->OnTriggerExit->invoke(collider1);
@@ -184,8 +182,8 @@ Collision::~Collision()
 	delete this->OnTriggerEnter;
 	delete this->OnTriggerExit;
 
-	std::vector<Collision*>::iterator first = this->colliders->begin();
-	std::vector<Collision*>::iterator last = this->colliders->end();
-	std::vector<Collision*>::iterator find = std::find(first, last, this);
+	std::list<Collision*>::iterator first = this->colliders->begin();
+	std::list<Collision*>::iterator last = this->colliders->end();
+	std::list<Collision*>::iterator find = std::find(first, last, this);
 	this->colliders->erase(find);
 }

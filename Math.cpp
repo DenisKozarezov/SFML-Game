@@ -8,6 +8,11 @@ const float& Math::get_factor(const float& factor)
 	return _factor;
 }
 
+const float& Math::limit(const float& value, const float& limit)
+{
+	return value <= limit ? value : limit;
+}
+
 const float& Math::lerp(const float& value1, const float& value2, const float& factor)
 {
 	return (value2 - value1) * get_factor(factor);

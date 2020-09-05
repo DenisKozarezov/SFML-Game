@@ -53,7 +53,6 @@ void BoxCollider::set_size(const Vector2& size)
 	*this->points[1] = *this->position;
 	*this->points[2] = Vector2(*this->position + Vector2(size.x, 0));
 	*this->points[3] = Vector2(*this->position + Vector2(size.x, size.y));
-	//dynamic_cast<sf::RectangleShape*>(this->outline)->setSize(sf::Vector2f(this->points[2]->x - this->points[0]->x, this->points[2]->y- this->points[0]->y));
 }
 void BoxCollider::set_size(const float& width, const float& height)
 {
