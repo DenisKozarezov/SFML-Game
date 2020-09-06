@@ -16,26 +16,8 @@
     <Filter Include="Drawable">
       <UniqueIdentifier>{9a9e4d29-06e4-4233-a1f2-c08143841f9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Components">
-      <UniqueIdentifier>{76276855-a314-4c25-a1d8-fc79811fb335}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Components\Unit">
-      <UniqueIdentifier>{36ae8feb-659a-45be-84a2-e309817ea238}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Components\Animation">
-      <UniqueIdentifier>{0ee4af64-1075-414e-80cd-17c021fd0a7d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Components\Player">
-      <UniqueIdentifier>{4797dcbd-d78b-4077-9a18-9e0383680048}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Components\Collision">
-      <UniqueIdentifier>{5a1824db-700d-4cd8-a928-966c7375acf3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{b0230e51-757f-4440-bbc9-b5afaa3c99b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Components\Camera">
-      <UniqueIdentifier>{5207c363-8fa0-47dc-825e-f4d27a50b8a6}</UniqueIdentifier>
     </Filter>
     <Filter Include="GUI">
       <UniqueIdentifier>{8d5fd10d-5986-48d3-b652-d3cc25150938}</UniqueIdentifier>
@@ -49,221 +31,231 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{2ee86bd5-0026-4ee3-ae75-6e9fdff6c6be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Components\Sprite">
-      <UniqueIdentifier>{a8e5fb7d-92aa-42cd-b671-69a9048b0dad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Components\EventSystem">
-      <UniqueIdentifier>{819de4f6-3833-438f-b790-277bccac156d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Input">
       <UniqueIdentifier>{3a7ea4fd-9438-422e-b350-1343565fca24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Components\Animator">
-      <UniqueIdentifier>{4a36ab6a-fc72-4c63-8324-f10fc891eb2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Components\Delegate">
-      <UniqueIdentifier>{9cccff37-ef40-4323-86a8-14cb62917162}</UniqueIdentifier>
     </Filter>
     <Filter Include="Math\Rect">
       <UniqueIdentifier>{8713d501-3f32-46b4-9b2a-0b2aa82f7a66}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Components\GameObject">
-      <UniqueIdentifier>{3d2cc000-a4f5-4ff5-9206-804fc2e46225}</UniqueIdentifier>
+    <Filter Include="Level">
+      <UniqueIdentifier>{2b4db07b-e25a-4b4a-a42a-4721384c55d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{030ecd02-d9da-405d-9fcf-da24d1da3a1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Animation">
+      <UniqueIdentifier>{a2b15b10-a4b9-4e1c-94f5-95fa1f0d9fb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Animator">
+      <UniqueIdentifier>{1150c69f-c4e9-48f6-8207-09eab09cd3e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Player">
+      <UniqueIdentifier>{ef741370-ae34-4ffe-b5a9-d5e8dabf0367}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Camera">
+      <UniqueIdentifier>{281b8f94-e380-4214-908d-97fc5f719fed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Collision">
+      <UniqueIdentifier>{b215120f-1ebd-49d5-ae03-84db3dda0edb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Delegate">
+      <UniqueIdentifier>{3e6d21e9-0626-4966-b85f-5c293157153f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Game Object">
+      <UniqueIdentifier>{8986f3de-aa6a-4dce-8565-493bddc55877}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Sprite">
+      <UniqueIdentifier>{c4662559-61ef-4bd9-b2b9-a62518eccebd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Unit">
+      <UniqueIdentifier>{2bb26490-e9cc-4e53-a547-08d6b47c69e1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="source\components\animation\Animation.cpp">
+      <Filter>Components\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\components\animation\Animator.cpp">
+      <Filter>Components\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="source\components\camera\Camera.cpp">
+      <Filter>Components\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="source\components\collision\BoxCollider.cpp">
+      <Filter>Components\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="source\components\collision\CircleCollider.cpp">
+      <Filter>Components\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="source\components\collision\Collision.cpp">
+      <Filter>Components\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="source\components\delegate\Delegate.cpp">
+      <Filter>Components\Delegate</Filter>
+    </ClCompile>
+    <ClCompile Include="source\components\game object\GameObject.cpp">
+      <Filter>Components\Game Object</Filter>
+    </ClCompile>
+    <ClCompile Include="source\components\player\Player.cpp">
+      <Filter>Components\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="source\components\sprite\Sprite.cpp">
+      <Filter>Components\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="source\components\unit\Unit.cpp">
+      <Filter>Components\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="source\components\unit\Warrior.cpp">
+      <Filter>Components\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="source\drawable\DrawableContainer.cpp">
+      <Filter>Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="source\drawable\DrawableLayer.cpp">
+      <Filter>Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gui\GUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gui\GUIButton.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gui\GUIElement.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gui\GUIImage.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gui\GUIListBox.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gui\GUIPanel.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gui\GUIText.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gui\GUITextField.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gui\GUIToogle.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\input\PlayerInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Level.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="source\math\Math.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\math\Rect.cpp">
+      <Filter>Math\Rect</Filter>
+    </ClCompile>
+    <ClCompile Include="source\math\Vector2.cpp">
+      <Filter>Math\Vector2</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Unit.cpp">
-      <Filter>Components\Unit</Filter>
-    </ClCompile>
-    <ClCompile Include="Warrior.cpp">
-      <Filter>Components\Unit</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Components\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Components\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Math.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Math\Vector2</Filter>
-    </ClCompile>
-    <ClCompile Include="ProjectPath.cpp">
-      <Filter>Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Components\Sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Components\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="UnitEventHandler.cpp">
-      <Filter>Components\EventSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerInput.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawableLayer.cpp">
-      <Filter>Drawable</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawableContainer.cpp">
-      <Filter>Drawable</Filter>
-    </ClCompile>
-    <ClCompile Include="Resources.cpp">
-      <Filter>Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="Animator.cpp">
-      <Filter>Components\Animator</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Components\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Delegate.cpp">
-      <Filter>Components\Delegate</Filter>
-    </ClCompile>
-    <ClCompile Include="Rect.cpp">
-      <Filter>Math\Rect</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIButton.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIElement.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIImage.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIText.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUITextField.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIToogle.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIListBox.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIPanel.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="BoxCollider.cpp">
-      <Filter>Components\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="CircleCollider.cpp">
-      <Filter>Components\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Components\GameObject</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Unit.h">
-      <Filter>Components\Unit</Filter>
-    </ClInclude>
-    <ClInclude Include="Warrior.h">
-      <Filter>Components\Unit</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Components\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Components\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Math.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>Math\Vector2</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Components\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Components\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="UnitEventHandler.h">
-      <Filter>Components\EventSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerInput.h">
-      <Filter>Input</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawableLayer.h">
-      <Filter>Drawable</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawableContainer.h">
-      <Filter>Drawable</Filter>
-    </ClInclude>
-    <ClInclude Include="Animator.h">
-      <Filter>Components\Animator</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
+    <ClInclude Include="source\components\animation\Animation.h">
       <Filter>Components\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Delegate.h">
+    <ClInclude Include="source\components\animation\Animator.h">
+      <Filter>Components\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="source\components\camera\Camera.h">
+      <Filter>Components\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="source\components\collision\BoxCollider.h">
+      <Filter>Components\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="source\components\collision\CircleCollider.h">
+      <Filter>Components\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="source\components\collision\Collision.h">
+      <Filter>Components\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="source\components\delegate\Delegate.h">
       <Filter>Components\Delegate</Filter>
     </ClInclude>
-    <ClInclude Include="Rect.h">
+    <ClInclude Include="source\components\game object\GameObject.h">
+      <Filter>Components\Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="source\components\player\Player.h">
+      <Filter>Components\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="source\components\sprite\Sprite.h">
+      <Filter>Components\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="source\components\unit\Unit.h">
+      <Filter>Components\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="source\components\unit\Warrior.h">
+      <Filter>Components\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="source\drawable\DrawableContainer.h">
+      <Filter>Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="source\drawable\DrawableLayer.h">
+      <Filter>Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="source\gui\GUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\gui\GUIButton.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\gui\GUIElement.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\gui\GUIImage.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\gui\GUIListBox.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\gui\GUIPanel.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\gui\GUIText.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\gui\GUITextField.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\gui\GUIToogle.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\input\PlayerInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Level.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="source\math\Math.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\math\Rect.h">
       <Filter>Math\Rect</Filter>
     </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>GUI</Filter>
+    <ClInclude Include="source\math\Vector2.h">
+      <Filter>Math\Vector2</Filter>
     </ClInclude>
-    <ClInclude Include="GUIButton.h">
-      <Filter>GUI</Filter>
+    <ClInclude Include="GUIResources.h">
+      <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="GUIElement.h">
-      <Filter>GUI</Filter>
+    <ClInclude Include="ProjectPath.h">
+      <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="GUIImage.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIText.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GUITextField.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIToogle.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIListBox.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIPanel.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="BoxCollider.h">
-      <Filter>Components\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="CircleCollider.h">
-      <Filter>Components\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Components\GameObject</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Game.rc">
-      <Filter>Файлы ресурсов</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -122,11 +122,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_DYNAMIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Acer\source\repos\Game\x64\external\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Acer\source\repos\Game\external\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Acer\source\repos\Game\x64\external\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Acer\source\repos\Game\external\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
@@ -141,13 +141,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_DYNAMIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Acer\source\repos\Game\x64\external\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Acer\source\repos\Game\external\SFML\include;C:\Users\Acer\source\repos\Game\source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Acer\source\repos\Game\x64\external\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Acer\source\repos\Game\external\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-system.lib;sfml-audio.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
@@ -155,73 +155,69 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="Animator.cpp" />
-    <ClCompile Include="BoxCollider.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CircleCollider.cpp" />
-    <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="Delegate.cpp" />
-    <ClCompile Include="DrawableContainer.cpp" />
-    <ClCompile Include="DrawableLayer.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GUI.cpp" />
-    <ClCompile Include="GUIButton.cpp" />
-    <ClCompile Include="GUIElement.cpp" />
-    <ClCompile Include="GUIImage.cpp" />
-    <ClCompile Include="GUIListBox.cpp" />
-    <ClCompile Include="GUIPanel.cpp" />
-    <ClCompile Include="GUIText.cpp" />
-    <ClCompile Include="GUITextField.cpp" />
-    <ClCompile Include="GUIToogle.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Math.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerInput.cpp" />
-    <ClCompile Include="ProjectPath.cpp" />
-    <ClCompile Include="Resources.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Rect.cpp" />
-    <ClCompile Include="Unit.cpp" />
-    <ClCompile Include="UnitEventHandler.cpp" />
-    <ClCompile Include="Vector2.cpp" />
-    <ClCompile Include="Warrior.cpp" />
+    <ClCompile Include="source\components\animation\Animation.cpp" />
+    <ClCompile Include="source\components\animation\Animator.cpp" />
+    <ClCompile Include="source\components\camera\Camera.cpp" />
+    <ClCompile Include="source\components\collision\BoxCollider.cpp" />
+    <ClCompile Include="source\components\collision\CircleCollider.cpp" />
+    <ClCompile Include="source\components\collision\Collision.cpp" />
+    <ClCompile Include="source\components\delegate\Delegate.cpp" />
+    <ClCompile Include="source\components\game object\GameObject.cpp" />
+    <ClCompile Include="source\components\player\Player.cpp" />
+    <ClCompile Include="source\components\sprite\Sprite.cpp" />
+    <ClCompile Include="source\components\unit\Unit.cpp" />
+    <ClCompile Include="source\components\unit\Warrior.cpp" />
+    <ClCompile Include="source\drawable\DrawableContainer.cpp" />
+    <ClCompile Include="source\drawable\DrawableLayer.cpp" />
+    <ClCompile Include="source\Game.cpp" />
+    <ClCompile Include="source\gui\GUI.cpp" />
+    <ClCompile Include="source\gui\GUIButton.cpp" />
+    <ClCompile Include="source\gui\GUIElement.cpp" />
+    <ClCompile Include="source\gui\GUIImage.cpp" />
+    <ClCompile Include="source\gui\GUIListBox.cpp" />
+    <ClCompile Include="source\gui\GUIPanel.cpp" />
+    <ClCompile Include="source\gui\GUIText.cpp" />
+    <ClCompile Include="source\gui\GUITextField.cpp" />
+    <ClCompile Include="source\gui\GUIToogle.cpp" />
+    <ClCompile Include="source\input\PlayerInput.cpp" />
+    <ClCompile Include="source\Level.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\math\Math.cpp" />
+    <ClCompile Include="source\math\Rect.cpp" />
+    <ClCompile Include="source\math\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.h" />
-    <ClInclude Include="Animator.h" />
-    <ClInclude Include="BoxCollider.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="CircleCollider.h" />
-    <ClInclude Include="Collision.h" />
-    <ClInclude Include="Delegate.h" />
-    <ClInclude Include="DrawableContainer.h" />
-    <ClInclude Include="DrawableLayer.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GUI.h" />
-    <ClInclude Include="GUIButton.h" />
-    <ClInclude Include="GUIElement.h" />
-    <ClInclude Include="GUIImage.h" />
-    <ClInclude Include="GUIListBox.h" />
-    <ClInclude Include="GUIPanel.h" />
-    <ClInclude Include="GUIText.h" />
-    <ClInclude Include="GUITextField.h" />
-    <ClInclude Include="GUIToogle.h" />
-    <ClInclude Include="Math.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerInput.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Rect.h" />
-    <ClInclude Include="Unit.h" />
-    <ClInclude Include="UnitEventHandler.h" />
-    <ClInclude Include="Vector2.h" />
-    <ClInclude Include="Warrior.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Game.rc" />
+    <ClInclude Include="GUIResources.h" />
+    <ClInclude Include="ProjectPath.h" />
+    <ClInclude Include="source\components\animation\Animation.h" />
+    <ClInclude Include="source\components\animation\Animator.h" />
+    <ClInclude Include="source\components\camera\Camera.h" />
+    <ClInclude Include="source\components\collision\BoxCollider.h" />
+    <ClInclude Include="source\components\collision\CircleCollider.h" />
+    <ClInclude Include="source\components\collision\Collision.h" />
+    <ClInclude Include="source\components\delegate\Delegate.h" />
+    <ClInclude Include="source\components\game object\GameObject.h" />
+    <ClInclude Include="source\components\player\Player.h" />
+    <ClInclude Include="source\components\sprite\Sprite.h" />
+    <ClInclude Include="source\components\unit\Unit.h" />
+    <ClInclude Include="source\components\unit\Warrior.h" />
+    <ClInclude Include="source\drawable\DrawableContainer.h" />
+    <ClInclude Include="source\drawable\DrawableLayer.h" />
+    <ClInclude Include="source\Game.h" />
+    <ClInclude Include="source\gui\GUI.h" />
+    <ClInclude Include="source\gui\GUIButton.h" />
+    <ClInclude Include="source\gui\GUIElement.h" />
+    <ClInclude Include="source\gui\GUIImage.h" />
+    <ClInclude Include="source\gui\GUIListBox.h" />
+    <ClInclude Include="source\gui\GUIPanel.h" />
+    <ClInclude Include="source\gui\GUIText.h" />
+    <ClInclude Include="source\gui\GUITextField.h" />
+    <ClInclude Include="source\gui\GUIToogle.h" />
+    <ClInclude Include="source\input\PlayerInput.h" />
+    <ClInclude Include="source\Level.h" />
+    <ClInclude Include="source\math\Math.h" />
+    <ClInclude Include="source\math\Rect.h" />
+    <ClInclude Include="source\math\Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
